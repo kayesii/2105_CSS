@@ -8,12 +8,12 @@ package GUI;
  *
  * @author mchri
  */
-public class BookingProcess2 extends javax.swing.JFrame {
+public class BookingProcess extends javax.swing.JFrame {
 
     /**
      * Creates new form HomeFrame
      */
-    public BookingProcess2() {
+    public BookingProcess() {
         initComponents();
     }
 
@@ -38,19 +38,37 @@ public class BookingProcess2 extends javax.swing.JFrame {
         BookingList1 = new javax.swing.JButton();
         UpdateBook = new javax.swing.JButton();
         UpdateBook1 = new javax.swing.JButton();
-        jLabel2 = new javax.swing.JLabel();
         jPanel3 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         txtClientName = new javax.swing.JTextField();
         Exit = new javax.swing.JButton();
         jLabel3 = new javax.swing.JLabel();
-        txtClientName1 = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtClientName2 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        txtClientName8 = new javax.swing.JTextField();
         Next = new javax.swing.JButton();
-        txtClientName3 = new javax.swing.JTextField();
+        jPanel4 = new javax.swing.JPanel();
         jLabel5 = new javax.swing.JLabel();
-        Exit1 = new javax.swing.JButton();
+        txtClientName3 = new javax.swing.JTextField();
+        Exit2 = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
+        txtClientName4 = new javax.swing.JTextField();
+        txtClientName5 = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        txtClientName6 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        txtClientName7 = new javax.swing.JTextField();
+        jLabel15 = new javax.swing.JLabel();
+        jSpinner1 = new javax.swing.JSpinner();
+        jLabel9 = new javax.swing.JLabel();
+        jPanel5 = new javax.swing.JPanel();
+        Exit3 = new javax.swing.JButton();
+        jLabel18 = new javax.swing.JLabel();
+        jComboBox1 = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        txtClientName1 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -154,16 +172,12 @@ public class BookingProcess2 extends javax.swing.JFrame {
         });
         jPanel1.add(UpdateBook1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 240, 220, 50));
 
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel2.setText("Event Details");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(580, 20, 160, -1));
-
         jPanel3.setBackground(new java.awt.Color(210, 180, 140));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel1.setText("Guess Count");
-        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, 150, -1));
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel1.setText("Address");
+        jPanel3.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 40, 50, -1));
 
         txtClientName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtClientName.addActionListener(new java.awt.event.ActionListener() {
@@ -171,7 +185,7 @@ public class BookingProcess2 extends javax.swing.JFrame {
                 txtClientNameActionPerformed(evt);
             }
         });
-        jPanel3.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 250, 670, 30));
+        jPanel3.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 40, 320, -1));
 
         Exit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit_icon.png"))); // NOI18N
@@ -184,21 +198,13 @@ public class BookingProcess2 extends javax.swing.JFrame {
         });
         jPanel3.add(Exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 90, 40));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel3.setText("Event Theme");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, 110, -1));
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel3.setText("Name");
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 40, -1));
 
-        txtClientName1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtClientName1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClientName1ActionPerformed(evt);
-            }
-        });
-        jPanel3.add(txtClientName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 40, 670, 30));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel4.setText("Event Date");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, 150, -1));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel4.setText("Phone Number");
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 100, 20));
 
         txtClientName2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtClientName2.addActionListener(new java.awt.event.ActionListener() {
@@ -206,7 +212,21 @@ public class BookingProcess2 extends javax.swing.JFrame {
                 txtClientName2ActionPerformed(evt);
             }
         });
-        jPanel3.add(txtClientName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 110, 670, 30));
+        jPanel3.add(txtClientName2, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 70, 230, -1));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel2.setText("Client Information");
+        jPanel3.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, 20));
+
+        txtClientName8.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtClientName8.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientName8ActionPerformed(evt);
+            }
+        });
+        jPanel3.add(txtClientName8, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 290, 20));
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 20, 750, 100));
 
         Next.setBackground(new java.awt.Color(205, 133, 63));
         Next.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -216,7 +236,14 @@ public class BookingProcess2 extends javax.swing.JFrame {
                 NextActionPerformed(evt);
             }
         });
-        jPanel3.add(Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 300, 220, 50));
+        jPanel1.add(Next, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 380, 110, 50));
+
+        jPanel4.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel5.setText("Guess Count");
+        jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 100, 90, -1));
 
         txtClientName3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtClientName3.addActionListener(new java.awt.event.ActionListener() {
@@ -224,24 +251,112 @@ public class BookingProcess2 extends javax.swing.JFrame {
                 txtClientName3ActionPerformed(evt);
             }
         });
-        jPanel3.add(txtClientName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, 670, 30));
+        jPanel4.add(txtClientName3, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 70, 300, -1));
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel5.setText("Event Location");
-        jPanel3.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 150, 150, -1));
-
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 60, 750, 360));
-
-        Exit1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Exit1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit_icon.png"))); // NOI18N
-        Exit1.setText("Back");
-        Exit1.setContentAreaFilled(false);
-        Exit1.addActionListener(new java.awt.event.ActionListener() {
+        Exit2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Exit2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit_icon.png"))); // NOI18N
+        Exit2.setText("Back");
+        Exit2.setContentAreaFilled(false);
+        Exit2.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                Exit1ActionPerformed(evt);
+                Exit2ActionPerformed(evt);
             }
         });
-        jPanel1.add(Exit1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 90, 40));
+        jPanel4.add(Exit2, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 90, 40));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel7.setText("Theme");
+        jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, -1));
+
+        txtClientName4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtClientName4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientName4ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(txtClientName4, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 280, 20));
+
+        txtClientName5.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtClientName5.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientName5ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(txtClientName5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, 260, 20));
+
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel10.setText("Event Details");
+        jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, 20));
+
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel13.setText("Date");
+        jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 40, 20));
+
+        txtClientName6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtClientName6.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientName6ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(txtClientName6, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 270, 20));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel14.setText("Time start");
+        jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 40, 80, -1));
+
+        txtClientName7.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtClientName7.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientName7ActionPerformed(evt);
+            }
+        });
+        jPanel4.add(txtClientName7, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 40, 300, -1));
+
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel15.setText("Location");
+        jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 60, 20));
+        jPanel4.add(jSpinner1, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 100, -1, -1));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel9.setText("Time ends");
+        jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 70, 70, -1));
+
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 140, 750, 150));
+
+        jPanel5.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        Exit3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Exit3.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit_icon.png"))); // NOI18N
+        Exit3.setText("Back");
+        Exit3.setContentAreaFilled(false);
+        Exit3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Exit3ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(Exit3, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 0, 90, 40));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel18.setText("Package");
+        jPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 0, 160, 30));
+
+        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "choose", "Funeral 1", "Funeral 2", "Funeral 3", "Birthday 1", "Birthday 2", "Birthday 3", "Baptism 1", "Baptism 2", "Baptism 3", "Wedding 1", "Weding 2", "Wedding 3" }));
+        jPanel5.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 30, 270, 20));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel11.setText("Add ons:");
+        jPanel5.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 60, 20));
+
+        txtClientName1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtClientName1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientName1ActionPerformed(evt);
+            }
+        });
+        jPanel5.add(txtClientName1, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 60, 550, 50));
+
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 310, 630, 120));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -288,10 +403,6 @@ public class BookingProcess2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ExitActionPerformed
 
-    private void Exit1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_Exit1ActionPerformed
-
     private void txtClientName1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientName1ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClientName1ActionPerformed
@@ -307,6 +418,34 @@ public class BookingProcess2 extends javax.swing.JFrame {
     private void txtClientName3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientName3ActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClientName3ActionPerformed
+
+    private void Exit2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Exit2ActionPerformed
+
+    private void txtClientName4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientName4ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClientName4ActionPerformed
+
+    private void txtClientName5ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientName5ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClientName5ActionPerformed
+
+    private void txtClientName6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientName6ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClientName6ActionPerformed
+
+    private void txtClientName7ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientName7ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClientName7ActionPerformed
+
+    private void Exit3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Exit3ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Exit3ActionPerformed
+
+    private void txtClientName8ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientName8ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClientName8ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -325,22 +464,14 @@ public class BookingProcess2 extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BookingProcess2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BookingProcess2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BookingProcess2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BookingProcess2.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(BookingProcess.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
-        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -353,7 +484,7 @@ public class BookingProcess2 extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BookingProcess2().setVisible(true);
+                new BookingProcess().setVisible(true);
             }
         });
     }
@@ -364,25 +495,43 @@ public class BookingProcess2 extends javax.swing.JFrame {
     private javax.swing.JButton Bookking;
     private javax.swing.JButton Calendar;
     private javax.swing.JButton Exit;
-    private javax.swing.JButton Exit1;
+    private javax.swing.JButton Exit2;
+    private javax.swing.JButton Exit3;
     private javax.swing.JButton Home;
     private javax.swing.JButton Next;
     private javax.swing.JButton Packages;
     private javax.swing.JButton UpdateBook;
     private javax.swing.JButton UpdateBook1;
+    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
+    private javax.swing.JPanel jPanel4;
+    private javax.swing.JPanel jPanel5;
+    private javax.swing.JSpinner jSpinner1;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientName1;
     private javax.swing.JTextField txtClientName2;
     private javax.swing.JTextField txtClientName3;
+    private javax.swing.JTextField txtClientName4;
+    private javax.swing.JTextField txtClientName5;
+    private javax.swing.JTextField txtClientName6;
+    private javax.swing.JTextField txtClientName7;
+    private javax.swing.JTextField txtClientName8;
     // End of variables declaration//GEN-END:variables
 }

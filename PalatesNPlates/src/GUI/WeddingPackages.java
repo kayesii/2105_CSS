@@ -86,8 +86,6 @@ public class WeddingPackages extends javax.swing.JFrame {
         jTable1.setRowHeight(35);
         jTable1.setSelectionBackground(new java.awt.Color(205, 133, 63));
         jTable1.setShowGrid(true);
-        jTable1.setShowHorizontalLines(true);
-        jTable1.setShowVerticalLines(true);
         jTable1.getTableHeader().setReorderingAllowed(false);
         jScrollPane1.setViewportView(jTable1);
 
