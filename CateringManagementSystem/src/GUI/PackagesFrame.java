@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package GUI;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 /**
  *
  * @author Ivan
@@ -32,15 +33,15 @@ public class PackagesFrame extends javax.swing.JFrame {
         jButtonBdayPack = new javax.swing.JButton();
         jButtonWedPack = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        Home = new javax.swing.JButton();
-        Booking = new javax.swing.JButton();
-        Calendar = new javax.swing.JButton();
-        Packages = new javax.swing.JButton();
+        CalendarBtn = new javax.swing.JButton();
+        PackagesBtn = new javax.swing.JButton();
+        BookingBtn = new javax.swing.JButton();
+        HomeBtn = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(250, 125));
+        setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 540));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -80,33 +81,57 @@ public class PackagesFrame extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel3.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel3.setText("PALATES");
-        jPanel2.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
+        CalendarBtn.setBackground(new java.awt.Color(210, 180, 140));
+        CalendarBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        CalendarBtn.setText("CALENDAR");
+        CalendarBtn.setBorder(null);
+        CalendarBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                CalendarBtnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(CalendarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 160, 40));
 
-        jLabel1.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel1.setText("&   PLATES");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 280, 60));
+        PackagesBtn.setBackground(new java.awt.Color(205, 133, 63));
+        PackagesBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PackagesBtn.setText("PACKAGES");
+        PackagesBtn.setBorder(null);
+        PackagesBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PackagesBtnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(PackagesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 160, 40));
 
-        Home.setBackground(new java.awt.Color(210, 180, 140));
-        Home.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Home.setText("HOME");
-        jPanel2.add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 30, 160, 40));
+        BookingBtn.setBackground(new java.awt.Color(210, 180, 140));
+        BookingBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BookingBtn.setText("BOOKING");
+        BookingBtn.setBorder(null);
+        BookingBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BookingBtnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BookingBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 160, 40));
 
-        Booking.setBackground(new java.awt.Color(210, 180, 140));
-        Booking.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Booking.setText("BOOKING");
-        jPanel2.add(Booking, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 160, 40));
+        HomeBtn.setBackground(new java.awt.Color(210, 180, 140));
+        HomeBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        HomeBtn.setText("HOME");
+        HomeBtn.setBorder(null);
+        HomeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HomeBtnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(HomeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 160, 40));
 
-        Calendar.setBackground(new java.awt.Color(210, 180, 140));
-        Calendar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Calendar.setText("CALENDAR");
-        jPanel2.add(Calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 160, 40));
+        jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel8.setText("PALATES  ");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
 
-        Packages.setBackground(new java.awt.Color(205, 133, 63));
-        Packages.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Packages.setText("PACKAGES");
-        jPanel2.add(Packages, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 160, 40));
+        jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel6.setText("&   plates");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
@@ -116,6 +141,43 @@ public class PackagesFrame extends javax.swing.JFrame {
     private void jButtonFuneralPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFuneralPackActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonFuneralPackActionPerformed
+
+    private void CalendarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalendarBtnActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_CalendarBtnActionPerformed
+
+    private void PackagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PackagesBtnActionPerformed
+        PackagesBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackagesFrame packages = new PackagesFrame();
+                packages.setVisible(true);
+                packages.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_PackagesBtnActionPerformed
+
+    private void BookingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookingBtnActionPerformed
+        BookingBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                BookingFrame bookingF = new BookingFrame();
+                bookingF.setVisible(true);
+                bookingF.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BookingBtnActionPerformed
+
+    private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
+        HomeBtn.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
+                home.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_HomeBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -154,16 +216,16 @@ public class PackagesFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Booking;
-    private javax.swing.JButton Calendar;
-    private javax.swing.JButton Home;
-    private javax.swing.JButton Packages;
+    private javax.swing.JButton BookingBtn;
+    private javax.swing.JButton CalendarBtn;
+    private javax.swing.JButton HomeBtn;
+    private javax.swing.JButton PackagesBtn;
     private javax.swing.JButton jButtonBaptismPack;
     private javax.swing.JButton jButtonBdayPack;
     private javax.swing.JButton jButtonFuneralPack;
     private javax.swing.JButton jButtonWedPack;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     // End of variables declaration//GEN-END:variables

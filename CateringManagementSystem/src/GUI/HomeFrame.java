@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author mchri
@@ -26,20 +29,20 @@ public class HomeFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        Home = new javax.swing.JButton();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel8 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
-        Calendar = new javax.swing.JButton();
-        Packages = new javax.swing.JButton();
-        Bookking = new javax.swing.JButton();
+        CalendarBtn = new javax.swing.JButton();
+        PackagesBtn = new javax.swing.JButton();
+        BookingBtn = new javax.swing.JButton();
+        HomeBtn = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
-        Save = new javax.swing.JButton();
+        ReserveBtn = new javax.swing.JButton();
         jLabel7 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
         jScrollPane2 = new javax.swing.JScrollPane();
         ReservationList = new javax.swing.JTable();
-        ViewReservation = new javax.swing.JButton();
+        UpdateReservationBtn = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
         txtID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
@@ -56,74 +59,74 @@ public class HomeFrame extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Home.setBackground(new java.awt.Color(205, 133, 63));
-        Home.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Home.setText("HOME");
-        Home.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HomeActionPerformed(evt);
-            }
-        });
-        getContentPane().add(Home, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 160, 40));
-
-        jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel6.setText("&   plates");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
-
-        jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel8.setText("PALATES  ");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
-
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Calendar.setBackground(new java.awt.Color(210, 180, 140));
-        Calendar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Calendar.setText("CALENDAR");
-        Calendar.setBorder(null);
-        Calendar.addActionListener(new java.awt.event.ActionListener() {
+        CalendarBtn.setBackground(new java.awt.Color(210, 180, 140));
+        CalendarBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        CalendarBtn.setText("CALENDAR");
+        CalendarBtn.setBorder(null);
+        CalendarBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CalendarActionPerformed(evt);
+                CalendarBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(Calendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 40, 160, 20));
+        jPanel2.add(CalendarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 160, 40));
 
-        Packages.setBackground(new java.awt.Color(210, 180, 140));
-        Packages.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Packages.setText("PACKAGES");
-        Packages.setBorder(null);
-        Packages.addActionListener(new java.awt.event.ActionListener() {
+        PackagesBtn.setBackground(new java.awt.Color(210, 180, 140));
+        PackagesBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PackagesBtn.setText("PACKAGES");
+        PackagesBtn.setBorder(null);
+        PackagesBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PackagesActionPerformed(evt);
+                PackagesBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(Packages, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 40, 160, 20));
+        jPanel2.add(PackagesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 160, 40));
 
-        Bookking.setBackground(new java.awt.Color(210, 180, 140));
-        Bookking.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        Bookking.setText("BOOKING");
-        Bookking.setBorder(null);
-        Bookking.addActionListener(new java.awt.event.ActionListener() {
+        BookingBtn.setBackground(new java.awt.Color(210, 180, 140));
+        BookingBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BookingBtn.setText("BOOKING");
+        BookingBtn.setBorder(null);
+        BookingBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BookkingActionPerformed(evt);
+                BookingBtnActionPerformed(evt);
             }
         });
-        jPanel2.add(Bookking, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 160, 20));
+        jPanel2.add(BookingBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 160, 40));
+
+        HomeBtn.setBackground(new java.awt.Color(205, 133, 63));
+        HomeBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        HomeBtn.setText("HOME");
+        HomeBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                HomeBtnActionPerformed(evt);
+            }
+        });
+        jPanel2.add(HomeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 160, 40));
+
+        jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel8.setText("PALATES  ");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
+
+        jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel6.setText("&   plates");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
         jPanel1.setBackground(new java.awt.Color(245, 222, 179));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Save.setBackground(new java.awt.Color(205, 133, 63));
-        Save.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Save.setText("Reserve");
-        Save.addActionListener(new java.awt.event.ActionListener() {
+        ReserveBtn.setBackground(new java.awt.Color(205, 133, 63));
+        ReserveBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ReserveBtn.setText("Reserve");
+        ReserveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveActionPerformed(evt);
+                ReserveBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 170, 40));
+        jPanel1.add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 170, 40));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel7.setText("Reserved Customer");
@@ -152,15 +155,15 @@ public class HomeFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 440, 340));
 
-        ViewReservation.setBackground(new java.awt.Color(205, 133, 63));
-        ViewReservation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ViewReservation.setText("Update Reservation");
-        ViewReservation.addActionListener(new java.awt.event.ActionListener() {
+        UpdateReservationBtn.setBackground(new java.awt.Color(205, 133, 63));
+        UpdateReservationBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        UpdateReservationBtn.setText("Update Reservation");
+        UpdateReservationBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ViewReservationActionPerformed(evt);
+                UpdateReservationBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(ViewReservation, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 380, 160, 40));
+        jPanel1.add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 380, 160, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Enter ID ");
@@ -235,29 +238,50 @@ public class HomeFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_HomeActionPerformed
+    private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
+    HomeBtn.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        dispose();
+        HomeFrame home = new HomeFrame(); 
+        home.setVisible(true);
+        home.setLocationRelativeTo(null); // Center the SignUP frame
+    }
+});
+    }//GEN-LAST:event_HomeBtnActionPerformed
 
-    private void BookkingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookkingActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_BookkingActionPerformed
+    private void BookingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookingBtnActionPerformed
+    BookingBtn.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        dispose();
+        BookingFrame bookingF = new BookingFrame(); 
+        bookingF.setVisible(true);
+        bookingF.setLocationRelativeTo(null); // Center the SignUP frame
+    }
+});
+    }//GEN-LAST:event_BookingBtnActionPerformed
 
-    private void PackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PackagesActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_PackagesActionPerformed
+    private void PackagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PackagesBtnActionPerformed
+    PackagesBtn.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        dispose();
+        PackagesFrame packages = new PackagesFrame(); 
+        packages.setVisible(true); 
+        packages.setLocationRelativeTo(null); // Center the SignUP frame
+    }
+});    
+    }//GEN-LAST:event_PackagesBtnActionPerformed
 
-    private void CalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalendarActionPerformed
+    private void CalendarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalendarBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_CalendarActionPerformed
+    }//GEN-LAST:event_CalendarBtnActionPerformed
 
-    private void ViewReservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewReservationActionPerformed
+    private void UpdateReservationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateReservationBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ViewReservationActionPerformed
+    }//GEN-LAST:event_UpdateReservationBtnActionPerformed
 
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+    private void ReserveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserveBtnActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_SaveActionPerformed
+    }//GEN-LAST:event_ReserveBtnActionPerformed
 
     private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
         // TODO add your handling code here:
@@ -310,19 +334,20 @@ public class HomeFrame extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new HomeFrame().setVisible(true);
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
             }
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Bookking;
-    private javax.swing.JButton Calendar;
-    private javax.swing.JButton Home;
-    private javax.swing.JButton Packages;
+    private javax.swing.JButton BookingBtn;
+    private javax.swing.JButton CalendarBtn;
+    private javax.swing.JButton HomeBtn;
+    private javax.swing.JButton PackagesBtn;
     private javax.swing.JTable ReservationList;
-    private javax.swing.JButton Save;
-    private javax.swing.JButton ViewReservation;
+    private javax.swing.JButton ReserveBtn;
+    private javax.swing.JButton UpdateReservationBtn;
     private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;

@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author mchri
@@ -184,7 +187,7 @@ public class SignUP extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void BackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BackActionPerformed
-        // TODO add your handling code here:
+        System.exit(0);
     }//GEN-LAST:event_BackActionPerformed
 
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
@@ -192,7 +195,14 @@ public class SignUP extends javax.swing.JFrame {
     }//GEN-LAST:event_ClearActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        // TODO add your handling code here:
+        Login.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        dispose(); // Close the current LogIn frame
+        LogIn login = new LogIn(); 
+        login.setVisible(true); // Make the HomeFrame visible
+        login.setLocationRelativeTo(null); // Center the HomeFrame
+    }
+});
     }//GEN-LAST:event_LoginActionPerformed
 
     private void txtPhoneNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtPhoneNumberActionPerformed
@@ -244,8 +254,10 @@ public class SignUP extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new SignUP().setVisible(true);
-            }
+        SignUP signUp = new SignUP();
+        signUp.setVisible(true); // Make it visible first
+       
+    }
         });
     }
 

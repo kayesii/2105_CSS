@@ -4,6 +4,9 @@
  */
 package GUI;
 
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+
 /**
  *
  * @author mchri
@@ -43,6 +46,7 @@ public class LogIn extends javax.swing.JFrame {
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(0, 0));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -141,15 +145,29 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_txtEmailActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-        // TODO add your handling code here:
+         System.exit(0); // Exits the application
     }//GEN-LAST:event_ExitActionPerformed
 
     private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
-        // TODO add your handling code here:
+        Signup.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        dispose(); // Close the current LogIn frame
+        SignUP signUp = new SignUP(); // Open the SignUP frame
+        signUp.setVisible(true); // Make the SignUP frame visible
+        signUp.setLocationRelativeTo(null); // Center the SignUP frame
+    }
+});
     }//GEN-LAST:event_SignupActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        // TODO add your handling code here:
+        Login.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+        dispose(); // Close the current LogIn frame
+        HomeFrame home = new HomeFrame(); 
+        home.setVisible(true); // Make the HomeFrame visible
+        home.setLocationRelativeTo(null); // Center the HomeFrame
+    }
+});
     }//GEN-LAST:event_LoginActionPerformed
 
     /**
@@ -185,7 +203,9 @@ public class LogIn extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new LogIn().setVisible(true);
+                LogIn logIn = new LogIn();
+                logIn.setVisible(true);
+                logIn.setLocationRelativeTo(null); 
             }
         });
     }
