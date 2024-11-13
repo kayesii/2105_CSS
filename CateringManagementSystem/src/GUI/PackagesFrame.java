@@ -4,10 +4,7 @@
  */
 package GUI;
 
-/**
- *
- * @author Ivan
- */
+
 public class PackagesFrame extends javax.swing.JFrame {
 
     /**
@@ -62,17 +59,32 @@ public class PackagesFrame extends javax.swing.JFrame {
         jButtonBaptismPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonBaptismPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonBaptismPack.setText("Baptism Packages");
+        jButtonBaptismPack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBaptismPackActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonBaptismPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 210, 320, 150));
 
         jButtonBdayPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonBdayPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonBdayPack.setText("Birthday Packages");
         jButtonBdayPack.setBorder(null);
+        jButtonBdayPack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonBdayPackActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonBdayPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 30, 320, 150));
 
         jButtonWedPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonWedPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonWedPack.setText("Wedding Packages");
+        jButtonWedPack.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonWedPackActionPerformed(evt);
+            }
+        });
         jPanel1.add(jButtonWedPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 210, 320, 150));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
@@ -106,6 +118,11 @@ public class PackagesFrame extends javax.swing.JFrame {
         Packages.setBackground(new java.awt.Color(205, 133, 63));
         Packages.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         Packages.setText("PACKAGES");
+        Packages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PackagesActionPerformed(evt);
+            }
+        });
         jPanel2.add(Packages, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 160, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
@@ -115,7 +132,33 @@ public class PackagesFrame extends javax.swing.JFrame {
 
     private void jButtonFuneralPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFuneralPackActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        new FuneralPackages().setVisible(true);
     }//GEN-LAST:event_jButtonFuneralPackActionPerformed
+
+    private void PackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PackagesActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new PackagesFrame().setVisible(true);
+    }//GEN-LAST:event_PackagesActionPerformed
+
+    private void jButtonBdayPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBdayPackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new BirthdayPackages().setVisible(true);
+    }//GEN-LAST:event_jButtonBdayPackActionPerformed
+
+    private void jButtonBaptismPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonBaptismPackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new BaptismPackages().setVisible(true);
+    }//GEN-LAST:event_jButtonBaptismPackActionPerformed
+
+    private void jButtonWedPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonWedPackActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new WeddingPackages().setVisible(true);
+    }//GEN-LAST:event_jButtonWedPackActionPerformed
 
     /**
      * @param args the command line arguments

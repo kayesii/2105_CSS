@@ -4,10 +4,7 @@
  */
 package GUI;
 
-/**
- *
- * @author Ivan
- */
+
 public class BirthdayPackages extends javax.swing.JFrame {
 
     /**
@@ -131,6 +128,11 @@ public class BirthdayPackages extends javax.swing.JFrame {
         jButtonPackages.setBackground(new java.awt.Color(205, 133, 63));
         jButtonPackages.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonPackages.setText("PACKAGES");
+        jButtonPackages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPackagesActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButtonPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 160, 40));
         jPanel2.add(jTabbedPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, -10, -1, -1));
 
@@ -146,6 +148,12 @@ public class BirthdayPackages extends javax.swing.JFrame {
     private void jButtonHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonHomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_jButtonHomeActionPerformed
+
+    private void jButtonPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPackagesActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new PackagesFrame().setVisible(true);
+    }//GEN-LAST:event_jButtonPackagesActionPerformed
 
     /**
      * @param args the command line arguments

@@ -4,10 +4,7 @@
  */
 package GUI;
 
-/**
- *
- * @author Ivan
- */
+
 public class FuneralPackages extends javax.swing.JFrame {
 
     /**
@@ -37,8 +34,8 @@ public class FuneralPackages extends javax.swing.JFrame {
         jLabel2 = new javax.swing.JLabel();
         Home = new javax.swing.JButton();
         Booking = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        jButtonCalendar = new javax.swing.JButton();
+        jButtonPackages = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
@@ -131,14 +128,19 @@ public class FuneralPackages extends javax.swing.JFrame {
         Booking.setText("BOOKING");
         jPanel2.add(Booking, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 30, 160, 40));
 
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton3.setText("CALENDAR");
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 160, 40));
+        jButtonCalendar.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButtonCalendar.setText("CALENDAR");
+        jPanel2.add(jButtonCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 160, 40));
 
-        jButton4.setBackground(new java.awt.Color(205, 133, 63));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton4.setText("PACKAGES");
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, 160, 40));
+        jButtonPackages.setBackground(new java.awt.Color(205, 133, 63));
+        jButtonPackages.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jButtonPackages.setText("PACKAGES");
+        jButtonPackages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButtonPackagesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(jButtonPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(850, 30, 160, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
@@ -148,6 +150,12 @@ public class FuneralPackages extends javax.swing.JFrame {
     private void HomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_HomeActionPerformed
+
+    private void jButtonPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonPackagesActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new PackagesFrame().setVisible(true);
+    }//GEN-LAST:event_jButtonPackagesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -190,8 +198,8 @@ public class FuneralPackages extends javax.swing.JFrame {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Booking;
     private javax.swing.JButton Home;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
+    private javax.swing.JButton jButtonCalendar;
+    private javax.swing.JButton jButtonPackages;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
