@@ -123,7 +123,7 @@ public class SignUP extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel5.setText("Password");
-        background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, -1));
+        background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 190, -1, 30));
 
         txtEmail.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtEmail.addActionListener(new java.awt.event.ActionListener() {
@@ -134,8 +134,8 @@ public class SignUP extends javax.swing.JFrame {
         background.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 330, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel3.setText("Email");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 110, -1, -1));
+        jLabel3.setText("Username");
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel7.setText("Phone Number");
@@ -143,7 +143,7 @@ public class SignUP extends javax.swing.JFrame {
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel8.setText("Name");
-        background.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 70, 60, -1));
+        background.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 70, 50, 30));
 
         txtPhoneNumber.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtPhoneNumber.addActionListener(new java.awt.event.ActionListener() {
