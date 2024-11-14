@@ -4,10 +4,7 @@
  */
 package GUI;
 
-/**
- *
- * @author Ivan
- */
+
 public class WeddingPackages extends javax.swing.JFrame {
 
     /**
@@ -119,12 +116,23 @@ public class WeddingPackages extends javax.swing.JFrame {
         jButton4.setBackground(new java.awt.Color(205, 133, 63));
         jButton4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButton4.setText("PACKAGES");
+        jButton4.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton4ActionPerformed(evt);
+            }
+        });
         jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 160, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        new PackagesFrame().setVisible(true);
+    }//GEN-LAST:event_jButton4ActionPerformed
 
     /**
      * @param args the command line arguments
