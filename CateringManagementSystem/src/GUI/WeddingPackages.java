@@ -3,7 +3,8 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/GUIForms/JFrame.java to edit this template
  */
 package GUI;
-
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
 
 public class WeddingPackages extends javax.swing.JFrame {
 
@@ -29,12 +30,13 @@ public class WeddingPackages extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
         jPanel2 = new javax.swing.JPanel();
-        jLabel1 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
-        jButton2 = new javax.swing.JButton();
-        jButton3 = new javax.swing.JButton();
-        jButton4 = new javax.swing.JButton();
+        BtnCalendar = new javax.swing.JButton();
+        BtnPackages = new javax.swing.JButton();
+        BtnBooking = new javax.swing.JButton();
+        BtnHome = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        BtnLaborer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
@@ -93,46 +95,127 @@ public class WeddingPackages extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel1.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel1.setText("palates");
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
-
-        jLabel2.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel2.setText("&  palates");
-        jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 280, 60));
-
-        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton1.setText("HOME");
-        jPanel2.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 160, 40));
-
-        jButton2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton2.setText("BOOKING");
-        jPanel2.add(jButton2, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 160, 40));
-
-        jButton3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton3.setText("CALLENDAR");
-        jPanel2.add(jButton3, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 30, 160, 40));
-
-        jButton4.setBackground(new java.awt.Color(205, 133, 63));
-        jButton4.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButton4.setText("PACKAGES");
-        jButton4.addActionListener(new java.awt.event.ActionListener() {
+        BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
+        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnCalendar.setText("CALENDAR");
+        BtnCalendar.setBorder(null);
+        BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton4ActionPerformed(evt);
+                BtnCalendarActionPerformed(evt);
             }
         });
-        jPanel2.add(jButton4, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 160, 40));
+        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 140, 40));
+
+        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
+        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnPackages.setText("PACKAGES");
+        BtnPackages.setBorder(null);
+        BtnPackages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPackagesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 140, 40));
+
+        BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
+        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnBooking.setText("BOOKING");
+        BtnBooking.setBorder(null);
+        BtnBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBookingActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
+
+        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
+        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnHome.setText("HOME");
+        BtnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnHomeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 140, 40));
+
+        jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel8.setText("PALATES  ");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
+
+        jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel6.setText("&   plates");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
+
+        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnLaborer.setText("LABOR");
+        BtnLaborer.setBorder(null);
+        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLaborerActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-        new PackagesFrame().setVisible(true);
-    }//GEN-LAST:event_jButton4ActionPerformed
+    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
+        BtnCalendar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Calendar calendar = new Calendar();
+                calendar.setVisible(true);
+                calendar.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnCalendarActionPerformed
+
+    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
+        BtnPackages.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackagesFrame packages = new PackagesFrame();
+                packages.setVisible(true);
+                packages.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnPackagesActionPerformed
+
+    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
+        BtnBooking.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                BookingFrame bookingF = new BookingFrame();
+                bookingF.setVisible(true);
+                bookingF.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnBookingActionPerformed
+
+    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
+        BtnHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
+                home.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnHomeActionPerformed
+
+    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
+        BtnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnLaborerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -170,13 +253,14 @@ public class WeddingPackages extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
-    private javax.swing.JButton jButton3;
-    private javax.swing.JButton jButton4;
-    private javax.swing.JLabel jLabel1;
-    private javax.swing.JLabel jLabel2;
+    private javax.swing.JButton BtnBooking;
+    private javax.swing.JButton BtnCalendar;
+    private javax.swing.JButton BtnHome;
+    private javax.swing.JButton BtnLaborer;
+    private javax.swing.JButton BtnPackages;
     private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;

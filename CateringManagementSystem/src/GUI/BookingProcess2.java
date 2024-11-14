@@ -80,12 +80,13 @@ public class BookingProcess2 extends javax.swing.JFrame {
         BookBtn = new javax.swing.JButton();
         RecordBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
-        CalendarBtn = new javax.swing.JButton();
-        PackagesBtn = new javax.swing.JButton();
-        BookingBtn = new javax.swing.JButton();
-        HomeBtn = new javax.swing.JButton();
+        BtnCalendar = new javax.swing.JButton();
+        BtnPackages = new javax.swing.JButton();
+        BtnBooking = new javax.swing.JButton();
+        BtnHome = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
+        BtnLaborer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -330,49 +331,48 @@ public class BookingProcess2 extends javax.swing.JFrame {
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        CalendarBtn.setBackground(new java.awt.Color(210, 180, 140));
-        CalendarBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        CalendarBtn.setText("CALENDAR");
-        CalendarBtn.setBorder(null);
-        CalendarBtn.addActionListener(new java.awt.event.ActionListener() {
+        BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
+        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnCalendar.setText("CALENDAR");
+        BtnCalendar.setBorder(null);
+        BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                CalendarBtnActionPerformed(evt);
+                BtnCalendarActionPerformed(evt);
             }
         });
-        jPanel2.add(CalendarBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 30, 160, 40));
+        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 140, 40));
 
-        PackagesBtn.setBackground(new java.awt.Color(210, 180, 140));
-        PackagesBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        PackagesBtn.setText("PACKAGES");
-        PackagesBtn.setBorder(null);
-        PackagesBtn.addActionListener(new java.awt.event.ActionListener() {
+        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
+        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnPackages.setText("PACKAGES");
+        BtnPackages.setBorder(null);
+        BtnPackages.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                PackagesBtnActionPerformed(evt);
+                BtnPackagesActionPerformed(evt);
             }
         });
-        jPanel2.add(PackagesBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(840, 30, 160, 40));
+        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 140, 40));
 
-        BookingBtn.setBackground(new java.awt.Color(205, 133, 63));
-        BookingBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        BookingBtn.setText("BOOKING");
-        BookingBtn.setBorder(null);
-        BookingBtn.addActionListener(new java.awt.event.ActionListener() {
+        BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
+        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnBooking.setText("BOOKING");
+        BtnBooking.setBorder(null);
+        BtnBooking.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BookingBtnActionPerformed(evt);
+                BtnBookingActionPerformed(evt);
             }
         });
-        jPanel2.add(BookingBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 30, 160, 40));
+        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
 
-        HomeBtn.setBackground(new java.awt.Color(210, 180, 140));
-        HomeBtn.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        HomeBtn.setText("HOME");
-        HomeBtn.setBorder(null);
-        HomeBtn.addActionListener(new java.awt.event.ActionListener() {
+        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
+        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnHome.setText("HOME");
+        BtnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                HomeBtnActionPerformed(evt);
+                BtnHomeActionPerformed(evt);
             }
         });
-        jPanel2.add(HomeBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 30, 160, 40));
+        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 140, 40));
 
         jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
         jLabel8.setText("PALATES  ");
@@ -381,6 +381,17 @@ public class BookingProcess2 extends javax.swing.JFrame {
         jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
         jLabel6.setText("&   plates");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
+
+        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnLaborer.setText("LABOR");
+        BtnLaborer.setBorder(null);
+        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLaborerActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
@@ -426,43 +437,6 @@ public class BookingProcess2 extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_ExitActionPerformed
 
-    private void CalendarBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_CalendarBtnActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_CalendarBtnActionPerformed
-
-    private void PackagesBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PackagesBtnActionPerformed
-        PackagesBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                PackagesFrame packages = new PackagesFrame();
-                packages.setVisible(true);
-                packages.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_PackagesBtnActionPerformed
-
-    private void BookingBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookingBtnActionPerformed
-        BookingBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                BookingFrame bookingF = new BookingFrame();
-                bookingF.setVisible(true);
-                bookingF.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BookingBtnActionPerformed
-
-    private void HomeBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_HomeBtnActionPerformed
-        HomeBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                HomeFrame home = new HomeFrame();
-                home.setVisible(true);
-                home.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_HomeBtnActionPerformed
-
     private void BookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookBtnActionPerformed
         BookBtn.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -484,6 +458,61 @@ public class BookingProcess2 extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_RecordBtnActionPerformed
+
+    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
+        BtnCalendar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Calendar calendar = new Calendar();
+                calendar.setVisible(true);
+                calendar.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnCalendarActionPerformed
+
+    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
+        BtnPackages.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackagesFrame packages = new PackagesFrame();
+                packages.setVisible(true);
+                packages.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnPackagesActionPerformed
+
+    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
+        BtnBooking.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                BookingFrame bookingF = new BookingFrame();
+                bookingF.setVisible(true);
+                bookingF.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnBookingActionPerformed
+
+    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
+        BtnHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
+                home.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnHomeActionPerformed
+
+    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
+        BtnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnLaborerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -537,18 +566,19 @@ public class BookingProcess2 extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BookBtn;
-    private javax.swing.JButton BookingBtn;
-    private javax.swing.JButton CalendarBtn;
+    private javax.swing.JButton BtnBooking;
+    private javax.swing.JButton BtnCalendar;
+    private javax.swing.JButton BtnHome;
+    private javax.swing.JButton BtnLaborer;
+    private javax.swing.JButton BtnPackages;
     private javax.swing.JPanel DrinkPanel;
     private javax.swing.JButton Exit;
     private javax.swing.JButton Exit3;
     private javax.swing.JButton Exit6;
     private javax.swing.JButton ExitBtn;
-    private javax.swing.JButton HomeBtn;
     private javax.swing.JSpinner Host;
     private javax.swing.JPanel MainDishesPanel;
     private javax.swing.JButton NextBtn;
-    private javax.swing.JButton PackagesBtn;
     private javax.swing.JButton RecordBtn;
     private javax.swing.JPanel RequestPanel;
     private javax.swing.JPanel SideDishesPanel;
