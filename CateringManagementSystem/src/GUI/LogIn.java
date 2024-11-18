@@ -6,6 +6,8 @@ import javax.swing.JOptionPane;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import java.sql.SQLException;
 
 public class LogIn extends javax.swing.JFrame {
 
@@ -29,12 +31,12 @@ public class LogIn extends javax.swing.JFrame {
         jBtnLogin = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
-        txtUsername = new javax.swing.JTextField();
+        txtName = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(0, 0));
+        setLocation(new java.awt.Point(360, 180));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -106,13 +108,13 @@ public class LogIn extends javax.swing.JFrame {
         jLabel5.setText("Password");
         background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
 
-        txtUsername.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtUsername.addActionListener(new java.awt.event.ActionListener() {
+        txtName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtUsernameActionPerformed(evt);
+                txtNameActionPerformed(evt);
             }
         });
-        background.add(txtUsername, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 330, 30));
+        background.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 330, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setText("Username");
@@ -128,9 +130,9 @@ public class LogIn extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void txtUsernameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtUsernameActionPerformed
+    private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtUsernameActionPerformed
+    }//GEN-LAST:event_txtNameActionPerformed
 
     private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
          System.exit(0); // Exits the application
@@ -148,42 +150,42 @@ public class LogIn extends javax.swing.JFrame {
     }//GEN-LAST:event_jBtnSignupActionPerformed
 
     private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
-        String username = txtUsername.getText();
+        String name = txtName.getText();              
         String password = new String(txtPassword.getPassword());
-        
-        if (username.isEmpty() || password.isEmpty()) {
-        JOptionPane.showMessageDialog(this,"Please enter both username and password.","Login Error", JOptionPane.ERROR_MESSAGE);
-        }else{
-            
-            try{
-                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", 
-                        "root", "");
-                
-                String query = "INSERT INTO users (username, password) VALUES (?, ?)";
-                
-                PreparedStatement pst = con.prepareStatement(query);
-                 pst.setString(1, username);
-                 pst.setString(2, password);
-                 
-                 pst.executeUpdate();
-                 
-                 
-                 this.dispose();
-                 new HomeFrame().setVisible(true);
-                 
-            } catch (Exception e) {
-                    JOptionPane.showMessageDialog(this, 
-                     "Database error: " + e.getMessage(), 
-                     "Error", 
-                     JOptionPane.ERROR_MESSAGE);
 
+        if (name.isEmpty() || password.isEmpty()) {JOptionPane.showMessageDialog(this, 
+                "Please enter both username and password.",
+                "Login Error",JOptionPane.ERROR_MESSAGE);
+                return;
+        }try{
             
-        
-        
-       
-    }
-}
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db","root",""); 
+            
+            String query = "SELECT * FROM users WHERE name = ? AND password = ?";
+            
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, name);      
+            pst.setString(2, password); 
+            
+            // Execute the query
+            ResultSet rs = pst.executeQuery();
+            
+             // Check if the user exists in the database
+        if (rs.next()) {
+            
+            this.dispose(); 
+            new HomeFrame().setVisible(true); 
+        } else {
+            // User doesn't exist, show an error message
+            JOptionPane.showMessageDialog(this,"Invalid username or password. Please sign up first.", 
+            "Login Error",JOptionPane.ERROR_MESSAGE);
+        }
+        } catch (SQLException e) {
+        // Handle SQL exceptions
+            JOptionPane.showMessageDialog(this,"Database error: " + e.getMessage(), 
+            "Error",JOptionPane.ERROR_MESSAGE);
 
+        }        
     }//GEN-LAST:event_jBtnLoginActionPerformed
 
     public static void main(String args[]) {
@@ -237,7 +239,7 @@ public class LogIn extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JTextField txtName;
     private javax.swing.JPasswordField txtPassword;
-    private javax.swing.JTextField txtUsername;
     // End of variables declaration//GEN-END:variables
 }

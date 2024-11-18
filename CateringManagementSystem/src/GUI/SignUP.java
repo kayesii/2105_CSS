@@ -6,6 +6,10 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 /**
  *
@@ -39,7 +43,7 @@ public class SignUP extends javax.swing.JFrame {
         Back = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Clear = new javax.swing.JButton();
+        jBtnClear = new javax.swing.JButton();
         Login = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
@@ -49,12 +53,13 @@ public class SignUP extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         txtPhoneNumber = new javax.swing.JTextField();
         txtName = new javax.swing.JTextField();
-        Save = new javax.swing.JButton();
+        jBtnSave = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
 
         jScrollPane1.setViewportView(jEditorPane1);
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setLocation(new java.awt.Point(360, 180));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -96,16 +101,16 @@ public class SignUP extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/signup_icon.png"))); // NOI18N
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 10, 50, 50));
 
-        Clear.setBackground(new java.awt.Color(205, 133, 63));
-        Clear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Clear.setText("Clear");
-        buttonGroup1.add(Clear);
-        Clear.addActionListener(new java.awt.event.ActionListener() {
+        jBtnClear.setBackground(new java.awt.Color(205, 133, 63));
+        jBtnClear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBtnClear.setText("Clear");
+        buttonGroup1.add(jBtnClear);
+        jBtnClear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClearActionPerformed(evt);
+                jBtnClearActionPerformed(evt);
             }
         });
-        background.add(Clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 90, 30));
+        background.add(jBtnClear, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 230, 90, 30));
 
         Login.setBackground(new java.awt.Color(205, 133, 63));
         Login.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -134,8 +139,8 @@ public class SignUP extends javax.swing.JFrame {
         background.add(txtEmail, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 110, 330, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
-        jLabel3.setText("Username");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 110, -1, 30));
+        jLabel3.setText("Email");
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 110, -1, 30));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel7.setText("Phone Number");
@@ -161,16 +166,16 @@ public class SignUP extends javax.swing.JFrame {
         });
         background.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 70, 330, 30));
 
-        Save.setBackground(new java.awt.Color(205, 133, 63));
-        Save.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Save.setText("Save");
-        buttonGroup1.add(Save);
-        Save.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSave.setBackground(new java.awt.Color(205, 133, 63));
+        jBtnSave.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBtnSave.setText("Save");
+        buttonGroup1.add(jBtnSave);
+        jBtnSave.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveActionPerformed(evt);
+                jBtnSaveActionPerformed(evt);
             }
         });
-        background.add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 80, 30));
+        background.add(jBtnSave, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 230, 80, 30));
 
         jPanel1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 520, 290));
 
@@ -190,9 +195,13 @@ public class SignUP extends javax.swing.JFrame {
         System.exit(0);
     }//GEN-LAST:event_BackActionPerformed
 
-    private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
+    private void jBtnClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnClearActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_ClearActionPerformed
+        txtName.setText("");            
+        txtEmail.setText("");           
+        txtPhoneNumber.setText("");    
+        txtPassword.setText(""); 
+    }//GEN-LAST:event_jBtnClearActionPerformed
 
     private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
         Login.addActionListener(new ActionListener() {
@@ -213,9 +222,46 @@ public class SignUP extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
 
-    private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
+    private void jBtnSaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSaveActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_SaveActionPerformed
+        String name = txtName.getText();               
+        String email = txtEmail.getText();            
+        String phoneNumber = txtPhoneNumber.getText(); 
+        String password = new String(txtPassword.getPassword()); 
+        
+        if (name.isEmpty() || email.isEmpty() || phoneNumber.isEmpty() || password.isEmpty()) {
+            JOptionPane.showMessageDialog(this, 
+            "Please fill in all fields.", 
+            "Sign Up Error", 
+            JOptionPane.ERROR_MESSAGE);
+            return;
+        }try{
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db","root","");
+            
+            String query = "INSERT INTO users (name, email, phone_number, password) VALUES (?, ?, ?, ?)";
+            
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setString(1, name);         // Set the first ? to the name
+            pst.setString(2, email);        // Set the second ? to the email
+            pst.setString(3, phoneNumber);  // Set the third ? to the phone number
+            pst.setString(4, password);     // Set the fourth ? to the password
+            
+            pst.executeUpdate();
+            
+            JOptionPane.showMessageDialog(this,"Sign Up successful!","Success", JOptionPane.INFORMATION_MESSAGE);
+            
+            //clear the fields after saving
+            txtName.setText("");
+            txtEmail.setText("");
+            txtPhoneNumber.setText("");
+            txtPassword.setText("");
+            
+            } catch (Exception e) {
+        // Handle errors (e.g., database connection issues)
+            JOptionPane.showMessageDialog(this,"Database error: " + e.getMessage(),"Error", JOptionPane.ERROR_MESSAGE);
+
+        }
+    }//GEN-LAST:event_jBtnSaveActionPerformed
 
     /**
      * @param args the command line arguments
@@ -263,11 +309,11 @@ public class SignUP extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Back;
-    private javax.swing.JButton Clear;
     private javax.swing.JButton Login;
-    private javax.swing.JButton Save;
     private javax.swing.JPanel background;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jBtnClear;
+    private javax.swing.JButton jBtnSave;
     private javax.swing.JEditorPane jEditorPane1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
