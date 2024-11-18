@@ -5,10 +5,7 @@
 package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-/**
- *
- * @author mchri
- */
+
 public class BookingFrame extends javax.swing.JFrame {
 
     /**

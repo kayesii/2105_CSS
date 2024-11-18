@@ -5,10 +5,7 @@
 package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-/**
- *
- * @author Ivan
- */
+
 public class FuneralPackages extends javax.swing.JFrame {
 
     /**
@@ -123,7 +120,7 @@ public class FuneralPackages extends javax.swing.JFrame {
         });
         jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 140, 40));
 
-        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
+        BtnPackages.setBackground(new java.awt.Color(205, 133, 63));
         BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         BtnPackages.setText("PACKAGES");
         BtnPackages.setBorder(null);
@@ -145,9 +142,10 @@ public class FuneralPackages extends javax.swing.JFrame {
         });
         jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
 
-        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
+        BtnHome.setBackground(new java.awt.Color(210, 180, 140));
         BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         BtnHome.setText("HOME");
+        BtnHome.setBorder(null);
         BtnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnHomeActionPerformed(evt);

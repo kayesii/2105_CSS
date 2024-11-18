@@ -2,6 +2,7 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 
 public class LogIn extends javax.swing.JFrame {
 
@@ -21,8 +22,8 @@ public class LogIn extends javax.swing.JFrame {
         Exit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        Signup = new javax.swing.JButton();
-        Login = new javax.swing.JButton();
+        jBtnSignup = new javax.swing.JButton();
+        jBtnLogin = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
         txtUsername = new javax.swing.JTextField();
@@ -73,27 +74,27 @@ public class LogIn extends javax.swing.JFrame {
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login_icon.png"))); // NOI18N
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 50, 50));
 
-        Signup.setBackground(new java.awt.Color(205, 133, 63));
-        Signup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Signup.setText("Sign Up");
-        buttonGroup1.add(Signup);
-        Signup.addActionListener(new java.awt.event.ActionListener() {
+        jBtnSignup.setBackground(new java.awt.Color(205, 133, 63));
+        jBtnSignup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBtnSignup.setText("Sign Up");
+        buttonGroup1.add(jBtnSignup);
+        jBtnSignup.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SignupActionPerformed(evt);
+                jBtnSignupActionPerformed(evt);
             }
         });
-        background.add(Signup, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 140, 30));
+        background.add(jBtnSignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 140, 30));
 
-        Login.setBackground(new java.awt.Color(205, 133, 63));
-        Login.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Login.setText("Login");
-        buttonGroup1.add(Login);
-        Login.addActionListener(new java.awt.event.ActionListener() {
+        jBtnLogin.setBackground(new java.awt.Color(205, 133, 63));
+        jBtnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jBtnLogin.setText("Login");
+        buttonGroup1.add(jBtnLogin);
+        jBtnLogin.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                LoginActionPerformed(evt);
+                jBtnLoginActionPerformed(evt);
             }
         });
-        background.add(Login, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 140, 30));
+        background.add(jBtnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 140, 30));
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         background.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 330, 30));
@@ -132,8 +133,8 @@ public class LogIn extends javax.swing.JFrame {
          System.exit(0); // Exits the application
     }//GEN-LAST:event_ExitActionPerformed
 
-    private void SignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SignupActionPerformed
-        Signup.addActionListener(new ActionListener() {
+    private void jBtnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSignupActionPerformed
+        jBtnSignup.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
         dispose(); // Close the current LogIn frame
         SignUP signUp = new SignUP(); // Open the SignUP frame
@@ -141,18 +142,21 @@ public class LogIn extends javax.swing.JFrame {
         signUp.setLocationRelativeTo(null); // Center the SignUP frame
     }
 });
-    }//GEN-LAST:event_SignupActionPerformed
+    }//GEN-LAST:event_jBtnSignupActionPerformed
 
-    private void LoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_LoginActionPerformed
-        Login.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-        dispose(); // Close the current LogIn frame
-        HomeFrame home = new HomeFrame(); 
-        home.setVisible(true); // Make the HomeFrame visible
-        home.setLocationRelativeTo(null); // Center the HomeFrame
+    private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
+        String username = txtUsername.getText();
+        String password = new String(txtPassword.getPassword());
+        
+        if (username.isEmpty() || password.isEmpty()) {
+        JOptionPane.showMessageDialog(this,"Please enter both username and password.","Login Error", JOptionPane.ERROR_MESSAGE);
+        }else{
+        this.dispose();
+        new HomeFrame().setVisible(true);
+       
     }
-});
-    }//GEN-LAST:event_LoginActionPerformed
+
+    }//GEN-LAST:event_jBtnLoginActionPerformed
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */
@@ -193,10 +197,10 @@ public class LogIn extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton Exit;
-    private javax.swing.JButton Login;
-    private javax.swing.JButton Signup;
     private javax.swing.JPanel background;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JButton jBtnLogin;
+    private javax.swing.JButton jBtnSignup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
