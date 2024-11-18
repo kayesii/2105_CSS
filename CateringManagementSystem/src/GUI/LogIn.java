@@ -3,6 +3,9 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import javax.swing.JOptionPane;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
 
 public class LogIn extends javax.swing.JFrame {
 
@@ -151,10 +154,35 @@ public class LogIn extends javax.swing.JFrame {
         if (username.isEmpty() || password.isEmpty()) {
         JOptionPane.showMessageDialog(this,"Please enter both username and password.","Login Error", JOptionPane.ERROR_MESSAGE);
         }else{
-        this.dispose();
-        new HomeFrame().setVisible(true);
+            
+            try{
+                Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", 
+                        "root", "");
+                
+                String query = "INSERT INTO users (username, password) VALUES (?, ?)";
+                
+                PreparedStatement pst = con.prepareStatement(query);
+                 pst.setString(1, username);
+                 pst.setString(2, password);
+                 
+                 pst.executeUpdate();
+                 
+                 
+                 this.dispose();
+                 new HomeFrame().setVisible(true);
+                 
+            } catch (Exception e) {
+                    JOptionPane.showMessageDialog(this, 
+                     "Database error: " + e.getMessage(), 
+                     "Error", 
+                     JOptionPane.ERROR_MESSAGE);
+
+            
+        
+        
        
     }
+}
 
     }//GEN-LAST:event_jBtnLoginActionPerformed
 
