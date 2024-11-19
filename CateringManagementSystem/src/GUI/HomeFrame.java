@@ -2,6 +2,11 @@ package GUI;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import javax.swing.JOptionPane;
+import java.sql.ResultSet;
 
 
 public class HomeFrame extends javax.swing.JFrame {
@@ -30,17 +35,17 @@ public class HomeFrame extends javax.swing.JFrame {
         ReservationList = new javax.swing.JTable();
         UpdateReservationBtn = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        txtID = new javax.swing.JTextField();
+        txtClientID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
         txtClientName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtClientNumber = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
-        txtReserveDate = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        txtEvent = new javax.swing.JTextField();
+        txtDate = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
-        jComboBox1 = new javax.swing.JComboBox<>();
+        pickStatus = new javax.swing.JComboBox<>();
+        txtEventName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
@@ -167,13 +172,13 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel10.setText("Enter ID ");
         jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 60, -1));
 
-        txtID.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtID.addActionListener(new java.awt.event.ActionListener() {
+        txtClientID.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtClientID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtIDActionPerformed(evt);
+                txtClientIDActionPerformed(evt);
             }
         });
-        jPanel1.add(txtID, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 490, 30));
+        jPanel1.add(txtClientID, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 490, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Client Name");
@@ -203,33 +208,34 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel5.setText("Date");
         jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 50, -1));
 
-        txtReserveDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtReserveDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtReserveDateActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtReserveDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, 490, 30));
-
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Event");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 40, 20));
 
-        txtEvent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtEvent.addActionListener(new java.awt.event.ActionListener() {
+        txtDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtDate.setText("YYYY-MM-DD");
+        txtDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtEventActionPerformed(evt);
+                txtDateActionPerformed(evt);
             }
         });
-        jPanel1.add(txtEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 490, 30));
+        jPanel1.add(txtDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, 490, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Status");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, 60, -1));
 
-        jComboBox1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        jComboBox1.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Confirmed", "Pending", "Cancelled" }));
-        jPanel1.add(jComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 230, -1));
+        pickStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pickStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Confirmed", "Pending", "Cancelled" }));
+        jPanel1.add(pickStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 230, -1));
+
+        txtEventName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtEventName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtEventNameActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 490, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -285,12 +291,111 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_UpdateReservationBtnActionPerformed
 
     private void ReserveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserveBtnActionPerformed
-        // TODO add your handling code here:
+        // Get input data from text fields
+String ClientName = txtClientName.getText().trim();              
+String ClientNumber = txtClientNumber.getText().trim();         
+String EventName = txtEventName.getText().trim(); 
+String ReservationDate = txtDate.getText().trim();
+String Status = pickStatus.getSelectedItem().toString();
+
+// Validate input fields
+if (ClientName.isEmpty() || ClientNumber.isEmpty() || EventName.isEmpty() || ReservationDate.isEmpty() || Status.isEmpty()) {
+    JOptionPane.showMessageDialog(this, 
+        "Please fill in all fields.", 
+        "Reservation Error", 
+        JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+// Validate date format (YYYY-MM-DD)
+if (!ReservationDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+    JOptionPane.showMessageDialog(this, 
+        "Invalid date format. Please use YYYY-MM-DD.", 
+        "Date Error", 
+        JOptionPane.ERROR_MESSAGE);
+    return;
+}
+
+try {
+    // Connect to the database
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+
+    // Check if the client exists
+    String checkClientQuery = "SELECT ClientID FROM CLIENT WHERE ClientName = ? AND ClientNumber = ?";
+    PreparedStatement checkClientStmt = con.prepareStatement(checkClientQuery);
+    checkClientStmt.setString(1, ClientName);
+    checkClientStmt.setString(2, ClientNumber);
+    ResultSet rs = checkClientStmt.executeQuery();
+
+    int clientID = -1; // Default to an invalid ID
+    if (rs.next()) {
+        clientID = rs.getInt("ClientID");
+    } else {
+        // If the client does not exist, register them
+        String insertClientQuery = "INSERT INTO CLIENT (ClientName, ClientNumber) VALUES (?, ?)";
+        PreparedStatement insertClientStmt = con.prepareStatement(insertClientQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+        insertClientStmt.setString(1, ClientName);
+        insertClientStmt.setString(2, ClientNumber);
+
+        int rowsInserted = insertClientStmt.executeUpdate();
+
+        if (rowsInserted > 0) {
+            ResultSet generatedKeys = insertClientStmt.getGeneratedKeys();
+            if (generatedKeys.next()) {
+                clientID = generatedKeys.getInt(1); // Get the auto-generated ClientID
+            }
+        } else {
+            JOptionPane.showMessageDialog(this, 
+                "Failed to register the client. Reservation aborted.", 
+                "Error", 
+                JOptionPane.ERROR_MESSAGE);
+            return; // Exit if the client registration fails
+        }
+    }
+
+    // Now proceed with the reservation
+    String query = "INSERT INTO RESERVATION (ClientID, EventName, ReservationDate, Status) " +
+                   "VALUES (?, ?, ?, ?)";
+    PreparedStatement pst = con.prepareStatement(query);
+    pst.setInt(1, clientID);              // Use the retrieved or newly created ClientID
+    pst.setString(2, EventName);          // Set the event name
+    pst.setString(3, ReservationDate);    // Set the reservation date
+    pst.setString(4, Status);             // Set the status
+
+    int rowsInserted = pst.executeUpdate();
+
+    if (rowsInserted > 0) {
+        JOptionPane.showMessageDialog(this, 
+            "Reservation saved successfully!", 
+            "Success", 
+            JOptionPane.INFORMATION_MESSAGE);
+
+        // Clear the input fields after saving
+        txtClientName.setText("");
+        txtClientNumber.setText("");
+        txtEventName.setText("");
+        txtDate.setText("");  // Clear the date input field
+        pickStatus.setSelectedIndex(0);  // Reset dropdown to default
+    } else {
+        JOptionPane.showMessageDialog(this, 
+            "Failed to save the reservation.", 
+            "Error", 
+            JOptionPane.ERROR_MESSAGE);
+    }
+
+} catch (Exception e) {
+    // Handle database errors
+    JOptionPane.showMessageDialog(this, 
+        "Database error: " + e.getMessage(), 
+        "Error", 
+        JOptionPane.ERROR_MESSAGE);
+}
+
     }//GEN-LAST:event_ReserveBtnActionPerformed
 
-    private void txtIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtIDActionPerformed
+    private void txtClientIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtIDActionPerformed
+    }//GEN-LAST:event_txtClientIDActionPerformed
 
     private void txtClientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientNameActionPerformed
         // TODO add your handling code here:
@@ -300,13 +405,9 @@ public class HomeFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClientNumberActionPerformed
 
-    private void txtReserveDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReserveDateActionPerformed
+    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtReserveDateActionPerformed
-
-    private void txtEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEventActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEventActionPerformed
+    }//GEN-LAST:event_txtDateActionPerformed
 
     private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
         BtnLaborer.addActionListener(new ActionListener() {
@@ -318,6 +419,10 @@ public class HomeFrame extends javax.swing.JFrame {
     }
 }); 
     }//GEN-LAST:event_BtnLaborerActionPerformed
+
+    private void txtEventNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEventNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEventNameActionPerformed
 
     /**
      * @param args the command line arguments
@@ -365,7 +470,6 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JTable ReservationList;
     private javax.swing.JButton ReserveBtn;
     private javax.swing.JButton UpdateReservationBtn;
-    private javax.swing.JComboBox<String> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -379,10 +483,11 @@ public class HomeFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JComboBox<String> pickStatus;
+    private javax.swing.JTextField txtClientID;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientNumber;
-    private javax.swing.JTextField txtEvent;
-    private javax.swing.JTextField txtID;
-    private javax.swing.JTextField txtReserveDate;
+    private javax.swing.JTextField txtDate;
+    private javax.swing.JTextField txtEventName;
     // End of variables declaration//GEN-END:variables
 }
