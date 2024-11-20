@@ -463,7 +463,7 @@ public class BookingProcess2 extends javax.swing.JFrame {
         BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                Calendar calendar = new Calendar();
+                ReservationCalendar calendar = new ReservationCalendar();
                 calendar.setVisible(true);
                 calendar.setLocationRelativeTo(null); // Center the SignUP frame
             }
