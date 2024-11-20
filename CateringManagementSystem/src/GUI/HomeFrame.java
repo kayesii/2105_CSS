@@ -13,8 +13,48 @@ public class HomeFrame extends javax.swing.JFrame {
 
     public HomeFrame() {
         initComponents();
+        loadReservationsToTable();
     }
+    
+    private void loadReservationsToTable() {
+    try {
+        // Establish the database connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
 
+        // Query to fetch data from both 'client' and 'reservation' tables
+        String query = "SELECT r.ReservationID, r.ReservationDate, c.ClientName, c.ClientNumber, r.EventName, r.Status " +
+                       "FROM reservation r " +
+                       "INNER JOIN client c ON r.ClientID = c.ClientID"; // Adjust if necessary
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        // Create a DefaultTableModel
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) ReservationList.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        // Iterate through the result set
+        while (rs.next()) {
+            // Add row to the model
+            model.addRow(new Object[]{
+                rs.getInt("ReservationID"),
+                rs.getString("ReservationDate"),
+                rs.getString("ClientName"),
+                rs.getString("ClientNumber"),
+                rs.getString("EventName"),
+                rs.getString("Status")
+            });
+        }
+
+        // Close connections
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error loading reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
@@ -35,8 +75,8 @@ public class HomeFrame extends javax.swing.JFrame {
         ReservationList = new javax.swing.JTable();
         UpdateReservationBtn = new javax.swing.JButton();
         jLabel10 = new javax.swing.JLabel();
-        txtClientID = new javax.swing.JTextField();
         jLabel3 = new javax.swing.JLabel();
+        txtReservationID = new javax.swing.JTextField();
         txtClientName = new javax.swing.JTextField();
         jLabel4 = new javax.swing.JLabel();
         txtClientNumber = new javax.swing.JTextField();
@@ -45,6 +85,7 @@ public class HomeFrame extends javax.swing.JFrame {
         txtDate = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         pickStatus = new javax.swing.JComboBox<>();
+        SearchBtn = new javax.swing.JButton();
         txtEventName = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -129,21 +170,19 @@ public class HomeFrame extends javax.swing.JFrame {
                 ReserveBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 380, 170, 40));
+        jPanel1.add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, 170, 40));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel7.setText("Reserved Customer");
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 20, 220, -1));
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 220, -1));
 
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("Reservation");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 20, 140, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 10, 140, -1));
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
         jScrollPane2.setDoubleBuffered(true);
 
-        ReservationList.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         ReservationList.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
                 {null, null, null, null, null, null},
@@ -154,9 +193,13 @@ public class HomeFrame extends javax.swing.JFrame {
                 "ID", "Date", "Client Name", "Contact", "Event", "Status"
             }
         ));
+        ReservationList.setAutoResizeMode(javax.swing.JTable.AUTO_RESIZE_ALL_COLUMNS);
+        ReservationList.setGridColor(new java.awt.Color(210, 180, 140));
+        ReservationList.setSelectionBackground(new java.awt.Color(153, 102, 0));
+        ReservationList.setShowGrid(true);
         jScrollPane2.setViewportView(ReservationList);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, 440, 340));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(18, 70, 590, 350));
 
         UpdateReservationBtn.setBackground(new java.awt.Color(205, 133, 63));
         UpdateReservationBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -166,76 +209,79 @@ public class HomeFrame extends javax.swing.JFrame {
                 UpdateReservationBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 380, 160, 40));
+        jPanel1.add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 380, 160, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Enter ID ");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 70, 60, -1));
-
-        txtClientID.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        txtClientID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClientIDActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtClientID, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 90, 490, 30));
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 60, 60, -1));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Client Name");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 120, 90, -1));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 120, 90, -1));
 
-        txtClientName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        txtReservationID.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtReservationIDActionPerformed(evt);
+            }
+        });
+        jPanel1.add(txtReservationID, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 80, 270, 40));
+
         txtClientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 140, 490, 30));
+        jPanel1.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 390, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Client Number");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 170, 100, -1));
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 170, 100, -1));
 
-        txtClientNumber.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtClientNumber.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNumberActionPerformed(evt);
             }
         });
-        jPanel1.add(txtClientNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 190, 490, 30));
+        jPanel1.add(txtClientNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 190, 390, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Date");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 220, 50, -1));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 220, 50, -1));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel2.setText("Event");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 270, 40, 20));
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 40, 20));
 
-        txtDate.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtDate.setText("YYYY-MM-DD");
         txtDate.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtDateActionPerformed(evt);
             }
         });
-        jPanel1.add(txtDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 240, 490, 30));
+        jPanel1.add(txtDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 130, 30));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Status");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 320, 60, -1));
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 60, -1));
 
         pickStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pickStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Confirmed", "Pending", "Cancelled" }));
-        jPanel1.add(pickStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 340, 230, -1));
+        jPanel1.add(pickStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 340, 230, -1));
 
-        txtEventName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SearchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
+        SearchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchBtnActionPerformed(evt);
+            }
+        });
+        jPanel1.add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 80, 60, 40));
+
         txtEventName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEventNameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(520, 290, 490, 30));
+        jPanel1.add(txtEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, 390, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -287,7 +333,76 @@ public class HomeFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnCalendarActionPerformed
 
     private void UpdateReservationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateReservationBtnActionPerformed
-        // TODO add your handling code here:
+    String reservationID = txtReservationID.getText().trim();
+    String clientName = txtClientName.getText().trim();
+    String clientNumber = txtClientNumber.getText().trim();
+    String eventName = txtEventName.getText().trim();
+    String reservationDate = txtDate.getText().trim();
+    String status = pickStatus.getSelectedItem().toString().trim();
+
+    // Check if any field is empty
+    if (reservationID.isEmpty() || clientName.isEmpty() || clientNumber.isEmpty() ||
+        eventName.isEmpty() || reservationDate.isEmpty() || status.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill all fields to update the reservation.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        // Establish the database connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+
+        // Query to get the ClientID based on the ReservationID
+        String getClientQuery = "SELECT ClientID FROM reservation WHERE ReservationID = ?";
+        PreparedStatement psGetClient = con.prepareStatement(getClientQuery);
+        psGetClient.setInt(1, Integer.parseInt(reservationID));
+        ResultSet rsClient = psGetClient.executeQuery();
+
+        // Check if a reservation with the given ReservationID exists
+        if (rsClient.next()) {
+            // Get the ClientID from the reservation
+            int clientID = rsClient.getInt("ClientID");
+
+            // Update query for the client table
+            String updateClientQuery = "UPDATE client SET ClientName = ?, ClientNumber = ? WHERE ClientID = ?";
+            PreparedStatement psClient = con.prepareStatement(updateClientQuery);
+            psClient.setString(1, clientName);
+            psClient.setString(2, clientNumber);
+            psClient.setInt(3, clientID); // Use the retrieved ClientID
+            int clientUpdateCount = psClient.executeUpdate();
+
+            // Update query for the reservation_list table
+            String updateReservationQuery = "UPDATE reservation SET EventName = ?, ReservationDate = ?, Status = ? WHERE ReservationID = ?";
+            PreparedStatement psReservation = con.prepareStatement(updateReservationQuery);
+            psReservation.setString(1, eventName);
+            psReservation.setString(2, reservationDate);
+            psReservation.setString(3, status);
+            psReservation.setInt(4, Integer.parseInt(reservationID));
+            int reservationUpdateCount = psReservation.executeUpdate();
+
+            // Check if the update was successful
+            if (clientUpdateCount > 0 && reservationUpdateCount > 0) {
+                JOptionPane.showMessageDialog(this, "Reservation and client details updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(this, "Failed to update reservation. Please check the input.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Close the connections
+            psClient.close();
+            psReservation.close();
+            psGetClient.close();
+            con.close();
+            
+            dispose();
+                    HomeFrame home = new HomeFrame(); 
+                    home.setVisible(true); 
+                    home.setLocationRelativeTo(null); // Center the HomeFrame
+        } else {
+            JOptionPane.showMessageDialog(this, "Reservation not found. Please check the ReservationID.", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error updating reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_UpdateReservationBtnActionPerformed
 
     private void ReserveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserveBtnActionPerformed
@@ -393,9 +508,9 @@ try {
 
     }//GEN-LAST:event_ReserveBtnActionPerformed
 
-    private void txtClientIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientIDActionPerformed
+    private void txtReservationIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReservationIDActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtClientIDActionPerformed
+    }//GEN-LAST:event_txtReservationIDActionPerformed
 
     private void txtClientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientNameActionPerformed
         // TODO add your handling code here:
@@ -423,6 +538,50 @@ try {
     private void txtEventNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEventNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtEventNameActionPerformed
+
+    private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
+        String reservationID = txtReservationID.getText().trim();
+
+        if (reservationID.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a Reservation ID.", "Input Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        try {
+            // Establish the database connection
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+
+            // SQL query with JOIN to retrieve data from both tables
+            String query = "SELECT c.ClientName, c.ClientNumber, r.EventName, r.ReservationDate, r.Status " +
+            "FROM client c " +
+            "INNER JOIN reservation r ON c.ClientID = r.ClientID " +
+            "WHERE r.ReservationID = ?";
+
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, reservationID);
+
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Retrieve data from the ResultSet using the correct column names
+                txtClientName.setText(rs.getString("ClientName"));
+                txtClientNumber.setText(rs.getString("ClientNumber"));
+                txtEventName.setText(rs.getString("EventName"));
+                txtDate.setText(rs.getString("ReservationDate"));
+                pickStatus.setSelectedItem(rs.getString("Status"));
+            } else {
+                JOptionPane.showMessageDialog(this, "No reservation found with the given ID.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+
+            // Close the connections
+            rs.close();
+            ps.close();
+            con.close();
+
+        } catch (Exception ex) {
+            JOptionPane.showMessageDialog(this, "Error searching reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        }
+    }//GEN-LAST:event_SearchBtnActionPerformed
 
     /**
      * @param args the command line arguments
@@ -469,6 +628,7 @@ try {
     private javax.swing.JButton BtnPackages;
     private javax.swing.JTable ReservationList;
     private javax.swing.JButton ReserveBtn;
+    private javax.swing.JButton SearchBtn;
     private javax.swing.JButton UpdateReservationBtn;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
@@ -484,10 +644,10 @@ try {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JComboBox<String> pickStatus;
-    private javax.swing.JTextField txtClientID;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientNumber;
     private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtEventName;
+    private javax.swing.JTextField txtReservationID;
     // End of variables declaration//GEN-END:variables
 }
