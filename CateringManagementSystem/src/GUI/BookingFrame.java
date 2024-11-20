@@ -26,7 +26,6 @@ public class BookingFrame extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         BookBtn = new javax.swing.JButton();
-        jLabel1 = new javax.swing.JLabel();
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         jTable1 = new javax.swing.JTable();
@@ -54,11 +53,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 BookBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(BookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, 220, 50));
-
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("BOOKING RECORDS");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 20, 230, -1));
+        jPanel1.add(BookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 220, 50));
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -75,7 +70,7 @@ public class BookingFrame extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jScrollPane2);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 60, 810, 360));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 1050, 360));
 
         RecordBtn.setBackground(new java.awt.Color(205, 133, 63));
         RecordBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -85,7 +80,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 RecordBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(RecordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 220, 50));
+        jPanel1.add(RecordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 50));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -185,7 +180,7 @@ public class BookingFrame extends javax.swing.JFrame {
         BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ReservationCalendar calendar = new ReservationCalendar();
+                Calendar calendar = new Calendar();
                 calendar.setVisible(true);
                 calendar.setLocationRelativeTo(null); // Center the SignUP frame
             }
@@ -282,7 +277,6 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
     private javax.swing.JButton RecordBtn;
-    private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;

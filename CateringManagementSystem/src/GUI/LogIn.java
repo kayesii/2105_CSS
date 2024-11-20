@@ -172,9 +172,11 @@ public class LogIn extends javax.swing.JFrame {
             
              // Check if the user exists in the database
         if (rs.next()) {
-            
-            this.dispose(); 
-            new HomeFrame().setVisible(true); 
+             // If the user is valid, close the login frame and open HomeFrame
+            dispose(); // Close the current login frame
+            HomeFrame home = new HomeFrame(); // Open the Home frame
+            home.setVisible(true); // Show the Home frame
+            home.setLocationRelativeTo(null); // Center the Home frame
         } else {
             // User doesn't exist, show an error message
             JOptionPane.showMessageDialog(this,"Invalid username or password. Please sign up first.", 

@@ -15,7 +15,15 @@ public class HomeFrame extends javax.swing.JFrame {
         initComponents();
         loadReservationsToTable();
     }
-    
+     public static void main(String args[]) {
+        java.awt.EventQueue.invokeLater(new Runnable() {
+            public void run() {
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
+                home.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }
     private void loadReservationsToTable() {
     try {
         // Establish the database connection
@@ -170,7 +178,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 ReserveBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, 170, 40));
+        jPanel1.add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 380, 110, 40));
 
         jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 220, -1));
@@ -209,7 +217,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 UpdateReservationBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 380, 160, 40));
+        jPanel1.add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(740, 380, 160, 40));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel10.setText("Enter ID ");
@@ -325,7 +333,7 @@ public class HomeFrame extends javax.swing.JFrame {
         BtnCalendar.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
         dispose();
-        ReservationCalendar calendar = new ReservationCalendar(); 
+        Calendar calendar = new Calendar(); 
         calendar.setVisible(true); 
         calendar.setLocationRelativeTo(null); // Center the SignUP frame
     }
@@ -586,39 +594,7 @@ try {
     /**
      * @param args the command line arguments
      */
-    public static void main(String args[]) {
-        /* Set the Nimbus look and feel */
-        //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
-        /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
-         */
-        try {
-            for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    javax.swing.UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(HomeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(HomeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(HomeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(HomeFrame.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
-        }
-        //</editor-fold>
-        //</editor-fold>
-
-        /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                HomeFrame home = new HomeFrame();
-                home.setVisible(true);
-            }
-        });
-    }
+   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBooking;
