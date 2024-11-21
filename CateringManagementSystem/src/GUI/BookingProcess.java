@@ -63,7 +63,6 @@ public class BookingProcess extends JFrame {
         PaymentStatus = new javax.swing.JComboBox<>();
         ViewReceipt1 = new javax.swing.JButton();
         Save = new javax.swing.JButton();
-        jCalendarComboBox1 = new de.wannawork.jcalendar.JCalendarComboBox();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
         BtnPackages = new javax.swing.JButton();
@@ -274,7 +273,6 @@ public class BookingProcess extends JFrame {
             }
         });
         jPanel1.add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 390, -1, -1));
-        jPanel1.add(jCalendarComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(866, 60, 140, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 420));
 
@@ -407,7 +405,6 @@ public class BookingProcess extends JFrame {
     }//GEN-LAST:event_txtTimeStartActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-
     String clientName = txtClientName.getText().trim();
 String clientNum = txtClientNum.getText().trim();
 
@@ -513,54 +510,88 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
         return;
     }
 
-    // Step 5: Calculate total amount
+    // Step 5: Retrieve available laborers from the database
+    int availableLaborers = 0;
+    String laborerQuery = "SELECT COUNT(*) AS availableLaborers FROM laborer WHERE Status = 'Active'"; // Assuming "Active" means available
+    try (PreparedStatement ps = con.prepareStatement(laborerQuery)) {
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            availableLaborers = rs.getInt("availableLaborers");
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+        return;
+    }
+
+    // Step 6: Compare requested laborers with available laborers
+    if (laborCount > availableLaborers) {
+        JOptionPane.showMessageDialog(this, "Not enough available laborers. Only " + availableLaborers + " laborers are available.", "Labor Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Step 7: Calculate total amount
     double totalAmount = calculateTotalAmount(selectedPackageId, laborCount);
 
-    // Step 6: Payment status
+    // Step 8: Payment status
     String paymentStatus = (String) PaymentStatus.getSelectedItem();
 
-    // Step 7: Insert booking details into the database
+    // Step 9: Insert booking details into the database
     String bookingQuery = "INSERT INTO booking (ClientID, PackageId, EventDate, NumberOfGuests, TotalPrice, Status, Theme, Location, TimeStart, TimeEnd, NumberOfLaborers, CateringStyle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
-    try (PreparedStatement pst = con.prepareStatement(bookingQuery)) {
+    try (PreparedStatement pst = con.prepareStatement(bookingQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
         pst.setInt(1, clientID);
         pst.setInt(2, selectedPackageId);
-        pst.setDate(3, eventDate);  // Set the SQL Date
+        pst.setDate(3, eventDate);
         pst.setInt(4, guestCount);
         pst.setDouble(5, totalAmount);
         pst.setString(6, paymentStatus);
         pst.setString(7, theme);
         pst.setString(8, location);
-        pst.setTime(9, eventTimeStart);  // Set the SQL Start Time
-        pst.setTime(10, eventTimeEnd);   // Set the SQL End Time
+        pst.setTime(9, eventTimeStart);
+        pst.setTime(10, eventTimeEnd);
         pst.setInt(11, laborCount);
         pst.setString(12, cateringStyle);
 
-        // Debug: Print the SQL parameters for logging
-        System.out.println("Booking Query Parameters: ");
-        System.out.println("ClientID: " + clientID);
-        System.out.println("PackageId: " + selectedPackageId);
-        System.out.println("EventDate: " + eventDate);
-        System.out.println("NumberOfGuests: " + guestCount);
-        System.out.println("TotalPrice: " + totalAmount);
-        System.out.println("Status: " + paymentStatus);
-        System.out.println("Theme: " + theme);
-        System.out.println("Location: " + location);
-        System.out.println("TimeStart: " + eventTimeStart);
-        System.out.println("TimeEnd: " + eventTimeEnd);
-        System.out.println("NumberOfLaborers: " + laborCount);
-        System.out.println("CateringStyle: " + cateringStyle);
-
         int rowsInserted = pst.executeUpdate();
         if (rowsInserted > 0) {
-            JOptionPane.showMessageDialog(this, "Booking saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+            ResultSet generatedKeys = pst.getGeneratedKeys();
+            int bookingId = -1;
+            if (generatedKeys.next()) {
+                bookingId = generatedKeys.getInt(1);  // Retrieve the BookingID
+            }
+
+            // Step 10: Assign laborers to the booking
+            String assignLaborerQuery = "INSERT INTO booking_laborer (BookingID, LaborerID) VALUES (?, ?)";
+            try (PreparedStatement assignLaborerStmt = con.prepareStatement(assignLaborerQuery)) {
+                // Retrieve available laborer IDs
+                String getLaborerIdsQuery = "SELECT LaborerID FROM laborer WHERE Status = 'Active' LIMIT ?";
+                try (PreparedStatement laborerPs = con.prepareStatement(getLaborerIdsQuery)) {
+                    laborerPs.setInt(1, laborCount);
+                    ResultSet laborerRs = laborerPs.executeQuery();
+
+                    // Assign laborers
+                    while (laborerRs.next()) {
+                        int laborerId = laborerRs.getInt("LaborerID");
+                        assignLaborerStmt.setInt(1, bookingId);
+                        assignLaborerStmt.setInt(2, laborerId);
+                        assignLaborerStmt.addBatch();  // Add to batch
+                    }
+                    int[] laborerAssignments = assignLaborerStmt.executeBatch();  // Execute batch insert
+
+                    if (laborerAssignments.length == laborCount) {
+                        JOptionPane.showMessageDialog(this, "Booking and laborer assignments saved successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "Not all laborers were assigned. Check database.", "Warning", JOptionPane.WARNING_MESSAGE);
+                    }
+                }
+            }
         } else {
             JOptionPane.showMessageDialog(this, "Failed to save the booking.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     }
-
 } catch (SQLException ex) {
     JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace();  // Print the stack trace to the console for better debugging
+    ex.printStackTrace();
 }
     }//GEN-LAST:event_SaveActionPerformed
 
@@ -717,7 +748,6 @@ private double getPackagePrice(int packageId) {
     private javax.swing.JButton Save;
     private javax.swing.JButton ViewReceipt;
     private javax.swing.JButton ViewReceipt1;
-    private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel13;
