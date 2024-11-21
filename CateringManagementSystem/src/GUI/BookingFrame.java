@@ -5,6 +5,11 @@
 package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.sql.Connection;
+import java.sql.DriverManager;
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
+import javax.swing.JOptionPane;
 
 public class BookingFrame extends javax.swing.JFrame {
 
@@ -13,8 +18,60 @@ public class BookingFrame extends javax.swing.JFrame {
      */
     public BookingFrame() {
         initComponents();
+        loadBookingToTable();
     }
+    private void loadBookingToTable() {
+    try {
+        // Establish the database connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
 
+        // Query to fetch data from 'booking', 'client', and 'packages' tables
+        String query = """
+                SELECT 
+                    b.BookingId,
+                    b.EventDate,
+                    c.ClientName,
+                    c.ClientNumber,
+                    b.Theme AS Event,           -- Fetch Theme for the Event column
+                    p.PackageName,              -- Fetch Package Name
+                    b.TotalPrice AS Price,
+                    b.Status
+                FROM booking b
+                INNER JOIN client c ON b.ClientID = c.ClientID
+                INNER JOIN packages p ON b.PackageId = p.PackageID
+                """;
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        // Create a DefaultTableModel
+        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) BookingRecords.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        // Iterate through the result set
+        while (rs.next()) {
+            // Add row to the model
+            model.addRow(new Object[]{
+                rs.getInt("BookingId"),         // ID
+                rs.getString("EventDate"),      // Date
+                rs.getString("ClientName"),     // Client Name
+                rs.getString("ClientNumber"),   // Number
+                rs.getString("Event"),          // Event (Theme)
+                rs.getString("PackageName"),    // Package Name
+                rs.getDouble("Price"),          // Total Price
+                rs.getString("Status")          // Payment Status
+            });
+        }
+
+        // Close connections
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error loading reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -28,7 +85,7 @@ public class BookingFrame extends javax.swing.JFrame {
         BookBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
-        jTable1 = new javax.swing.JTable();
+        BookingRecords = new javax.swing.JTable();
         RecordBtn = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
@@ -55,18 +112,18 @@ public class BookingFrame extends javax.swing.JFrame {
         });
         jPanel1.add(BookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 220, 50));
 
-        jTable1.setModel(new javax.swing.table.DefaultTableModel(
+        BookingRecords.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Date", "Client Name", "Number", "Event", "Price", "Payment Status"
+                "ID", "Date", "Client Name", "Number", "Event", "Package Name", "Price", "Payment Status"
             }
         ));
-        jScrollPane2.setViewportView(jTable1);
+        jScrollPane2.setViewportView(BookingRecords);
 
         jScrollPane3.setViewportView(jScrollPane2);
 
@@ -271,6 +328,7 @@ public class BookingFrame extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BookBtn;
+    private javax.swing.JTable BookingRecords;
     private javax.swing.JButton BtnBooking;
     private javax.swing.JButton BtnCalendar;
     private javax.swing.JButton BtnHome;
@@ -283,6 +341,5 @@ public class BookingFrame extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTable1;
     // End of variables declaration//GEN-END:variables
 }

@@ -36,13 +36,13 @@ public class LaborersFrame extends javax.swing.JFrame {
         jTextLaborersEmail = new javax.swing.JTextField();
         jLabel7 = new javax.swing.JLabel();
         jLabel8 = new javax.swing.JLabel();
+        jPanelPaymentInfo = new javax.swing.JPanel();
+        jButton5 = new javax.swing.JButton();
+        jButton6 = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
         jScrollPane4 = new javax.swing.JScrollPane();
         jScrollPane3 = new javax.swing.JScrollPane();
         jTable2 = new javax.swing.JTable();
-        jPanelPaymentInfo = new javax.swing.JPanel();
-        jButton5 = new javax.swing.JButton();
-        jButton6 = new javax.swing.JButton();
         jButtonAssignEvent = new javax.swing.JButton();
         jButtonRemoveEvent = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
@@ -74,7 +74,7 @@ public class LaborersFrame extends javax.swing.JFrame {
         jPanel1.setBackground(new java.awt.Color(245, 222, 179));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanelLaborerDetails.setBackground(new java.awt.Color(245, 222, 179));
+        jPanelLaborerDetails.setBackground(new java.awt.Color(210, 180, 140));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         jLabel3.setText("Name:");
@@ -151,29 +151,7 @@ public class LaborersFrame extends javax.swing.JFrame {
         jLabel8.setText("ASSIGNMENT & EVENTS");
         jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 40, 150, 10));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel9.setText("PAYMENT INFORMATION");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 180, -1, -1));
-
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null},
-                {null, null, null},
-                {null, null, null},
-                {null, null, null}
-            },
-            new String [] {
-                "Event", "Hours", "Status"
-            }
-        ));
-        jTable2.getTableHeader().setReorderingAllowed(false);
-        jScrollPane3.setViewportView(jTable2);
-
-        jScrollPane4.setViewportView(jScrollPane3);
-
-        jPanel1.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 210, 410, 120));
-
-        jPanelPaymentInfo.setBackground(new java.awt.Color(245, 222, 179));
+        jPanelPaymentInfo.setBackground(new java.awt.Color(210, 180, 140));
         jPanelPaymentInfo.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jButton5.setBackground(new java.awt.Color(205, 133, 63));
@@ -191,7 +169,29 @@ public class LaborersFrame extends javax.swing.JFrame {
         jButton6.setText("Mark as Paid");
         jPanelPaymentInfo.add(jButton6, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 170, -1, -1));
 
-        jPanel1.add(jPanelPaymentInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 170, 430, 200));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel9.setText("PAYMENT INFORMATION");
+        jPanelPaymentInfo.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 10, -1, -1));
+
+        jTable2.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null},
+                {null, null, null},
+                {null, null, null},
+                {null, null, null}
+            },
+            new String [] {
+                "Event", "Hours", "Status"
+            }
+        ));
+        jTable2.getTableHeader().setReorderingAllowed(false);
+        jScrollPane3.setViewportView(jTable2);
+
+        jScrollPane4.setViewportView(jScrollPane3);
+
+        jPanelPaymentInfo.add(jScrollPane4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 60, 410, 80));
+
+        jPanel1.add(jPanelPaymentInfo, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 200, 510, 200));
 
         jButtonAssignEvent.setBackground(new java.awt.Color(205, 133, 63));
         jButtonAssignEvent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -231,7 +231,7 @@ public class LaborersFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 60, 410, 110));
 
-        jPanelAssignmetAndEvents.setBackground(new java.awt.Color(245, 222, 179));
+        jPanelAssignmetAndEvents.setBackground(new java.awt.Color(210, 180, 140));
 
         javax.swing.GroupLayout jPanelAssignmetAndEventsLayout = new javax.swing.GroupLayout(jPanelAssignmetAndEvents);
         jPanelAssignmetAndEvents.setLayout(jPanelAssignmetAndEventsLayout);
@@ -280,7 +280,7 @@ public class LaborersFrame extends javax.swing.JFrame {
 
         jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(602, 270, 420, 120));
 
-        jPanelLaborerList.setBackground(new java.awt.Color(245, 222, 179));
+        jPanelLaborerList.setBackground(new java.awt.Color(210, 180, 140));
 
         javax.swing.GroupLayout jPanelLaborerListLayout = new javax.swing.GroupLayout(jPanelLaborerList);
         jPanelLaborerList.setLayout(jPanelLaborerListLayout);
