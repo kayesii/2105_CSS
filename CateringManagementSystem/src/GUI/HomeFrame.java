@@ -7,6 +7,7 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import javax.swing.JOptionPane;
 import java.sql.ResultSet;
+import java.text.SimpleDateFormat;
 
 
 public class HomeFrame extends javax.swing.JFrame {
@@ -90,11 +91,11 @@ public class HomeFrame extends javax.swing.JFrame {
         txtClientNumber = new javax.swing.JTextField();
         jLabel5 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        txtDate = new javax.swing.JTextField();
         jLabel11 = new javax.swing.JLabel();
         pickStatus = new javax.swing.JComboBox<>();
         SearchBtn = new javax.swing.JButton();
         txtEventName = new javax.swing.JTextField();
+        jCalendarComboBox1 = new de.wannawork.jcalendar.JCalendarComboBox();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
@@ -260,14 +261,6 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel2.setText("Event");
         jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 270, 40, 20));
 
-        txtDate.setText("YYYY-MM-DD");
-        txtDate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtDateActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtDate, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 240, 130, 30));
-
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Status");
         jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 60, -1));
@@ -290,6 +283,7 @@ public class HomeFrame extends javax.swing.JFrame {
             }
         });
         jPanel1.add(txtEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 290, 390, 30));
+        jPanel1.add(jCalendarComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 240, 160, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -342,99 +336,112 @@ public class HomeFrame extends javax.swing.JFrame {
 
     private void UpdateReservationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateReservationBtnActionPerformed
     String reservationID = txtReservationID.getText().trim();
-    String clientName = txtClientName.getText().trim();
-    String clientNumber = txtClientNumber.getText().trim();
-    String eventName = txtEventName.getText().trim();
-    String reservationDate = txtDate.getText().trim();
-    String status = pickStatus.getSelectedItem().toString().trim();
+String clientName = txtClientName.getText().trim();
+String clientNumber = txtClientNumber.getText().trim();
+String eventName = txtEventName.getText().trim();
+String status = pickStatus.getSelectedItem().toString().trim();
 
-    // Check if any field is empty
-    if (reservationID.isEmpty() || clientName.isEmpty() || clientNumber.isEmpty() ||
-        eventName.isEmpty() || reservationDate.isEmpty() || status.isEmpty()) {
-        JOptionPane.showMessageDialog(this, "Please fill all fields to update the reservation.", "Input Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+// Step 4: Get and validate Date from Calendar Picker
+java.util.Date eventDate = jCalendarComboBox1.getDate(); // Get date from the calendar picker
+if (eventDate == null) {
+    JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-    try {
-        // Establish the database connection
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+// Convert java.util.Date to java.sql.Date for database storage
+java.sql.Date sqlEventDate = new java.sql.Date(eventDate.getTime());
 
-        // Query to get the ClientID based on the ReservationID
-        String getClientQuery = "SELECT ClientID FROM reservation WHERE ReservationID = ?";
-        PreparedStatement psGetClient = con.prepareStatement(getClientQuery);
-        psGetClient.setInt(1, Integer.parseInt(reservationID));
-        ResultSet rsClient = psGetClient.executeQuery();
+// Check if any field is empty
+if (reservationID.isEmpty() || clientName.isEmpty() || clientNumber.isEmpty() || 
+    eventName.isEmpty() || status.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Please fill all fields to update the reservation.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-        // Check if a reservation with the given ReservationID exists
-        if (rsClient.next()) {
-            // Get the ClientID from the reservation
-            int clientID = rsClient.getInt("ClientID");
+try {
+    // Establish the database connection
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
 
-            // Update query for the client table
-            String updateClientQuery = "UPDATE client SET ClientName = ?, ClientNumber = ? WHERE ClientID = ?";
-            PreparedStatement psClient = con.prepareStatement(updateClientQuery);
-            psClient.setString(1, clientName);
-            psClient.setString(2, clientNumber);
-            psClient.setInt(3, clientID); // Use the retrieved ClientID
-            int clientUpdateCount = psClient.executeUpdate();
+    // Query to get the ClientID based on the ReservationID
+    String getClientQuery = "SELECT ClientID FROM reservation WHERE ReservationID = ?";
+    PreparedStatement psGetClient = con.prepareStatement(getClientQuery);
+    psGetClient.setInt(1, Integer.parseInt(reservationID));
+    ResultSet rsClient = psGetClient.executeQuery();
 
-            // Update query for the reservation_list table
-            String updateReservationQuery = "UPDATE reservation SET EventName = ?, ReservationDate = ?, Status = ? WHERE ReservationID = ?";
-            PreparedStatement psReservation = con.prepareStatement(updateReservationQuery);
-            psReservation.setString(1, eventName);
-            psReservation.setString(2, reservationDate);
-            psReservation.setString(3, status);
-            psReservation.setInt(4, Integer.parseInt(reservationID));
-            int reservationUpdateCount = psReservation.executeUpdate();
+    // Check if a reservation with the given ReservationID exists
+    if (rsClient.next()) {
+        // Get the ClientID from the reservation
+        int clientID = rsClient.getInt("ClientID");
 
-            // Check if the update was successful
-            if (clientUpdateCount > 0 && reservationUpdateCount > 0) {
-                JOptionPane.showMessageDialog(this, "Reservation and client details updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to update reservation. Please check the input.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+        // Update query for the client table
+        String updateClientQuery = "UPDATE client SET ClientName = ?, ClientNumber = ? WHERE ClientID = ?";
+        PreparedStatement psClient = con.prepareStatement(updateClientQuery);
+        psClient.setString(1, clientName);
+        psClient.setString(2, clientNumber);
+        psClient.setInt(3, clientID); // Use the retrieved ClientID
+        int clientUpdateCount = psClient.executeUpdate();
 
-            // Close the connections
-            psClient.close();
-            psReservation.close();
-            psGetClient.close();
-            con.close();
-            
-            dispose();
-                    HomeFrame home = new HomeFrame(); 
-                    home.setVisible(true); 
-                    home.setLocationRelativeTo(null); // Center the HomeFrame
+        // Update query for the reservation table
+        String updateReservationQuery = "UPDATE reservation SET EventName = ?, ReservationDate = ?, Status = ? WHERE ReservationID = ?";
+        PreparedStatement psReservation = con.prepareStatement(updateReservationQuery);
+        psReservation.setString(1, eventName);
+        psReservation.setDate(2, sqlEventDate); // Use the formatted SQL Date
+        psReservation.setString(3, status);
+        psReservation.setInt(4, Integer.parseInt(reservationID));
+        int reservationUpdateCount = psReservation.executeUpdate();
+
+        // Check if the update was successful
+        if (clientUpdateCount > 0 && reservationUpdateCount > 0) {
+            JOptionPane.showMessageDialog(this, "Reservation and client details updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Reservation not found. Please check the ReservationID.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Failed to update reservation. Please check the input.", "Error", JOptionPane.ERROR_MESSAGE);
         }
 
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error updating reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        // Close the connections
+        psClient.close();
+        psReservation.close();
+        psGetClient.close();
+        con.close();
+        
+        dispose();
+        HomeFrame home = new HomeFrame(); 
+        home.setVisible(true); 
+        home.setLocationRelativeTo(null); // Center the HomeFrame
+    } else {
+        JOptionPane.showMessageDialog(this, "Reservation not found. Please check the ReservationID.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+} catch (Exception ex) {
+    JOptionPane.showMessageDialog(this, "Error updating reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+}
+
     }//GEN-LAST:event_UpdateReservationBtnActionPerformed
 
     private void ReserveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserveBtnActionPerformed
         // Get input data from text fields
-String ClientName = txtClientName.getText().trim();              
-String ClientNumber = txtClientNumber.getText().trim();         
-String EventName = txtEventName.getText().trim(); 
-String ReservationDate = txtDate.getText().trim();
-String Status = pickStatus.getSelectedItem().toString();
+String ClientName = txtClientName.getText().trim();
+String ClientNumber = txtClientNumber.getText().trim();
+String EventName = txtEventName.getText().trim();
+String Status = pickStatus.getSelectedItem().toString().trim();
 
-// Validate input fields
-if (ClientName.isEmpty() || ClientNumber.isEmpty() || EventName.isEmpty() || ReservationDate.isEmpty() || Status.isEmpty()) {
-    JOptionPane.showMessageDialog(this, 
-        "Please fill in all fields.", 
-        "Reservation Error", 
-        JOptionPane.ERROR_MESSAGE);
+// Retrieve the selected date from jCalendarComboBox1
+java.util.Date eventDate = jCalendarComboBox1.getDate(); // Get date from the calendar picker
+
+// Validate date selection
+if (eventDate == null) {
+    JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
     return;
 }
 
-// Validate date format (YYYY-MM-DD)
-if (!ReservationDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
+// Format the date to "YYYY-MM-DD" before using it in the database
+SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+String formattedDate = sdf.format(eventDate);
+
+// Validate other inputs
+if (ClientName.isEmpty() || ClientNumber.isEmpty() || EventName.isEmpty() || Status.isEmpty()) {
     JOptionPane.showMessageDialog(this, 
-        "Invalid date format. Please use YYYY-MM-DD.", 
-        "Date Error", 
+        "Please fill in all fields.", 
+        "Reservation Error", 
         JOptionPane.ERROR_MESSAGE);
     return;
 }
@@ -454,14 +461,13 @@ try {
     if (rs.next()) {
         clientID = rs.getInt("ClientID");
     } else {
-        // If the client does not exist, register them
+        // Register a new client if not found
         String insertClientQuery = "INSERT INTO CLIENT (ClientName, ClientNumber) VALUES (?, ?)";
         PreparedStatement insertClientStmt = con.prepareStatement(insertClientQuery, PreparedStatement.RETURN_GENERATED_KEYS);
         insertClientStmt.setString(1, ClientName);
         insertClientStmt.setString(2, ClientNumber);
 
         int rowsInserted = insertClientStmt.executeUpdate();
-
         if (rowsInserted > 0) {
             ResultSet generatedKeys = insertClientStmt.getGeneratedKeys();
             if (generatedKeys.next()) {
@@ -472,33 +478,32 @@ try {
                 "Failed to register the client. Reservation aborted.", 
                 "Error", 
                 JOptionPane.ERROR_MESSAGE);
-            return; // Exit if the client registration fails
+            return;
         }
     }
 
-    // Now proceed with the reservation
+    // Insert reservation data
     String query = "INSERT INTO RESERVATION (ClientID, EventName, ReservationDate, Status) " +
                    "VALUES (?, ?, ?, ?)";
     PreparedStatement pst = con.prepareStatement(query);
-    pst.setInt(1, clientID);              // Use the retrieved or newly created ClientID
-    pst.setString(2, EventName);          // Set the event name
-    pst.setString(3, ReservationDate);    // Set the reservation date
-    pst.setString(4, Status);             // Set the status
+    pst.setInt(1, clientID);
+    pst.setString(2, EventName);
+    pst.setString(3, formattedDate); // Use the formatted date
+    pst.setString(4, Status);
 
     int rowsInserted = pst.executeUpdate();
-
     if (rowsInserted > 0) {
         JOptionPane.showMessageDialog(this, 
             "Reservation saved successfully!", 
             "Success", 
             JOptionPane.INFORMATION_MESSAGE);
 
-        // Clear the input fields after saving
+        // Clear fields after saving
         txtClientName.setText("");
         txtClientNumber.setText("");
         txtEventName.setText("");
-        txtDate.setText("");  // Clear the date input field
-        pickStatus.setSelectedIndex(0);  // Reset dropdown to default
+        jCalendarComboBox1.setDate(null);       // Clear the calendar picker
+        pickStatus.setSelectedIndex(0);         // Reset status combo box
     } else {
         JOptionPane.showMessageDialog(this, 
             "Failed to save the reservation.", 
@@ -528,10 +533,6 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtClientNumberActionPerformed
 
-    private void txtDateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtDateActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtDateActionPerformed
-
     private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
         BtnLaborer.addActionListener(new ActionListener() {
         public void actionPerformed(ActionEvent e) {
@@ -548,47 +549,52 @@ try {
     }//GEN-LAST:event_txtEventNameActionPerformed
 
     private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
-        String reservationID = txtReservationID.getText().trim();
+       String reservationID = txtReservationID.getText().trim();
 
-        if (reservationID.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a Reservation ID.", "Input Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+if (reservationID.isEmpty()) {
+    JOptionPane.showMessageDialog(this, "Please enter a Reservation ID.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-        try {
-            // Establish the database connection
-            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+try {
+    // Establish the database connection
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
 
-            // SQL query with JOIN to retrieve data from both tables
-            String query = "SELECT c.ClientName, c.ClientNumber, r.EventName, r.ReservationDate, r.Status " +
-            "FROM client c " +
-            "INNER JOIN reservation r ON c.ClientID = r.ClientID " +
-            "WHERE r.ReservationID = ?";
+    // SQL query with JOIN to retrieve data from both tables
+    String query = "SELECT c.ClientName, c.ClientNumber, r.EventName, r.ReservationDate, r.Status " +
+                   "FROM client c " +
+                   "INNER JOIN reservation r ON c.ClientID = r.ClientID " +
+                   "WHERE r.ReservationID = ?";
 
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, reservationID);
+    PreparedStatement ps = con.prepareStatement(query);
+    ps.setString(1, reservationID);
 
-            ResultSet rs = ps.executeQuery();
+    ResultSet rs = ps.executeQuery();
 
-            if (rs.next()) {
-                // Retrieve data from the ResultSet using the correct column names
-                txtClientName.setText(rs.getString("ClientName"));
-                txtClientNumber.setText(rs.getString("ClientNumber"));
-                txtEventName.setText(rs.getString("EventName"));
-                txtDate.setText(rs.getString("ReservationDate"));
-                pickStatus.setSelectedItem(rs.getString("Status"));
-            } else {
-                JOptionPane.showMessageDialog(this, "No reservation found with the given ID.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
+    if (rs.next()) {
+        // Retrieve data from the ResultSet using the correct column names
+        txtClientName.setText(rs.getString("ClientName"));
+        txtClientNumber.setText(rs.getString("ClientNumber"));
+        txtEventName.setText(rs.getString("EventName"));
 
-            // Close the connections
-            rs.close();
-            ps.close();
-            con.close();
+        // Retrieve and set the event date to the jCalendarComboBox1
+        java.util.Date eventDate = rs.getDate("ReservationDate"); // Get date from the result set
+        jCalendarComboBox1.setDate(eventDate); // Set the date to the calendar combo box
+        
+        pickStatus.setSelectedItem(rs.getString("Status"));
+    } else {
+        JOptionPane.showMessageDialog(this, "No reservation found with the given ID.", "Error", JOptionPane.ERROR_MESSAGE);
+    }
 
-        } catch (Exception ex) {
-            JOptionPane.showMessageDialog(this, "Error searching reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        }
+    // Close the connections
+    rs.close();
+    ps.close();
+    con.close();
+
+} catch (Exception ex) {
+    JOptionPane.showMessageDialog(this, "Error searching reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+}
+
     }//GEN-LAST:event_SearchBtnActionPerformed
 
     /**
@@ -606,6 +612,7 @@ try {
     private javax.swing.JButton ReserveBtn;
     private javax.swing.JButton SearchBtn;
     private javax.swing.JButton UpdateReservationBtn;
+    private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
@@ -622,7 +629,6 @@ try {
     private javax.swing.JComboBox<String> pickStatus;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientNumber;
-    private javax.swing.JTextField txtDate;
     private javax.swing.JTextField txtEventName;
     private javax.swing.JTextField txtReservationID;
     // End of variables declaration//GEN-END:variables
