@@ -204,7 +204,7 @@ public class LaborersFrame extends javax.swing.JFrame {
         jPanelLaborerDetails.add(txtHourlyRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, 200, -1));
         jPanelLaborerDetails.add(txtLaborerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 300, -1));
 
-        cmbStatusPay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Paid", "Unpaid" }));
+        cmbStatusPay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Unpaid", "Paid" }));
         jPanelLaborerDetails.add(cmbStatusPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, 150, 20));
 
         jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -446,8 +446,7 @@ public class LaborersFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchLaborerActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
-   // Assuming cmbStatus is for the "Status" field and cmbStatusPay is for the "StatusPay" field
-String name = txtName.getText().trim();
+     String name = txtName.getText().trim();
 String phone = txtPhone.getText().trim();
 String role = cmbRole.getSelectedItem().toString();
 String status = cmbStatus.getSelectedItem().toString(); // This is for "Active" or "Inactive"
@@ -477,37 +476,30 @@ try {
     return;
 }
 
-// Query to get the first booking for the laborer based on the lowest BookingId (or based on date if you want)
-String firstBookingQuery = "SELECT BookingId FROM booking_laborer WHERE LaborerID = ? ORDER BY BookingId ASC LIMIT 1";
+// Query to update the laborer's personal information
+String updateLaborerQuery = "UPDATE laborer SET Name = ?, PhoneNumber = ?, Role = ?, Status = ?, HourlyRate = ? WHERE LaborerID = ?";
 
 try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
-     PreparedStatement ps1 = con.prepareStatement(firstBookingQuery)) {
+     PreparedStatement ps = con.prepareStatement(updateLaborerQuery)) {
 
-    ps1.setInt(1, laborerId);
-    ResultSet rs = ps1.executeQuery();
+    // Set parameters for the update query
+    ps.setString(1, name);
+    ps.setString(2, phone);
+    ps.setString(3, role);
+    ps.setString(4, status); // "Active" or "Inactive"
+    ps.setDouble(5, hourlyRate);
+    ps.setInt(6, laborerId);
 
-    if (rs.next()) {
-        int firstBookingId = rs.getInt("BookingId"); // Get the first BookingId
+    // Execute the update
+    int rowsUpdated = ps.executeUpdate();
 
-        // Now update the first booking's StatusPay to "Paid" or "Unpaid"
-        String updateQuery = "UPDATE booking_laborer SET StatusPay = ? WHERE LaborerID = ? AND BookingId = ?";
-
-        try (PreparedStatement ps2 = con.prepareStatement(updateQuery)) {
-            ps2.setString(1, statusPay); // "Paid" or "Unpaid"
-            ps2.setInt(2, laborerId);
-            ps2.setInt(3, firstBookingId); // Update only the first booking
-
-            int rowsUpdated = ps2.executeUpdate();
-            if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(this, "Status updated for first booking!", "Success", JOptionPane.INFORMATION_MESSAGE);
-                loadLaborerToTable(); // Reload the table after update
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to update status. No matching booking found.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-        }
+    if (rowsUpdated > 0) {
+        JOptionPane.showMessageDialog(this, "Laborer information updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
     } else {
-        JOptionPane.showMessageDialog(this, "No bookings found for this laborer.", "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Failed to update laborer information. Please check the Laborer ID.", "Error", JOptionPane.ERROR_MESSAGE);
     }
+
+    loadLaborerToTable(); // Reload the table after update
 
 } catch (SQLException ex) {
     JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
