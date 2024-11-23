@@ -179,32 +179,62 @@ public class ReservationCalendar extends javax.swing.JFrame {
     }
 
     private void showCalendar(Calendar calendar) {
-        int month = calendar.get(Calendar.MONTH);
-        int year = calendar.get(Calendar.YEAR);
+    int month = calendar.get(Calendar.MONTH);
+    int year = calendar.get(Calendar.YEAR);
 
-        labelMonth.setText(new SimpleDateFormat("MMMM").format(calendar.getTime()));
-        labelYear.setText(String.valueOf(year));
+    labelMonth.setText(new SimpleDateFormat("MMMM").format(calendar.getTime()));
+    labelYear.setText(String.valueOf(year));
 
-        calendar.set(year, month, 1);
-        int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-        int numberOfDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+    calendar.set(year, month, 1);
+    int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+    int numberOfDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-        DefaultTableModel model = (DefaultTableModel) calendarTable.getModel();
-        model.setRowCount(6);
-        model.setColumnCount(7);
+    DefaultTableModel model = (DefaultTableModel) calendarTable.getModel();
+    model.setRowCount(6);
+    model.setColumnCount(7);
 
-        int day = 1;
-        for (int i = 0; i < 6; i++) {
-            for (int j = 0; j < 7; j++) {
-                if (i == 0 && j < firstDayOfWeek || day > numberOfDays) {
-                    model.setValueAt("", i, j);
+    int day = 1;
+    for (int i = 0; i < 6; i++) {
+        for (int j = 0; j < 7; j++) {
+            if (i == 0 && j < firstDayOfWeek || day > numberOfDays) {
+                model.setValueAt("", i, j);
+            } else {
+                String date = String.format("%d-%02d-%02d", year, month + 1, day);
+                model.setValueAt(day, i, j);
+
+                // Check if the current day is reserved
+                if (isDateReserved(date)) {
+                    calendarTable.setCellSelectionEnabled(false); // Disable cell selection
+                    // Set the background color to red for reserved dates
+                    calendarTable.getCellRenderer(i, j).getTableCellRendererComponent(calendarTable, day, false, false, i, j)
+                            .setBackground(Color.RED);
                 } else {
-                    model.setValueAt(day, i, j);
-                    day++;
+                    calendarTable.getCellRenderer(i, j).getTableCellRendererComponent(calendarTable, day, false, false, i, j)
+                            .setBackground(null); // Reset to default background
                 }
+                day++;
             }
         }
     }
+}
+
+// Helper method to check if a date is reserved
+private boolean isDateReserved(String date) {
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+        String query = "SELECT COUNT(*) FROM reservation WHERE ReservationDate = ?";
+        PreparedStatement pst = con.prepareStatement(query);
+        pst.setString(1, date);
+        ResultSet rs = pst.executeQuery();
+
+        if (rs.next()) {
+            return rs.getInt(1) > 0; // Return true if the date is reserved
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(this, "Error checking reservation status: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
+    return false; // Return false if there's no reservation for the date
+}
+
 
     private void searchReservations(String inputDate) {
         if (!inputDate.matches("\\d{4}-\\d{2}-\\d{2}")) {

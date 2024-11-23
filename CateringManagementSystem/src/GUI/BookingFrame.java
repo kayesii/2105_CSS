@@ -10,7 +10,8 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-
+import javax.swing.JButton;
+import javax.swing.table.DefaultTableModel;
 public class BookingFrame extends javax.swing.JFrame {
 
     /**
@@ -72,6 +73,122 @@ public class BookingFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error loading reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+    
+    private void loadUpcomingBookingsToTable() {
+    try {
+        // Establish the database connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+
+        // Query to fetch only upcoming events (where EventDate is greater than the current date)
+        String query = """
+                SELECT 
+                    b.BookingId,
+                    b.EventDate,
+                    c.ClientName,
+                    c.ClientNumber,
+                    b.Theme AS Event,           -- Fetch Theme for the Event column
+                    p.PackageName,              -- Fetch Package Name
+                    b.TotalPrice AS Price,
+                    b.Status
+                FROM booking b
+                INNER JOIN client c ON b.ClientID = c.ClientID
+                INNER JOIN packages p ON b.PackageId = p.PackageID
+                WHERE b.EventDate >= CURDATE() -- Only upcoming events
+                ORDER BY b.EventDate ASC        -- Sort by EventDate (ascending)
+                """;
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        // Create a DefaultTableModel
+        DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
+
+        // Iterate through the result set and add rows to the table model
+        while (rs.next()) {
+            model.addRow(new Object[]{
+                rs.getInt("BookingId"),         // ID
+                rs.getString("EventDate"),      // Date
+                rs.getString("ClientName"),     // Client Name
+                rs.getString("ClientNumber"),   // Number
+                rs.getString("Event"),          // Event (Theme)
+                rs.getString("PackageName"),    // Package Name
+                rs.getDouble("Price"),          // Total Price
+                rs.getString("Status")          // Payment Status
+            });
+        }
+
+        // Close connections
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error loading upcoming reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
+    private void filterBookingsByPaymentStatus(String paymentStatus) {
+    try {
+        // Establish the database connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+
+        // Prepare the query based on the selected payment status
+        String query = """
+                SELECT 
+                    b.BookingId,
+                    b.EventDate,
+                    c.ClientName,
+                    c.ClientNumber,
+                    b.Theme AS Event,           -- Fetch Theme for the Event column
+                    p.PackageName,              -- Fetch Package Name
+                    b.TotalPrice AS Price,
+                    b.Status
+                FROM booking b
+                INNER JOIN client c ON b.ClientID = c.ClientID
+                INNER JOIN packages p ON b.PackageId = p.PackageID
+                """;
+
+        // If the user selects a status, we add a WHERE clause to filter by that status
+        if (!paymentStatus.equals("All")) {
+            query += " WHERE b.Status = ?";
+        }
+
+        PreparedStatement ps = con.prepareStatement(query);
+
+        // If filtering by status, set the parameter
+        if (!paymentStatus.equals("All")) {
+            ps.setString(1, paymentStatus);
+        }
+
+        ResultSet rs = ps.executeQuery();
+
+        // Create a DefaultTableModel
+        DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        // Iterate through the result set and add rows to the table model
+        while (rs.next()) {
+            model.addRow(new Object[]{
+                rs.getInt("BookingId"),         // ID
+                rs.getString("EventDate"),      // Date
+                rs.getString("ClientName"),     // Client Name
+                rs.getString("ClientNumber"),   // Number
+                rs.getString("Event"),          // Event (Theme)
+                rs.getString("PackageName"),    // Package Name
+                rs.getDouble("Price"),          // Total Price
+                rs.getString("Status")          // Payment Status
+            });
+        }
+
+        // Close connections
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error loading reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -82,11 +199,13 @@ public class BookingFrame extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        BookBtn = new javax.swing.JButton();
         jScrollPane3 = new javax.swing.JScrollPane();
         jScrollPane2 = new javax.swing.JScrollPane();
         BookingRecords = new javax.swing.JTable();
-        RecordBtn = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        SORTBYUPCOMINGEVENT = new javax.swing.JButton();
+        Status = new javax.swing.JComboBox<>();
+        SearchByStatus = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
         BtnPackages = new javax.swing.JButton();
@@ -101,16 +220,6 @@ public class BookingFrame extends javax.swing.JFrame {
 
         jPanel1.setBackground(new java.awt.Color(245, 222, 179));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        BookBtn.setBackground(new java.awt.Color(210, 180, 140));
-        BookBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BookBtn.setText("Book");
-        BookBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BookBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(BookBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 0, 220, 50));
 
         BookingRecords.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -127,17 +236,30 @@ public class BookingFrame extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jScrollPane2);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 1050, 360));
+        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 910, 350));
 
-        RecordBtn.setBackground(new java.awt.Color(205, 133, 63));
-        RecordBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        RecordBtn.setText("Records");
-        RecordBtn.addActionListener(new java.awt.event.ActionListener() {
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel12.setText("Booking Records");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 150, -1));
+
+        SORTBYUPCOMINGEVENT.setText("Upcoming Events");
+        SORTBYUPCOMINGEVENT.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecordBtnActionPerformed(evt);
+                SORTBYUPCOMINGEVENTActionPerformed(evt);
             }
         });
-        jPanel1.add(RecordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 220, 50));
+        jPanel1.add(SORTBYUPCOMINGEVENT, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, 140, 40));
+
+        Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
+        jPanel1.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 150, 120, 30));
+
+        SearchByStatus.setText("Search");
+        SearchByStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchByStatusActionPerformed(evt);
+            }
+        });
+        jPanel1.add(SearchByStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 180, 120, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -211,28 +333,6 @@ public class BookingFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void BookBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BookBtnActionPerformed
-        BookBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                BookingProcess booking = new BookingProcess();
-                booking.setVisible(true);
-                booking.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BookBtnActionPerformed
-
-    private void RecordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordBtnActionPerformed
-        RecordBtn.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                BookingFrame records = new BookingFrame();
-                records.setVisible(true);
-                records.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_RecordBtnActionPerformed
-
     private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
         BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -288,6 +388,27 @@ public class BookingFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_BtnLaborerActionPerformed
 
+    private void SORTBYUPCOMINGEVENTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SORTBYUPCOMINGEVENTActionPerformed
+      // Clear the existing data in the table
+    DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
+    model.setRowCount(0); // Clear existing rows
+
+    // Now reload the upcoming events into the table
+    loadUpcomingBookingsToTable(); // Call your method to fetch data from the database and refresh the table
+
+    }//GEN-LAST:event_SORTBYUPCOMINGEVENTActionPerformed
+
+    private void SearchByStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchByStatusActionPerformed
+   // Add an ActionListener to the button
+SearchByStatus.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String selectedStatus = (String) Status.getSelectedItem();  // Get the selected status from the combo box
+        filterBookingsByPaymentStatus(selectedStatus);  // Call the method to filter the bookings by selected status
+    }
+});
+    }//GEN-LAST:event_SearchByStatusActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -327,14 +448,16 @@ public class BookingFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BookBtn;
     private javax.swing.JTable BookingRecords;
     private javax.swing.JButton BtnBooking;
     private javax.swing.JButton BtnCalendar;
     private javax.swing.JButton BtnHome;
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
-    private javax.swing.JButton RecordBtn;
+    private javax.swing.JButton SORTBYUPCOMINGEVENT;
+    private javax.swing.JButton SearchByStatus;
+    private javax.swing.JComboBox<String> Status;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
