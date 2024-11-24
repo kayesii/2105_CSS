@@ -388,7 +388,7 @@ public class BookingFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 120, 40));
 
-        BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
+        BtnBooking.setBackground(new java.awt.Color(205, 133, 63));
         BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnBooking.setText("BOOKING");
         BtnBooking.setBorder(null);
@@ -399,7 +399,7 @@ public class BookingFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 120, 40));
 
-        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
+        BtnHome.setBackground(new java.awt.Color(210, 180, 140));
         BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnHome.setText("HOME");
         BtnHome.setBorder(null);
@@ -493,7 +493,7 @@ SearchByStatus.addActionListener(new ActionListener() {
         BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ReservationCalendar calendar = new ReservationCalendar();
+                CalendarTable calendar = new CalendarTable();
                 calendar.setVisible(true);
                 calendar.setLocationRelativeTo(null); // Center the SignUP frame
             }

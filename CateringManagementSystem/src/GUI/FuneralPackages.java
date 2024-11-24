@@ -24,213 +24,60 @@ public class FuneralPackages extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jPanel3 = new javax.swing.JPanel();
-        jLabel3 = new javax.swing.JLabel();
-        jScrollPane3 = new javax.swing.JScrollPane();
+        jLabel12 = new javax.swing.JLabel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTableFuneral = new javax.swing.JTable();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
-        BtnCalendar = new javax.swing.JButton();
-        BtnPackages = new javax.swing.JButton();
-        BtnBooking = new javax.swing.JButton();
-        BtnHome = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        BtnLaborer = new javax.swing.JButton();
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setText("Sort");
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setLocation(new java.awt.Point(250, 125));
+        setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 540));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(245, 222, 179));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(210, 180, 140));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("\tThis package is designed to provide a respectful and comforting \natmosphere for your loved ones during a difficult time.\n\nFood Menu:\n-Chicken Adobo: A savory Filipino classic.\n-Beef Caldereta: Tender beef in a rich tomato-based sauce.\n-Pancit Canton: A mild noodle dish with vegetables and meats.\n\nSnacks:\n-Lumpiang Shanghai: Crispy spring rolls.\n-Puto & Kutsinta: Soft, sweet rice cakes.\n\nBeverages:\n-Coffee Station: Freshly brewed coffee with sugar and cream.\n-Assorted Tea: A selection of calming teas.\n\nSetting & Decor:\n-Simple white tablecloths with black accents.\n-Floral centerpieces (white lilies/chrysanthemums) and candles for a serene \natmosphere.\n\n\tThis package ensures a peaceful, dignified environment, offering \ncomfort through food, drinks, and a simple yet elegant setup.\n");
+        jScrollPane1.setViewportView(jTextArea1);
 
-        jPanel3.setBackground(new java.awt.Color(205, 133, 63));
-        jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 540, 290));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Funeral Packages");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 0, -1, 30));
+        jLabel2.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel2.setText("Serenity Farewell Package");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, 660, 60));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, 1040, 30));
+        jLabel3.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel3.setText("Palates & Plates Packages");
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 620, 60));
 
-        jScrollPane3.setHorizontalScrollBarPolicy(javax.swing.ScrollPaneConstants.HORIZONTAL_SCROLLBAR_NEVER);
-        jScrollPane3.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
-        jScrollPane3.setViewportBorder(javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0)));
-        jScrollPane3.setHorizontalScrollBar(null);
-        jScrollPane3.setViewportView(jTableFuneral);
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Package Id: 1");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, 50));
 
-        jTableFuneral.setBorder(javax.swing.BorderFactory.createCompoundBorder(new javax.swing.border.LineBorder(new java.awt.Color(0, 0, 0), 1, true), javax.swing.BorderFactory.createLineBorder(new java.awt.Color(0, 0, 0))));
-        jTableFuneral.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"Food Menu", "Tea/Coffee, Light Snacks, Soup", "Tea/Coffee, Assorted Sandwiches, Pastries, Soup", "Tea/Coffee, Assorted Sandwiches, Pastries, Full Buffet"},
-                {"Seating", "20 chairs, basic layout", "40 chairs, round tables, arranged seating", "60 chairs, banquet tables, elegant layout"},
-                {"Tables", "3 tables, basic covers ", "6 tables, white linen covers", "60 chairs, banquet tables, elegant layout"},
-                {"Decor", "Basic floral arrangement", "Modest floral setup, candle lighting", "Full floral setup, decorative lighting, personalized decor"},
-                {"Tableware", "Disposable cups and plates", "Crockery and glassware", "Premium crockery, glassware, and table settings"},
-                {"Laborers", "2 service staff", "4 service staff", "6 service staff"},
-                {"Amenities", "Simple linens, disposable utensils", "Linen tablecloths, cutlery", "Full table settings, assistance for guests"},
-                {"Additional Options", "None", "Guest book, small remembrance display", "Custom remembrance area, video tribute setup"},
-                {"Price Estimate", "$300", "$500", "$800"}
-            },
-            new String [] {
-                "Package", "Basic Funeral", "Standard Funeral", "Premium Funeral"
-            }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, true, true, true
-            };
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("₱300 per guest");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, 50));
 
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
-        jTableFuneral.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
-        jTableFuneral.setFillsViewportHeight(true);
-        jTableFuneral.setGridColor(new java.awt.Color(0, 0, 0));
-        jTableFuneral.setPreferredSize(new java.awt.Dimension(300, 342));
-        jTableFuneral.setRowHeight(35);
-        jTableFuneral.setRowSelectionAllowed(false);
-        jTableFuneral.setSelectionBackground(new java.awt.Color(204, 102, 0));
-        jTableFuneral.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTableFuneral.setSelectionMode(javax.swing.ListSelectionModel.SINGLE_SELECTION);
-        jTableFuneral.setShowGrid(true);
-        jTableFuneral.getTableHeader().setReorderingAllowed(false);
-        jScrollPane1.setViewportView(jTableFuneral);
-
-        jScrollPane3.setViewportView(jScrollPane1);
-
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 60, 1040, 370));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Package Name Basic Funeral Package Package Price Php 15,000 (Price can be adjusted based on regional costs.) Inclusions Venue Setup Simple and elegant table arrangements. Basic floral centerpiece .png"))); // NOI18N
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 410));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, -40, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
-        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnCalendar.setText("CALENDAR");
-        BtnCalendar.setBorder(null);
-        BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCalendarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 140, 40));
-
-        BtnPackages.setBackground(new java.awt.Color(205, 133, 63));
-        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnPackages.setText("PACKAGES");
-        BtnPackages.setBorder(null);
-        BtnPackages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnPackagesActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 140, 40));
-
-        BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
-        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnBooking.setText("BOOKING");
-        BtnBooking.setBorder(null);
-        BtnBooking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBookingActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
-
-        BtnHome.setBackground(new java.awt.Color(210, 180, 140));
-        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnHome.setText("HOME");
-        BtnHome.setBorder(null);
-        BtnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnHomeActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 140, 40));
-
-        jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel8.setText("PALATES  ");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
-
-        jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel6.setText("&   plates");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
-
-        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
-        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnLaborer.setText("LABOR");
-        BtnLaborer.setBorder(null);
-        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLaborerActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
-        BtnCalendar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                ReservationCalendar calendar = new ReservationCalendar();
-                calendar.setVisible(true);
-                calendar.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnCalendarActionPerformed
-
-    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
-        BtnPackages.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                PackagesFrame packages = new PackagesFrame();
-                packages.setVisible(true);
-                packages.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnPackagesActionPerformed
-
-    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
-        BtnBooking.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                BookingFrame bookingF = new BookingFrame();
-                bookingF.setVisible(true);
-                bookingF.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnBookingActionPerformed
-
-    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
-        BtnHome.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                HomeFrame home = new HomeFrame();
-                home.setVisible(true);
-                home.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnHomeActionPerformed
-
-    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
-        BtnLaborer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LaborersFrame laborer = new LaborersFrame();
-                laborer.setVisible(true);
-                laborer .setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnLaborerActionPerformed
 
     /**
      * @param args the command line arguments
@@ -271,19 +118,15 @@ public class FuneralPackages extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton BtnBooking;
-    private javax.swing.JButton BtnCalendar;
-    private javax.swing.JButton BtnHome;
-    private javax.swing.JButton BtnLaborer;
-    private javax.swing.JButton BtnPackages;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JPanel jPanel3;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JScrollPane jScrollPane3;
-    private javax.swing.JTable jTableFuneral;
+    private javax.swing.JTextArea jTextArea1;
     // End of variables declaration//GEN-END:variables
 }

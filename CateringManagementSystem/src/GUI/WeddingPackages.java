@@ -166,7 +166,7 @@ public class WeddingPackages extends javax.swing.JFrame {
         BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                ReservationCalendar calendar = new ReservationCalendar();
+                CalendarTable calendar = new CalendarTable();
                 calendar.setVisible(true);
                 calendar.setLocationRelativeTo(null); // Center the SignUP frame
             }
