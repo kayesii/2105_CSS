@@ -19,7 +19,8 @@ public class HomeFrame extends javax.swing.JFrame {
         loadReservationsToTable();
         loadUpcomingEvents();
     }
-     public static void main(String args[]) {
+    
+    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 HomeFrame home = new HomeFrame();
@@ -66,7 +67,6 @@ public class HomeFrame extends javax.swing.JFrame {
                                ", EventDate: " + rs.getString("EventDate") + 
                                ", ClientName: " + rs.getString("ClientName"));
             model.addRow(new Object[]{
-                rs.getInt("BookingId"),
                 rs.getString("EventDate"),
                 rs.getString("ClientName"),
                 rs.getString("ClientNumber"),
@@ -100,11 +100,6 @@ public class HomeFrame extends javax.swing.JFrame {
         ex.printStackTrace(); // Print stack trace for debugging
     }
 }
-
-
-
-
-
 
     private void loadReservationsToTable() {
     try {
@@ -149,31 +144,6 @@ public class HomeFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        ReserveBtn = new javax.swing.JButton();
-        jLabel7 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        ReservationList = new javax.swing.JTable();
-        UpdateReservationBtn = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        txtReservationID = new javax.swing.JTextField();
-        txtClientName = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
-        txtClientNumber = new javax.swing.JTextField();
-        jLabel5 = new javax.swing.JLabel();
-        jLabel2 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
-        pickStatus = new javax.swing.JComboBox<>();
-        SearchBtn = new javax.swing.JButton();
-        txtEventName = new javax.swing.JTextField();
-        jCalendarComboBox1 = new de.wannawork.jcalendar.JCalendarComboBox();
-        jScrollPane1 = new javax.swing.JScrollPane();
-        UpcomingEvents = new javax.swing.JTable();
-        jLabel9 = new javax.swing.JLabel();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
         BtnPackages = new javax.swing.JButton();
@@ -183,31 +153,168 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         BtnLaborer = new javax.swing.JButton();
         logout = new javax.swing.JButton();
+        BtnReport = new javax.swing.JButton();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        UpcomingEvents = new javax.swing.JTable();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel1 = new javax.swing.JLabel();
+        txtSearchIDorName = new javax.swing.JTextField();
+        SearchBtn = new javax.swing.JButton();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        ReservationList = new javax.swing.JTable();
+        ClearButton = new javax.swing.JButton();
+        UpdateReservationBtn = new javax.swing.JButton();
+        ReserveBtn = new javax.swing.JButton();
+        pickStatus = new javax.swing.JComboBox<>();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        txtEventName = new javax.swing.JTextField();
+        jCalendarComboBox1 = new de.wannawork.jcalendar.JCalendarComboBox();
+        jLabel5 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        txtClientNumber = new javax.swing.JTextField();
+        txtClientName = new javax.swing.JTextField();
+        jLabel12 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        jLabel9 = new javax.swing.JLabel();
+        jTextField1 = new javax.swing.JTextField();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(245, 222, 179));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        ReserveBtn.setBackground(new java.awt.Color(205, 133, 63));
-        ReserveBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ReserveBtn.setText("Reserve");
-        ReserveBtn.addActionListener(new java.awt.event.ActionListener() {
+        BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
+        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnCalendar.setText("CALENDAR");
+        BtnCalendar.setBorder(null);
+        BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ReserveBtnActionPerformed(evt);
+                BtnCalendarActionPerformed(evt);
             }
         });
-        jPanel1.add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 390, 160, 40));
+        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, 40));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 220, -1));
+        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
+        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnPackages.setText("PACKAGES");
+        BtnPackages.setBorder(null);
+        BtnPackages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPackagesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 120, 40));
 
-        jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel1.setText("Events");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 80, -1));
+        BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
+        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnBooking.setText("BOOKING");
+        BtnBooking.setBorder(null);
+        BtnBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBookingActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 120, 40));
+
+        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
+        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnHome.setText("HOME");
+        BtnHome.setBorder(null);
+        BtnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnHomeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 120, 40));
+
+        jLabel8.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
+        jLabel8.setText("PALATES  ");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
+
+        jLabel6.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
+        jLabel6.setText("&   plates");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
+
+        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnLaborer.setText("LABOR");
+        BtnLaborer.setBorder(null);
+        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLaborerActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
+
+        logout.setBackground(new java.awt.Color(210, 180, 140));
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
+        logout.setBorder(null);
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 40, 40));
+
+        BtnReport.setBackground(new java.awt.Color(210, 180, 140));
+        BtnReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnReport.setText("REPORT");
+        BtnReport.setBorder(null);
+        BtnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnReportActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 30, 120, 40));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
+
+        UpcomingEvents.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
+            },
+            new String [] {
+                "Date", "Client Name", "Contact ", "Event", "Status"
+            }
+        ));
+        jScrollPane1.setViewportView(UpcomingEvents);
+
+        getContentPane().add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 100, 860, 80));
+
+        jLabel10.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel10.setText("E");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 150, 40, 30));
+
+        jLabel1.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel1.setText("vents");
+        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 150, 70, -1));
+
+        txtSearchIDorName.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        txtSearchIDorName.setText("Reservation id or Client Name");
+        txtSearchIDorName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchIDorNameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtSearchIDorName, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 340, 40));
+
+        SearchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
+        SearchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 230, 50, 40));
 
         jScrollPane2.setVerticalScrollBarPolicy(javax.swing.ScrollPaneConstants.VERTICAL_SCROLLBAR_ALWAYS);
         jScrollPane2.setCursor(new java.awt.Cursor(java.awt.Cursor.DEFAULT_CURSOR));
@@ -246,199 +353,310 @@ public class HomeFrame extends javax.swing.JFrame {
         ReservationList.setShowGrid(true);
         jScrollPane2.setViewportView(ReservationList);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, 660, 240));
+        getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 630, 290));
+
+        ClearButton.setBackground(new java.awt.Color(205, 133, 63));
+        ClearButton.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ClearButton.setText("Clear");
+        ClearButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                ClearButtonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(ClearButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 90, 40));
 
         UpdateReservationBtn.setBackground(new java.awt.Color(205, 133, 63));
         UpdateReservationBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        UpdateReservationBtn.setText("Update Reservation");
+        UpdateReservationBtn.setText("Update ");
         UpdateReservationBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 UpdateReservationBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 160, 40));
+        getContentPane().add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, 90, 40));
 
-        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel3.setText("Search ID");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 100, 40));
-
-        txtReservationID.addActionListener(new java.awt.event.ActionListener() {
+        ReserveBtn.setBackground(new java.awt.Color(205, 133, 63));
+        ReserveBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        ReserveBtn.setText("Reserve");
+        ReserveBtn.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtReservationIDActionPerformed(evt);
+                ReserveBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(txtReservationID, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 240, 40));
+        getContentPane().add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 480, 90, 40));
 
-        txtClientName.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClientNameActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 190, 290, 30));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Contact");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 230, 60, 30));
-
-        txtClientNumber.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtClientNumberActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtClientNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 230, 290, 30));
-
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel5.setText("Date");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 270, 50, 30));
-
-        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel2.setText("Event");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 310, 40, 30));
+        pickStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        pickStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Cancelled", " " }));
+        getContentPane().add(pickStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 440, 290, -1));
 
         jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel11.setText("Status");
-        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 350, 60, 30));
+        getContentPane().add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 440, 60, 30));
 
-        pickStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
-        pickStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Confirmed", "Pending", "Cancelled", " " }));
-        jPanel1.add(pickStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 290, -1));
-
-        SearchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
-        SearchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, 50, 40));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel2.setText("Event Name");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 400, 80, 30));
 
         txtEventName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtEventNameActionPerformed(evt);
             }
         });
-        jPanel1.add(txtEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 310, 290, 30));
-        jPanel1.add(jCalendarComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 270, 290, 30));
+        getContentPane().add(txtEventName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 400, 290, 30));
+        getContentPane().add(jCalendarComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 360, 290, 30));
 
-        UpcomingEvents.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null},
-                {null, null, null, null, null, null}
-            },
-            new String [] {
-                "Booking Id", "Date", "Client Name", "Contact ", "Event", "Status"
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("Date");
+        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 360, 50, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Contact");
+        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 320, 60, 30));
+
+        txtClientNumber.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientNumberActionPerformed(evt);
             }
-        ));
-        jScrollPane1.setViewportView(UpcomingEvents);
+        });
+        getContentPane().add(txtClientNumber, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 320, 290, 30));
 
-        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 920, 80));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel9.setText("Reservation Record");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 230, -1));
-
-        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel10.setText("Upcoming ");
-        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 130, -1));
+        txtClientName.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtClientNameActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 280, 290, 30));
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Client Name");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 90, 30));
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 280, 90, 30));
 
-        jButton1.setText("Sale Catalog");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel1.setBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED, null, new java.awt.Color(153, 102, 0), null, null));
+        jPanel1.setToolTipText("");
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 3, 18)); // NOI18N
+        jLabel9.setText("RESERVATION");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 0, -1, 20));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 1060, 20));
+
+        jTextField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                jTextField1ActionPerformed(evt);
             }
         });
-        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 130, -1, -1));
+        getContentPane().add(jTextField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 230, 160, 60));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel14.setText("pcoming ");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 100, -1));
 
-        jPanel2.setBackground(new java.awt.Color(210, 180, 140));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel15.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel15.setText("U");
+        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 40, -1));
 
-        BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
-        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnCalendar.setText("CALENDAR");
-        BtnCalendar.setBorder(null);
-        BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCalendarActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 140, 40));
-
-        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
-        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnPackages.setText("PACKAGES");
-        BtnPackages.setBorder(null);
-        BtnPackages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnPackagesActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 140, 40));
-
-        BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
-        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnBooking.setText("BOOKING");
-        BtnBooking.setBorder(null);
-        BtnBooking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBookingActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
-
-        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
-        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnHome.setText("HOME");
-        BtnHome.setBorder(null);
-        BtnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnHomeActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 140, 40));
-
-        jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel8.setText("PALATES  ");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
-
-        jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel6.setText("&   plates");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
-
-        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
-        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnLaborer.setText("LABOR");
-        BtnLaborer.setBorder(null);
-        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLaborerActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
-
-        logout.setBackground(new java.awt.Color(210, 180, 140));
-        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
-        logout.setBorder(null);
-        logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutActionPerformed(evt);
-            }
-        });
-        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 40, 40));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
+        BtnCalendar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ReservationCalendar calendar = new ReservationCalendar();
+                calendar.setVisible(true);
+                calendar.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnCalendarActionPerformed
+
+    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
+        BtnPackages.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackagesFrame packages = new PackagesFrame();
+                packages.setVisible(true);
+                packages.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnPackagesActionPerformed
+
+    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
+        BtnBooking.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                BookingProcess booking = new BookingProcess();
+                booking.setVisible(true);
+                booking.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnBookingActionPerformed
+
+    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
+        BtnHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
+                home.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnHomeActionPerformed
+
+    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
+        BtnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnLaborerActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+    logout.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            // Show a confirmation dialog to the user before logging out
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
+            
+            // If the user selects "Yes" (confirm == 0), log out and dispose of the frame
+            if (confirm == JOptionPane.YES_OPTION) {
+                dispose(); // Close the current LogIn frame
+                LogIn login = new LogIn(); 
+                login.setVisible(true); // Make the LogIn frame visible
+                login.setLocationRelativeTo(null); // Center the LogIn frame
+            }
+        }
+    });
+    }//GEN-LAST:event_logoutActionPerformed
+
+    private void BtnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReportActionPerformed
+        BtnReport.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                SaleCatalog laborer = new SaleCatalog();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+  
+    }//GEN-LAST:event_BtnReportActionPerformed
+
+    private void ClearButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearButtonActionPerformed
+        txtSearchIDorName.setText("");
+        txtClientName.setText("");
+        txtClientNumber.setText("");
+        jCalendarComboBox1.setDate(null); // Reset date
+        txtEventName.setText("");
+    }//GEN-LAST:event_ClearButtonActionPerformed
+
+    private void txtEventNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEventNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtEventNameActionPerformed
+
+    private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
+    String searchText = txtSearchIDorName.getText().trim();
+
+    if (searchText.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please enter a Reservation ID or Client Name.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    try {
+        // Establish the database connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+        System.out.println("Connection established: " + con);
+
+        String query;
+        PreparedStatement ps;
+
+        // Check if the search text is a number (assume it's a ReservationID)
+        if (isNumeric(searchText)) {
+            // Search by ReservationID
+            query = """
+                    SELECT r.ReservationID, c.ClientID, c.ClientName, c.ClientNumber, r.EventName, r.ReservationDate, r.Status 
+                    FROM client c 
+                    INNER JOIN reservation r ON c.ClientID = r.ClientID 
+                    WHERE r.ReservationID = ?""";
+            ps = con.prepareStatement(query);
+            ps.setString(1, searchText);
+        } else {
+            // Search by ClientName
+            query = """
+                    SELECT r.ReservationID, c.ClientID, c.ClientName, c.ClientNumber, r.EventName, r.ReservationDate, r.Status 
+                    FROM client c 
+                    INNER JOIN reservation r ON c.ClientID = r.ClientID 
+                    WHERE c.ClientName LIKE ?""";
+            ps = con.prepareStatement(query);
+            ps.setString(1, "%" + searchText + "%");  // Use LIKE to match client name partially
+        }
+
+        System.out.println("Executing query: " + query); // Debugging output for the query
+        System.out.println("Parameter passed: '" + searchText + "'");
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+    // Process the result set if rows are returned
+    System.out.println("Found matching record");
+
+    // Setting values in the text fields
+    jTextField1.setText(rs.getString("ReservationID")); // Ensure 'ClientID' is included in the query result
+    txtClientName.setText(rs.getString("ClientName"));
+    txtClientNumber.setText(rs.getString("ClientNumber"));
+    txtEventName.setText(rs.getString("EventName"));
+
+    // Retrieve and set the event date
+    java.util.Date eventDate = rs.getDate("ReservationDate");
+    jCalendarComboBox1.setDate(eventDate);
+
+    // Setting the status dropdown
+    pickStatus.setSelectedItem(rs.getString("Status"));
+} else {
+    System.out.println("No results found");
+    JOptionPane.showMessageDialog(this, "No reservation found with the given information.", "Error", JOptionPane.ERROR_MESSAGE);
+}
+
+        // Close the connections
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error searching reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();  // Print stack trace for debugging
+    }
+}
+
+// Helper method to check if the string is numeric
+private boolean isNumeric(String str) {
+    try {
+        Integer.parseInt(str);  // Try to convert the string to an integer
+        return true;
+    } catch (NumberFormatException e) {
+        return false;  // Return false if it's not a valid number
+    }
+    }//GEN-LAST:event_SearchBtnActionPerformed
+
+    private void txtClientNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientNumberActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClientNumberActionPerformed
+
+    private void txtClientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtClientNameActionPerformed
+
+    private void txtSearchIDorNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchIDorNameActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txtSearchIDorNameActionPerformed
+
     private void UpdateReservationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateReservationBtnActionPerformed
-    String reservationID = txtReservationID.getText().trim();
+   String reservationID = jTextField1.getText().trim();
 String clientName = txtClientName.getText().trim();
 String clientNumber = txtClientNumber.getText().trim();
 String eventName = txtEventName.getText().trim();
@@ -522,261 +740,111 @@ try {
 
     private void ReserveBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ReserveBtnActionPerformed
         // Get input data from text fields
-String ClientName = txtClientName.getText().trim();
-String ClientNumber = txtClientNumber.getText().trim();
-String EventName = txtEventName.getText().trim();
-String Status = pickStatus.getSelectedItem().toString().trim();
+        String ClientName = txtClientName.getText().trim();
+        String ClientNumber = txtClientNumber.getText().trim();
+        String EventName = txtEventName.getText().trim();
+        String Status = pickStatus.getSelectedItem().toString().trim();
 
-// Retrieve the selected date from jCalendarComboBox1
-java.util.Date eventDate = jCalendarComboBox1.getDate(); // Get date from the calendar picker
+        // Retrieve the selected date from jCalendarComboBox1
+        java.util.Date eventDate = jCalendarComboBox1.getDate(); // Get date from the calendar picker
 
-// Validate date selection
-if (eventDate == null) {
-    JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        // Validate date selection
+        if (eventDate == null) {
+            JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-// Format the date to "YYYY-MM-DD" before using it in the database
-SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-String formattedDate = sdf.format(eventDate);
+        // Format the date to "YYYY-MM-DD" before using it in the database
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        String formattedDate = sdf.format(eventDate);
 
-// Validate other inputs
-if (ClientName.isEmpty() || ClientNumber.isEmpty() || EventName.isEmpty() || Status.isEmpty()) {
-    JOptionPane.showMessageDialog(this, 
-        "Please fill in all fields.", 
-        "Reservation Error", 
-        JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-try {
-    // Connect to the database
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
-
-    // Check if the client exists
-    String checkClientQuery = "SELECT ClientID FROM CLIENT WHERE ClientName = ? AND ClientNumber = ?";
-    PreparedStatement checkClientStmt = con.prepareStatement(checkClientQuery);
-    checkClientStmt.setString(1, ClientName);
-    checkClientStmt.setString(2, ClientNumber);
-    ResultSet rs = checkClientStmt.executeQuery();
-
-    int clientID = -1; // Default to an invalid ID
-    if (rs.next()) {
-        clientID = rs.getInt("ClientID");
-    } else {
-        // Register a new client if not found
-        String insertClientQuery = "INSERT INTO CLIENT (ClientName, ClientNumber) VALUES (?, ?)";
-        PreparedStatement insertClientStmt = con.prepareStatement(insertClientQuery, PreparedStatement.RETURN_GENERATED_KEYS);
-        insertClientStmt.setString(1, ClientName);
-        insertClientStmt.setString(2, ClientNumber);
-
-        int rowsInserted = insertClientStmt.executeUpdate();
-        if (rowsInserted > 0) {
-            ResultSet generatedKeys = insertClientStmt.getGeneratedKeys();
-            if (generatedKeys.next()) {
-                clientID = generatedKeys.getInt(1); // Get the auto-generated ClientID
-            }
-        } else {
-            JOptionPane.showMessageDialog(this, 
-                "Failed to register the client. Reservation aborted.", 
-                "Error", 
+        // Validate other inputs
+        if (ClientName.isEmpty() || ClientNumber.isEmpty() || EventName.isEmpty() || Status.isEmpty()) {
+            JOptionPane.showMessageDialog(this,
+                "Please fill in all fields.",
+                "Reservation Error",
                 JOptionPane.ERROR_MESSAGE);
             return;
         }
-    }
 
-    // Insert reservation data
-    String query = "INSERT INTO RESERVATION (ClientID, EventName, ReservationDate, Status) " +
-                   "VALUES (?, ?, ?, ?)";
-    PreparedStatement pst = con.prepareStatement(query);
-    pst.setInt(1, clientID);
-    pst.setString(2, EventName);
-    pst.setString(3, formattedDate); // Use the formatted date
-    pst.setString(4, Status);
+        try {
+            // Connect to the database
+            Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
 
-    int rowsInserted = pst.executeUpdate();
-    if (rowsInserted > 0) {
-        JOptionPane.showMessageDialog(this, 
-            "Reservation saved successfully!", 
-            "Success", 
-            JOptionPane.INFORMATION_MESSAGE);
+            // Check if the client exists
+            String checkClientQuery = "SELECT ClientID FROM CLIENT WHERE ClientName = ? AND ClientNumber = ?";
+            PreparedStatement checkClientStmt = con.prepareStatement(checkClientQuery);
+            checkClientStmt.setString(1, ClientName);
+            checkClientStmt.setString(2, ClientNumber);
+            ResultSet rs = checkClientStmt.executeQuery();
 
-        // Clear fields after saving
-        txtClientName.setText("");
-        txtClientNumber.setText("");
-        txtEventName.setText("");
-        jCalendarComboBox1.setDate(null);       // Clear the calendar picker
-        pickStatus.setSelectedIndex(0);         // Reset status combo box
-    } else {
-        JOptionPane.showMessageDialog(this, 
-            "Failed to save the reservation.", 
-            "Error", 
-            JOptionPane.ERROR_MESSAGE);
-    }
+            int clientID = -1; // Default to an invalid ID
+            if (rs.next()) {
+                clientID = rs.getInt("ClientID");
+            } else {
+                // Register a new client if not found
+                String insertClientQuery = "INSERT INTO CLIENT (ClientName, ClientNumber) VALUES (?, ?)";
+                PreparedStatement insertClientStmt = con.prepareStatement(insertClientQuery, PreparedStatement.RETURN_GENERATED_KEYS);
+                insertClientStmt.setString(1, ClientName);
+                insertClientStmt.setString(2, ClientNumber);
 
-} catch (Exception e) {
-    // Handle database errors
-    JOptionPane.showMessageDialog(this, 
-        "Database error: " + e.getMessage(), 
-        "Error", 
-        JOptionPane.ERROR_MESSAGE);
-}
+                int rowsInserted = insertClientStmt.executeUpdate();
+                if (rowsInserted > 0) {
+                    ResultSet generatedKeys = insertClientStmt.getGeneratedKeys();
+                    if (generatedKeys.next()) {
+                        clientID = generatedKeys.getInt(1); // Get the auto-generated ClientID
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(this,
+                        "Failed to register the client. Reservation aborted.",
+                        "Error",
+                        JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
 
+            // Insert reservation data
+            String query = "INSERT INTO RESERVATION (ClientID, EventName, ReservationDate, Status) " +
+            "VALUES (?, ?, ?, ?)";
+            PreparedStatement pst = con.prepareStatement(query);
+            pst.setInt(1, clientID);
+            pst.setString(2, EventName);
+            pst.setString(3, formattedDate); // Use the formatted date
+            pst.setString(4, Status);
+
+            int rowsInserted = pst.executeUpdate();
+            if (rowsInserted > 0) {
+                JOptionPane.showMessageDialog(this,
+                    "Reservation saved successfully!",
+                    "Success",
+                    JOptionPane.INFORMATION_MESSAGE);
+
+                // Clear fields after saving
+                txtClientName.setText("");
+                txtClientNumber.setText("");
+                txtEventName.setText("");
+                jCalendarComboBox1.setDate(null);       // Clear the calendar picker
+                pickStatus.setSelectedIndex(0);         // Reset status combo box
+            } else {
+                JOptionPane.showMessageDialog(this,
+                    "Failed to save the reservation.",
+                    "Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+
+        } catch (Exception e) {
+            // Handle database errors
+            JOptionPane.showMessageDialog(this,
+                "Database error: " + e.getMessage(),
+                "Error",
+                JOptionPane.ERROR_MESSAGE);
+        }
     }//GEN-LAST:event_ReserveBtnActionPerformed
 
-    private void txtReservationIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtReservationIDActionPerformed
+    private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtReservationIDActionPerformed
+    }//GEN-LAST:event_jTextField1ActionPerformed
 
-    private void txtClientNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtClientNameActionPerformed
-
-    private void txtClientNumberActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtClientNumberActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtClientNumberActionPerformed
-
-    private void txtEventNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtEventNameActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_txtEventNameActionPerformed
-
-    private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
-       String reservationID = txtReservationID.getText().trim();
-
-if (reservationID.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Please enter a Reservation ID.", "Input Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-try {
-    // Establish the database connection
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
-
-    // SQL query with JOIN to retrieve data from both tables
-    String query = "SELECT c.ClientName, c.ClientNumber, r.EventName, r.ReservationDate, r.Status " +
-                   "FROM client c " +
-                   "INNER JOIN reservation r ON c.ClientID = r.ClientID " +
-                   "WHERE r.ReservationID = ?";
-
-    PreparedStatement ps = con.prepareStatement(query);
-    ps.setString(1, reservationID);
-
-    ResultSet rs = ps.executeQuery();
-
-    if (rs.next()) {
-        // Retrieve data from the ResultSet using the correct column names
-        txtClientName.setText(rs.getString("ClientName"));
-        txtClientNumber.setText(rs.getString("ClientNumber"));
-        txtEventName.setText(rs.getString("EventName"));
-
-        // Retrieve and set the event date to the jCalendarComboBox1
-        java.util.Date eventDate = rs.getDate("ReservationDate"); // Get date from the result set
-        jCalendarComboBox1.setDate(eventDate); // Set the date to the calendar combo box
-        
-        pickStatus.setSelectedItem(rs.getString("Status"));
-    } else {
-        JOptionPane.showMessageDialog(this, "No reservation found with the given ID.", "Error", JOptionPane.ERROR_MESSAGE);
-    }
-
-    // Close the connections
-    rs.close();
-    ps.close();
-    con.close();
-
-} catch (Exception ex) {
-    JOptionPane.showMessageDialog(this, "Error searching reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-}
-
-    }//GEN-LAST:event_SearchBtnActionPerformed
-
-    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
-        BtnCalendar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                ReservationCalendar calendar = new ReservationCalendar();
-                calendar.setVisible(true);
-                calendar.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnCalendarActionPerformed
-
-    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
-        BtnPackages.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                PackagesFrame packages = new PackagesFrame();
-                packages.setVisible(true);
-                packages.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnPackagesActionPerformed
-
-    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
-        BtnBooking.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                BookingProcess booking = new BookingProcess();
-                booking.setVisible(true);
-                booking.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnBookingActionPerformed
-
-    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
-        BtnHome.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                HomeFrame home = new HomeFrame();
-                home.setVisible(true);
-                home.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnHomeActionPerformed
-
-    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
-        BtnLaborer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LaborersFrame laborer = new LaborersFrame();
-                laborer.setVisible(true);
-                laborer .setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnLaborerActionPerformed
-
-    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-    logout.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-            // Show a confirmation dialog to the user before logging out
-            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
-            
-            // If the user selects "Yes" (confirm == 0), log out and dispose of the frame
-            if (confirm == JOptionPane.YES_OPTION) {
-                dispose(); // Close the current LogIn frame
-                LogIn login = new LogIn(); 
-                login.setVisible(true); // Make the LogIn frame visible
-                login.setLocationRelativeTo(null); // Center the LogIn frame
-            }
-        }
-    });
-    }//GEN-LAST:event_logoutActionPerformed
-
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        jButton1.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                SaleCatalog laborer = new SaleCatalog();
-                laborer.setVisible(true);
-                laborer .setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-  
-    }//GEN-LAST:event_jButton1ActionPerformed
-
-    /**
-     * @param args the command line arguments
-     */
-   
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBooking;
@@ -784,34 +852,37 @@ try {
     private javax.swing.JButton BtnHome;
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
+    private javax.swing.JButton BtnReport;
+    private javax.swing.JButton ClearButton;
     private javax.swing.JTable ReservationList;
     private javax.swing.JButton ReserveBtn;
     private javax.swing.JButton SearchBtn;
     private javax.swing.JTable UpcomingEvents;
     private javax.swing.JButton UpdateReservationBtn;
-    private javax.swing.JButton jButton1;
     private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel11;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
     private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JTextField jTextField1;
     private javax.swing.JButton logout;
     private javax.swing.JComboBox<String> pickStatus;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientNumber;
     private javax.swing.JTextField txtEventName;
-    private javax.swing.JTextField txtReservationID;
+    private javax.swing.JTextField txtSearchIDorName;
     // End of variables declaration//GEN-END:variables
 }

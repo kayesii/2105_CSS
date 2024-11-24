@@ -126,6 +126,64 @@ public class BookingFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error loading upcoming reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+   
+
+    private void loadPastBookingsToTable() {
+    try {
+        // Establish the database connection
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+
+        // Query to fetch only past events (where EventDate is less than the current date)
+        String query = """
+                SELECT 
+                    b.BookingId,
+                    b.EventDate,
+                    c.ClientName,
+                    c.ClientNumber,
+                    b.Theme AS Event,           -- Fetch Theme for the Event column
+                    p.PackageName,              -- Fetch Package Name
+                    b.TotalPrice AS Price,
+                    b.Status
+                FROM booking b
+                INNER JOIN client c ON b.ClientID = c.ClientID
+                INNER JOIN packages p ON b.PackageId = p.PackageID
+                WHERE b.EventDate < CURDATE()  -- Only past events (no present or future)
+                ORDER BY b.EventDate DESC      -- Sort by EventDate (descending order)
+                """;
+
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
+
+        // Create a DefaultTableModel
+        DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
+
+        // Clear previous table data before loading new records
+        model.setRowCount(0);
+
+        // Iterate through the result set and add rows to the table model
+        while (rs.next()) {
+            model.addRow(new Object[]{
+                rs.getInt("BookingId"),         // ID
+                rs.getString("EventDate"),      // Date
+                rs.getString("ClientName"),     // Client Name
+                rs.getString("ClientNumber"),   // Number
+                rs.getString("Event"),          // Event (Theme)
+                rs.getString("PackageName"),    // Package Name
+                rs.getDouble("Price"),          // Total Price
+                rs.getString("Status")          // Payment Status
+            });
+        }
+
+        // Close connections
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception ex) {
+        JOptionPane.showMessageDialog(this, "Error loading past reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+    }
+}
+
 
     private void filterBookingsByPaymentStatus(String paymentStatus) {
     try {
@@ -198,14 +256,19 @@ public class BookingFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
-        jScrollPane3 = new javax.swing.JScrollPane();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        BookingRecords = new javax.swing.JTable();
-        jLabel12 = new javax.swing.JLabel();
         SORTBYUPCOMINGEVENT = new javax.swing.JButton();
         Status = new javax.swing.JComboBox<>();
         SearchByStatus = new javax.swing.JButton();
+        jScrollPane3 = new javax.swing.JScrollPane();
+        jScrollPane2 = new javax.swing.JScrollPane();
+        BookingRecords = new javax.swing.JTable();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        PastEvent = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
         BtnPackages = new javax.swing.JButton();
@@ -215,13 +278,40 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel6 = new javax.swing.JLabel();
         BtnLaborer = new javax.swing.JButton();
         logout = new javax.swing.JButton();
+        BtnReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(245, 222, 179));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        SORTBYUPCOMINGEVENT.setBackground(new java.awt.Color(205, 133, 63));
+        SORTBYUPCOMINGEVENT.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SORTBYUPCOMINGEVENT.setText("Upcoming Events");
+        SORTBYUPCOMINGEVENT.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SORTBYUPCOMINGEVENTActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SORTBYUPCOMINGEVENT, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 210, -1, 40));
+
+        Status.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
+        Status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 360, 130, 40));
+
+        SearchByStatus.setBackground(new java.awt.Color(205, 133, 63));
+        SearchByStatus.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        SearchByStatus.setText("Filter");
+        SearchByStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchByStatusActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SearchByStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 400, 130, 40));
 
         BookingRecords.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -238,43 +328,46 @@ public class BookingFrame extends javax.swing.JFrame {
 
         jScrollPane3.setViewportView(jScrollPane2);
 
-        jPanel1.add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 80, 910, 350));
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 160, 910, 360));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setText("Booking Records");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 10, 150, -1));
+        jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel19.setText("R");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 40, -1));
 
-        SORTBYUPCOMINGEVENT.setText("Upcoming Events");
-        SORTBYUPCOMINGEVENT.addActionListener(new java.awt.event.ActionListener() {
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel21.setText("ecords");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 110, 110, -1));
+
+        jLabel20.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel20.setText("b");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 40, -1));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel22.setText("ooking");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 110, -1));
+
+        PastEvent.setBackground(new java.awt.Color(205, 133, 63));
+        PastEvent.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        PastEvent.setText("Past Events");
+        PastEvent.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SORTBYUPCOMINGEVENTActionPerformed(evt);
+                PastEventActionPerformed(evt);
             }
         });
-        jPanel1.add(SORTBYUPCOMINGEVENT, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 140, 40));
+        getContentPane().add(PastEvent, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 260, 130, 40));
 
-        Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
-        Status.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StatusActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 190, 120, 30));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel12.setText("Sort");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(980, 170, 40, 30));
 
-        SearchByStatus.setText("Search");
-        SearchByStatus.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchByStatusActionPerformed(evt);
-            }
-        });
-        jPanel1.add(SearchByStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 220, 120, 40));
-
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
 
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
-        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnCalendar.setText("CALENDAR");
         BtnCalendar.setBorder(null);
         BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
@@ -282,10 +375,10 @@ public class BookingFrame extends javax.swing.JFrame {
                 BtnCalendarActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 140, 40));
+        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, 40));
 
         BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
-        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnPackages.setText("PACKAGES");
         BtnPackages.setBorder(null);
         BtnPackages.addActionListener(new java.awt.event.ActionListener() {
@@ -293,10 +386,10 @@ public class BookingFrame extends javax.swing.JFrame {
                 BtnPackagesActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 140, 40));
+        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 120, 40));
 
-        BtnBooking.setBackground(new java.awt.Color(205, 133, 63));
-        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
+        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnBooking.setText("BOOKING");
         BtnBooking.setBorder(null);
         BtnBooking.addActionListener(new java.awt.event.ActionListener() {
@@ -304,10 +397,10 @@ public class BookingFrame extends javax.swing.JFrame {
                 BtnBookingActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
+        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 120, 40));
 
-        BtnHome.setBackground(new java.awt.Color(210, 180, 140));
-        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
+        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnHome.setText("HOME");
         BtnHome.setBorder(null);
         BtnHome.addActionListener(new java.awt.event.ActionListener() {
@@ -315,18 +408,18 @@ public class BookingFrame extends javax.swing.JFrame {
                 BtnHomeActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 140, 40));
+        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 120, 40));
 
-        jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel8.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
         jLabel8.setText("PALATES  ");
         jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
 
-        jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel6.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
         jLabel6.setText("&   plates");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
 
         BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
-        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnLaborer.setText("LABOR");
         BtnLaborer.setBorder(null);
         BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
@@ -334,7 +427,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 BtnLaborerActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
 
         logout.setBackground(new java.awt.Color(210, 180, 140));
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
@@ -344,9 +437,20 @@ public class BookingFrame extends javax.swing.JFrame {
                 logoutActionPerformed(evt);
             }
         });
-        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 40, 40));
+        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 40, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
+        BtnReport.setBackground(new java.awt.Color(210, 180, 140));
+        BtnReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnReport.setText("REPORT");
+        BtnReport.setBorder(null);
+        BtnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnReportActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 30, 120, 40));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -375,6 +479,15 @@ SearchByStatus.addActionListener(new ActionListener() {
     private void StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_StatusActionPerformed
+
+    private void PastEventActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PastEventActionPerformed
+        // Clear the table before loading past events
+    DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
+    model.setRowCount(0);  // Clears all rows in the table
+
+    // Now, load the past events
+    loadPastBookingsToTable();
+    }//GEN-LAST:event_PastEventActionPerformed
 
     private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
         BtnCalendar.addActionListener(new ActionListener() {
@@ -448,6 +561,18 @@ SearchByStatus.addActionListener(new ActionListener() {
         });
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void BtnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReportActionPerformed
+        BtnReport.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                SaleCatalog laborer = new SaleCatalog();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+
+    }//GEN-LAST:event_BtnReportActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -493,13 +618,19 @@ SearchByStatus.addActionListener(new ActionListener() {
     private javax.swing.JButton BtnHome;
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
+    private javax.swing.JButton BtnReport;
+    private javax.swing.JButton PastEvent;
     private javax.swing.JButton SORTBYUPCOMINGEVENT;
     private javax.swing.JButton SearchByStatus;
     private javax.swing.JComboBox<String> Status;
     private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel8;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;

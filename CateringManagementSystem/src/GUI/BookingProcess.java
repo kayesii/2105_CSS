@@ -23,7 +23,20 @@ public class BookingProcess extends JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
+        jPanel2 = new javax.swing.JPanel();
+        BtnCalendar = new javax.swing.JButton();
+        BtnPackages = new javax.swing.JButton();
+        BtnBooking = new javax.swing.JButton();
+        BtnHome = new javax.swing.JButton();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        BtnLaborer = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
+        BtnReport = new javax.swing.JButton();
+        jLabel12 = new javax.swing.JLabel();
+        txtSearchBookingI = new javax.swing.JTextField();
+        SearchBtn = new javax.swing.JButton();
+        RecordBtn = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -52,70 +65,180 @@ public class BookingProcess extends JFrame {
         PackagesDetails = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         pickCateringStyle = new javax.swing.JComboBox<>();
-        RecordBtn = new javax.swing.JButton();
-        txtSearchBookingID = new javax.swing.JTextField();
+        Clear = new javax.swing.JButton();
         jPanel8 = new javax.swing.JPanel();
         jLabel26 = new javax.swing.JLabel();
+        ViewReceipt = new javax.swing.JButton();
+        update = new javax.swing.JButton();
+        Save = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         Status = new javax.swing.JComboBox<>();
-        ViewReceipt = new javax.swing.JButton();
-        Save = new javax.swing.JButton();
-        SearchBtn = new javax.swing.JButton();
-        update = new javax.swing.JButton();
-        Clear = new javax.swing.JButton();
-        jLabel12 = new javax.swing.JLabel();
-        jPanel2 = new javax.swing.JPanel();
-        BtnCalendar = new javax.swing.JButton();
-        BtnPackages = new javax.swing.JButton();
-        BtnBooking = new javax.swing.JButton();
-        BtnHome = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        BtnLaborer = new javax.swing.JButton();
-        logout = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        idplaceholder = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jPanel1.setBackground(new java.awt.Color(245, 222, 179));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel2.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
+        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnCalendar.setText("CALENDAR");
+        BtnCalendar.setBorder(null);
+        BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnCalendarActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, 40));
+
+        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
+        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnPackages.setText("PACKAGES");
+        BtnPackages.setBorder(null);
+        BtnPackages.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnPackagesActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 120, 40));
+
+        BtnBooking.setBackground(new java.awt.Color(205, 133, 63));
+        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnBooking.setText("BOOKING");
+        BtnBooking.setBorder(null);
+        BtnBooking.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnBookingActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 120, 40));
+
+        BtnHome.setBackground(new java.awt.Color(210, 180, 140));
+        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnHome.setText("HOME");
+        BtnHome.setBorder(null);
+        BtnHome.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnHomeActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 120, 40));
+
+        jLabel8.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
+        jLabel8.setText("PALATES  ");
+        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
+
+        jLabel6.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
+        jLabel6.setText("&   plates");
+        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
+
+        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnLaborer.setText("LABOR");
+        BtnLaborer.setBorder(null);
+        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLaborerActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
+
+        logout.setBackground(new java.awt.Color(210, 180, 140));
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
+        logout.setBorder(null);
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 40, 40));
+
+        BtnReport.setBackground(new java.awt.Color(210, 180, 140));
+        BtnReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnReport.setText("REPORT");
+        BtnReport.setBorder(null);
+        BtnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnReportActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 30, 120, 40));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel12.setText("orm");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, 170, -1));
+
+        txtSearchBookingI.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        txtSearchBookingI.setText("Enter Booking ID or Client Name");
+        txtSearchBookingI.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtSearchBookingIActionPerformed(evt);
+            }
+        });
+        getContentPane().add(txtSearchBookingI, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 320, 40));
+
+        SearchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
+        SearchBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                SearchBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 160, 60, 40));
+
+        RecordBtn.setBackground(new java.awt.Color(210, 180, 140));
+        RecordBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        RecordBtn.setText("RECORDS");
+        RecordBtn.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                RecordBtnActionPerformed(evt);
+            }
+        });
+        getContentPane().add(RecordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 100, 170, 50));
 
         jPanel3.setBackground(new java.awt.Color(210, 180, 140));
         jPanel3.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel3.setText("Name");
-        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 60, -1));
+        jPanel3.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 40, 60, -1));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel4.setText("Phone Number");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 40, 120, 20));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 120, 20));
 
         txtClientNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNumActionPerformed(evt);
             }
         });
-        jPanel3.add(txtClientNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 40, 250, -1));
+        jPanel3.add(txtClientNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 250, -1));
 
         txtClientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNameActionPerformed(evt);
             }
         });
-        jPanel3.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, 330, -1));
+        jPanel3.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 40, 330, -1));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel16.setText("Client Information");
-        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, 20));
+        jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, 20));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 880, 80));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 880, 80));
 
         jPanel4.setBackground(new java.awt.Color(210, 180, 140));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Guess Count");
         jPanel4.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 160, 90, -1));
 
@@ -126,7 +249,7 @@ public class BookingProcess extends JFrame {
         });
         jPanel4.add(txtTimeEnds, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 130, 100, -1));
 
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel7.setText("Event Name");
         jPanel4.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 90, -1));
 
@@ -141,20 +264,20 @@ public class BookingProcess extends JFrame {
         jLabel10.setText("Event Details");
         jPanel4.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 10, 160, 20));
 
-        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel13.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel13.setText("Date");
         jPanel4.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 40, 20));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel14.setText("Time start");
         jPanel4.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 130, 80, 20));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel15.setText("Location");
         jPanel4.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 70, 60, 20));
         jPanel4.add(NumberOfGuests, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 160, 70, -1));
 
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel9.setText("Time ends");
         jPanel4.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 130, 70, -1));
 
@@ -172,13 +295,13 @@ public class BookingProcess extends JFrame {
         });
         jPanel4.add(txtTimeStart, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 130, 110, -1));
 
-        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel22.setText("No. of Waitstaff");
         jPanel4.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 160, 110, 20));
         jPanel4.add(NumberOfLaborers, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 60, -1));
         jPanel4.add(jCalendarComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 130, -1));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 440, 200));
+        getContentPane().add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 300, 440, 200));
 
         jPanel5.setBackground(new java.awt.Color(210, 180, 140));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -186,6 +309,9 @@ public class BookingProcess extends JFrame {
         jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel18.setText("Package");
         jPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 10, 80, 30));
+
+        PackagePicker.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
+        PackagePicker.setText("Enter Package ID");
         jPanel5.add(PackagePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 170, -1));
 
         PackagesDetails.setText("Packages Details");
@@ -196,33 +322,24 @@ public class BookingProcess extends JFrame {
         });
         jPanel5.add(PackagesDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 170, 30));
 
-        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jLabel25.setText("Catering Style:");
-        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, 20));
+        jLabel25.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel25.setText("Catering Style");
+        jPanel5.add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 130, -1, 20));
 
         pickCateringStyle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buffet catering", "Plated catering" }));
-        jPanel5.add(pickCateringStyle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 170, 30));
+        jPanel5.add(pickCateringStyle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 170, 30));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 210, 200));
+        getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 300, 210, 200));
 
-        RecordBtn.setBackground(new java.awt.Color(210, 180, 140));
-        RecordBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        RecordBtn.setText("Records");
-        RecordBtn.addActionListener(new java.awt.event.ActionListener() {
+        Clear.setBackground(new java.awt.Color(205, 133, 63));
+        Clear.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Clear.setText("Clear");
+        Clear.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                RecordBtnActionPerformed(evt);
+                ClearActionPerformed(evt);
             }
         });
-        jPanel1.add(RecordBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 10, 160, 50));
-
-        txtSearchBookingID.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        txtSearchBookingID.setText("Enter Booking ID");
-        txtSearchBookingID.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtSearchBookingIDActionPerformed(evt);
-            }
-        });
-        jPanel1.add(txtSearchBookingID, new org.netbeans.lib.awtextra.AbsoluteConstraints(250, 40, 320, 40));
+        getContentPane().add(Clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 450, 170, 50));
 
         jPanel8.setBackground(new java.awt.Color(210, 180, 140));
         jPanel8.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -231,138 +348,70 @@ public class BookingProcess extends JFrame {
         jLabel26.setText("Payment");
         jPanel8.add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, 90, 30));
 
-        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
-        jLabel28.setText("Payment Status:");
-        jPanel8.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 120, -1, -1));
-
-        Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
-        jPanel8.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 180, 30));
-
+        ViewReceipt.setBackground(new java.awt.Color(205, 133, 63));
+        ViewReceipt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         ViewReceipt.setText("View Receipt");
         ViewReceipt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewReceiptActionPerformed(evt);
             }
         });
-        jPanel8.add(ViewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 170, 50));
+        jPanel8.add(ViewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 170, 50));
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 190, 210, 200));
+        getContentPane().add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 300, 210, 100));
 
-        Save.setText("Save");
-        Save.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SaveActionPerformed(evt);
-            }
-        });
-        jPanel1.add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 340, 160, 50));
-
-        SearchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
-        SearchBtn.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                SearchBtnActionPerformed(evt);
-            }
-        });
-        jPanel1.add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 40, 60, 40));
-
+        update.setBackground(new java.awt.Color(205, 133, 63));
+        update.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         update.setText("Update");
         update.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 updateActionPerformed(evt);
             }
         });
-        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 280, 160, 50));
+        getContentPane().add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 390, 170, 50));
 
-        Clear.setText("Clear");
-        Clear.addActionListener(new java.awt.event.ActionListener() {
+        Save.setBackground(new java.awt.Color(205, 133, 63));
+        Save.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Save.setText("Save");
+        Save.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ClearActionPerformed(evt);
+                SaveActionPerformed(evt);
             }
         });
-        jPanel1.add(Clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 220, 160, 50));
+        getContentPane().add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 330, 170, 50));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setText("Booking Form");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 10, 130, -1));
+        jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel19.setText("b");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(300, 100, 40, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 420));
+        jLabel20.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel20.setText("F");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 100, 40, -1));
 
-        jPanel2.setBackground(new java.awt.Color(210, 180, 140));
-        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel21.setText("ooking       ");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 170, -1));
 
-        BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
-        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnCalendar.setText("CALENDAR");
-        BtnCalendar.setBorder(null);
-        BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
+        jPanel1.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel28.setText("Status");
+        jPanel1.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 10, -1, -1));
+
+        Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
+        Status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnCalendarActionPerformed(evt);
+                StatusActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 140, 40));
+        jPanel1.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 40, 170, 30));
 
-        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
-        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnPackages.setText("PACKAGES");
-        BtnPackages.setBorder(null);
-        BtnPackages.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnPackagesActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 140, 40));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 410, 210, 90));
 
-        BtnBooking.setBackground(new java.awt.Color(205, 133, 63));
-        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnBooking.setText("BOOKING");
-        BtnBooking.setBorder(null);
-        BtnBooking.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnBookingActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
-
-        BtnHome.setBackground(new java.awt.Color(210, 180, 140));
-        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnHome.setText("HOME");
-        BtnHome.setBorder(null);
-        BtnHome.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnHomeActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 140, 40));
-
-        jLabel8.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel8.setText("PALATES  ");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
-
-        jLabel6.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel6.setText("&   plates");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
-
-        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
-        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
-        BtnLaborer.setText("LABOR");
-        BtnLaborer.setBorder(null);
-        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLaborerActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
-
-        logout.setBackground(new java.awt.Color(210, 180, 140));
-        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
-        logout.setBorder(null);
-        logout.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                logoutActionPerformed(evt);
-            }
-        });
-        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 40, 40));
-
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
+        getContentPane().add(idplaceholder, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 120, 170, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -383,9 +432,9 @@ public class BookingProcess extends JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtLocationActionPerformed
 
-    private void txtSearchBookingIDActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchBookingIDActionPerformed
+    private void txtSearchBookingIActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtSearchBookingIActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_txtSearchBookingIDActionPerformed
+    }//GEN-LAST:event_txtSearchBookingIActionPerformed
 
     private void RecordBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_RecordBtnActionPerformed
         RecordBtn.addActionListener(new ActionListener() {
@@ -615,6 +664,13 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
     }//GEN-LAST:event_SaveActionPerformed
 
     private void ViewReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewReceiptActionPerformed
+       // Initialize the connection to the database
+    Connection con = null;
+    try {
+        // Set up the connection to the MySQL database
+        con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+        
+        // Retrieve client and event information
         String clientName = txtClientName.getText().trim();
         String clientNum = txtClientNum.getText().trim();
         String theme = txtTheme.getText().trim();
@@ -630,6 +686,7 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
         int laborCount = (int) NumberOfLaborers.getValue();
         String cateringStyle = pickCateringStyle.getSelectedItem().toString();
         int hoursWorked;
+        
         try {
             hoursWorked = (int) ChronoUnit.HOURS.between(
                 java.sql.Time.valueOf(timeStartStr).toLocalTime(),
@@ -647,47 +704,92 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
         }
 
         int selectedPackageId;
+        double packagePrice = 0; // To store the price of the selected package
         try {
             selectedPackageId = Integer.parseInt(packagePickerStr);
+
+            // Retrieve the package price from the database based on selectedPackageId
+            String packagePriceQuery = "SELECT Price FROM packages WHERE PackageId = ?";
+            try (PreparedStatement ps = con.prepareStatement(packagePriceQuery)) {
+                ps.setInt(1, selectedPackageId);
+                ResultSet rs = ps.executeQuery();
+                if (rs.next()) {
+                    packagePrice = rs.getDouble("Price");
+                } else {
+                    JOptionPane.showMessageDialog(null, "Package not found.", "Package Error", JOptionPane.ERROR_MESSAGE);
+                    return;
+                }
+            }
         } catch (NumberFormatException ex) {
             JOptionPane.showMessageDialog(null, "Invalid package ID. Please enter a valid number.", "Package ID Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
+        // The rest of your code continues here...
+        
+        // Calculate the total price for the package based on the guest count
+        double totalPackagePrice = packagePrice * guestCount;
+
         double totalPrice = calculateTotalAmount(selectedPackageId, guestCount, laborCount, hoursWorked, cateringStyle);
         double laborPayPerLaborer = calculateLaborPay(1, hoursWorked);
         double totalLaborPay = laborPayPerLaborer * laborCount;
 
- String receiptContent = "-----------------------------------------\n"
-        + "             Palates & Plates            \n"
-        + "              Event Receipt             \n"
-        + "-----------------------------------------\n"
-        + "Client Name: " + clientName + "\n"
-        + "Client Number: " + clientNum + "\n"
-        + "Event Theme: " + theme + "\n"
-        + "Event Date: " + dateStr + "\n"
-        + "Event Location: " + location + "\n"
-        + "Start Time: " + timeStartStr + "\n"
-        + "End Time: " + timeEndStr + "\n"
-        + "Number of Guests: " + guestCount + "\n"
-        + "Catering Style: " + cateringStyle + "\n"  // Add catering style to receipt
-        + "-----------------------------------------\n"
-        + "Fee:\n"
-        + "Reservation Fee:₱ 500\n"
-        + "-----------------------------------------\n"
-        + "Laborers:\n"
-        + "Number of Laborers: " + laborCount + "\n"
-        + "Labor Pay Per Laborer: ₱" + String.format("%.2f", laborPayPerLaborer) + "\n"
-        + "Total Labor Pay: ₱" + String.format("%.2f", totalLaborPay) + "\n"
-        + "-----------------------------------------\n"
-        + "Total Price for Event: ₱" + String.format("%.2f", totalPrice) + "\n"  // Add total price
-        + "-----------------------------------------\n";
-    JTextArea receiptTextArea = new JTextArea(20, 20);
-    receiptTextArea.setText(receiptContent);
-    receiptTextArea.setEditable(false);
+        // Calculate catering style cost only for "Plated Catering"
+        double cateringStyleCost = 0;
+        if ("Plated catering".equals(cateringStyle)) {
+            cateringStyleCost = 30 * guestCount;  // 30 * number of guests for plated catering
+        }
 
-    JScrollPane scrollPane = new JScrollPane(receiptTextArea);
-    JOptionPane.showMessageDialog(null, scrollPane, "Booking Receipt", JOptionPane.INFORMATION_MESSAGE);
+        // Update receipt content
+        String receiptContent = "-----------------------------------------\n"
+                + "             Palates & Plates            \n"
+                + "              Event Receipt             \n"
+                + "-----------------------------------------\n"
+                + "Client Name: " + clientName + "\n"
+                + "Client Number: " + clientNum + "\n"
+                + "Event Theme: " + theme + "\n"
+                + "Event Date: " + dateStr + "\n"
+                + "Event Location: " + location + "\n"
+                + "Start Time: " + timeStartStr + "\n"
+                + "End Time: " + timeEndStr + "\n"
+                + "Number of Guests: " + guestCount + "\n"
+                + "Catering Style: " + cateringStyle + "\n"  // Add catering style to receipt
+                + "-----------------------------------------\n"
+                + "Fee:\n"
+                + "Reservation Fee:₱ 500\n"
+                + (cateringStyleCost > 0 ? "Catering Style Cost: ₱" + String.format("%.2f", cateringStyleCost) + "\n" : "")
+                + "Package Price: ₱" + String.format("%.2f", totalPackagePrice) + "\n"
+
+                + "-----------------------------------------\n"
+                + "Laborers:\n"
+                + "Number of Laborers: " + laborCount + "\n"
+                + "Labor Pay Per Laborer: ₱" + String.format("%.2f", laborPayPerLaborer) + "\n"
+                + "Total Labor Pay: ₱" + String.format("%.2f", totalLaborPay) + "\n"
+                + "-----------------------------------------\n"
+                + "Total Price for Event: ₱" + String.format("%.2f", totalPrice) + "\n"  // Add package price and catering style cost to total price
+                + "-----------------------------------------\n";
+
+        JTextArea receiptTextArea = new JTextArea(20, 20);
+        receiptTextArea.setText(receiptContent);
+        receiptTextArea.setEditable(false);
+
+        JScrollPane scrollPane = new JScrollPane(receiptTextArea);
+        JOptionPane.showMessageDialog(null, scrollPane, "Booking Receipt", JOptionPane.INFORMATION_MESSAGE);
+        
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Database connection failed: " + e.getMessage(), "Connection Error", JOptionPane.ERROR_MESSAGE);
+        e.printStackTrace();
+    } finally {
+        // Always close the connection to avoid memory leaks
+        try {
+            if (con != null && !con.isClosed()) {
+                con.close();
+            }
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
     }//GEN-LAST:event_ViewReceiptActionPerformed
 
     private void PackagesDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PackagesDetailsActionPerformed
@@ -695,27 +797,43 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
     }//GEN-LAST:event_PackagesDetailsActionPerformed
 
     private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
-    String bookingID = txtSearchBookingID.getText().trim();
-    if (bookingID.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please enter a Booking ID", "Search Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+   String searchInput = txtSearchBookingI.getText().trim(); // Can be Booking ID or Client Name
+if (searchInput.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please enter a Booking ID or Client Name", "Search Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-        String searchQuery = "SELECT b.*, c.ClientName, c.ClientNumber FROM booking b " +
-                             "JOIN client c ON b.ClientID = c.ClientID WHERE b.BookingID = ?";
-        try (PreparedStatement ps = con.prepareStatement(searchQuery)) {
-            ps.setString(1, bookingID);
-            ResultSet rs = ps.executeQuery();
+try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+    // Construct query that checks both Booking ID and Client Name
+    String searchQuery = "SELECT b.BookingID, b.Theme, b.EventDate, b.Location, b.TimeStart, b.TimeEnd, b.PackageID, " +
+                         "b.NumberOfGuests, b.NumberOfLaborers, b.CateringStyle, b.Status, b.TotalPrice, " +
+                         "c.ClientName, c.ClientNumber " +
+                         "FROM client c " +
+                         "LEFT JOIN booking b ON c.ClientID = b.ClientID " + 
+                         "WHERE b.BookingID = ? OR c.ClientName LIKE ?";
 
-            if (rs.next()) {
-                txtClientName.setText(rs.getString("ClientName"));
-                txtClientNum.setText(rs.getString("ClientNumber"));
+    try (PreparedStatement ps = con.prepareStatement(searchQuery)) {
+        ps.setString(1, searchInput); // First parameter for Booking ID
+        ps.setString(2, "%" + searchInput + "%"); // Second parameter for Client Name (partial match)
+
+        ResultSet rs = ps.executeQuery();
+
+        if (rs.next()) {
+            // Set client details (they will always be fetched)
+            txtClientName.setText(rs.getString("ClientName"));
+            txtClientNum.setText(rs.getString("ClientNumber"));
+
+            // Set booking details if available (it may be null if no booking exists)
+            String bookingID = rs.getString("BookingID");
+            if (bookingID != null) {
+                idplaceholder.setText(bookingID);
                 txtTheme.setText(rs.getString("Theme"));
 
                 // Formatting date before setting it into the combo box
                 java.util.Date eventDate = rs.getDate("EventDate");
-                jCalendarComboBox1.setDate(eventDate);
+                if (eventDate != null) {
+                    jCalendarComboBox1.setDate(eventDate);
+                }
 
                 txtLocation.setText(rs.getString("Location"));
                 txtTimeStart.setText(rs.getString("TimeStart"));
@@ -725,124 +843,146 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
                 NumberOfGuests.setValue(rs.getInt("NumberOfGuests"));
                 NumberOfLaborers.setValue(rs.getInt("NumberOfLaborers"));
                 Status.setSelectedItem(rs.getString("Status"));
-
-                JOptionPane.showMessageDialog(null, "Booking details retrieved successfully.", "Search Success", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "No booking found for the provided Booking ID.", "Search Error", JOptionPane.ERROR_MESSAGE);
+                // If no booking is found for the client
+                JOptionPane.showMessageDialog(null, "Client found, but no booking information available.", "Search Info", JOptionPane.INFORMATION_MESSAGE);
+                // Optionally, you can clear the booking-related fields if no booking exists.
+                clearBookingFields();
             }
+        } else {
+            JOptionPane.showMessageDialog(null, "No client or booking found for the provided input.", "Search Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Database connection error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(null, "Database connection error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+}
+
+
+
     }//GEN-LAST:event_SearchBtnActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
         // Step 1: Get Booking ID
-    String bookingID = txtSearchBookingID.getText().trim();
-    if (bookingID.isEmpty()) {
-        JOptionPane.showMessageDialog(null, "Please enter a Booking ID to update.", "Update Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+String bookingID = idplaceholder.getText().trim();
+if (bookingID.isEmpty()) {
+    JOptionPane.showMessageDialog(null, "Please enter a Booking ID to update.", "Update Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-    // Step 2: Validate and collect updated data from fields
-    String clientName = txtClientName.getText().trim();
-    String clientNumber = txtClientNum.getText().trim();
-    String theme = txtTheme.getText().trim();
-    String location = txtLocation.getText().trim();
-    String timeStartStr = txtTimeStart.getText().trim();
-    String timeEndStr = txtTimeEnds.getText().trim();
-    String packagePickerStr = PackagePicker.getText().trim();
-    int numberOfGuests = (int) NumberOfGuests.getValue();
-    int numberOfLaborers = (int) NumberOfLaborers.getValue();
-    String cateringStyle = pickCateringStyle.getSelectedItem().toString();
-    String status = Status.getSelectedItem().toString();
-    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-    String eventDateStr = dateFormat.format(jCalendarComboBox1.getDate());
+// For debugging: Print the booking ID with visible brackets to detect hidden characters
+System.out.println("Booking ID: [" + bookingID + "]");
 
+// Step 2: Validate and collect updated data from fields
+String clientName = txtClientName.getText().trim();
+String clientNumber = txtClientNum.getText().trim();
+String theme = txtTheme.getText().trim();
+String location = txtLocation.getText().trim();
+String timeStartStr = txtTimeStart.getText().trim();
+String timeEndStr = txtTimeEnds.getText().trim();
+String packagePickerStr = PackagePicker.getText().trim();
+int numberOfGuests = (int) NumberOfGuests.getValue();
+int numberOfLaborers = (int) NumberOfLaborers.getValue();
+String cateringStyle = pickCateringStyle.getSelectedItem().toString();
+String status = Status.getSelectedItem().toString();
+SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+String eventDateStr = dateFormat.format(jCalendarComboBox1.getDate());
 
-    if (clientName.isEmpty() || clientNumber.isEmpty() || theme.isEmpty() || eventDateStr.isEmpty() || 
-        location.isEmpty() || timeStartStr.isEmpty() || timeEndStr.isEmpty() || packagePickerStr.isEmpty() || 
-        cateringStyle.equals("Select Catering Style")) {
-        JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+if (clientName.isEmpty() || clientNumber.isEmpty() || theme.isEmpty() || eventDateStr.isEmpty() || 
+    location.isEmpty() || timeStartStr.isEmpty() || timeEndStr.isEmpty() || packagePickerStr.isEmpty() || 
+    cateringStyle.equals("Select Catering Style")) {
+    JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-    // Step 3: Parse dates and times
-    java.sql.Date eventDate;
-    java.sql.Time timeStart, timeEnd;
+// Step 3: Parse dates and times
+java.sql.Date eventDate;
+java.sql.Time timeStart, timeEnd;
 
-    try {
-        eventDate = java.sql.Date.valueOf(eventDateStr);
-        timeStart = java.sql.Time.valueOf(timeStartStr);
-        timeEnd = java.sql.Time.valueOf(timeEndStr);
-    } catch (IllegalArgumentException ex) {
-        JOptionPane.showMessageDialog(null, "Invalid date or time format. Please check your inputs.", "Format Error", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
+try {
+    eventDate = java.sql.Date.valueOf(eventDateStr);
+    timeStart = java.sql.Time.valueOf(timeStartStr);
+    timeEnd = java.sql.Time.valueOf(timeEndStr);
+} catch (IllegalArgumentException ex) {
+    JOptionPane.showMessageDialog(null, "Invalid date or time format. Please check your inputs.", "Format Error", JOptionPane.ERROR_MESSAGE);
+    return;
+}
 
-    // Step 4: Calculate total price
-    double totalPrice = calculateTotalAmount(
-    Integer.parseInt(packagePickerStr),          // Package ID (from selected package)
-    numberOfGuests,                              // Number of guests
-    numberOfLaborers,                            // Number of laborers
-    (int) ChronoUnit.HOURS.between(timeStart.toLocalTime(), timeEnd.toLocalTime()),  // Hours worked (time duration)
-    cateringStyle                                 // Catering style (e.g., "Plated catering" or "Buffet catering")
+// Step 4: Calculate total price
+double totalPrice = calculateTotalAmount(
+    Integer.parseInt(packagePickerStr), // Package ID (from selected package)
+    numberOfGuests,                     // Number of guests
+    numberOfLaborers,                   // Number of laborers
+    (int) ChronoUnit.HOURS.between(timeStart.toLocalTime(), timeEnd.toLocalTime()), // Hours worked (time duration)
+    cateringStyle                       // Catering style (e.g., "Plated catering" or "Buffet catering")
 );
 
-    // Step 5: Connect to the database and update records
-    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-        con.setAutoCommit(false); // Begin transaction
+// Step 5: Connect to the database and update records
+try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+    con.setAutoCommit(false); // Begin transaction
 
-        // Update client information
-        String updateClientQuery = "UPDATE client SET ClientName = ?, ClientNumber = ? WHERE ClientID = (SELECT ClientID FROM booking WHERE BookingID = ?)";
-        try (PreparedStatement ps = con.prepareStatement(updateClientQuery)) {
-            ps.setString(1, clientName);
-            ps.setString(2, clientNumber);
-            ps.setString(3, bookingID);
-            ps.executeUpdate();
+    // Debugging: Check if the booking ID exists in the database
+    String checkBookingQuery = "SELECT * FROM booking WHERE BookingID = ?";
+    try (PreparedStatement psCheck = con.prepareStatement(checkBookingQuery)) {
+        psCheck.setString(1, bookingID);
+        ResultSet rs = psCheck.executeQuery();
+
+        // If no record is found, show error message
+        if (!rs.next()) {
+            JOptionPane.showMessageDialog(null, "No booking found with the provided Booking ID.", "Update Error", JOptionPane.ERROR_MESSAGE);
+            return; // Stop here if no booking found
         }
-
-        // Update booking details
-        String updateBookingQuery = "UPDATE booking SET Theme = ?, EventDate = ?, Location = ?, TimeStart = ?, TimeEnd = ?, " +
-                                    "PackageID = ?, NumberOfGuests = ?, NumberOfLaborers = ?, CateringStyle = ?, Status = ?, TotalPrice = ? " +
-                                    "WHERE BookingID = ?";
-        try (PreparedStatement ps = con.prepareStatement(updateBookingQuery)) {
-            ps.setString(1, theme);
-            ps.setDate(2, eventDate);
-            ps.setString(3, location);
-            ps.setTime(4, timeStart);
-            ps.setTime(5, timeEnd);
-            ps.setInt(6, Integer.parseInt(packagePickerStr));
-            ps.setInt(7, numberOfGuests);
-            ps.setInt(8, numberOfLaborers);
-            ps.setString(9, cateringStyle);
-            ps.setString(10, status);
-            ps.setDouble(11, totalPrice);
-            ps.setString(12, bookingID);
-
-            int rowsUpdated = ps.executeUpdate();
-            if (rowsUpdated > 0) {
-                JOptionPane.showMessageDialog(null, "Booking updated successfully!", "Update Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "No booking found with the provided Booking ID.", "Update Error", JOptionPane.ERROR_MESSAGE);
-                con.rollback(); // Revert transaction if update fails
-                return;
-            }
-        }
-
-        con.commit(); // Commit transaction if all updates are successful
-
-    } catch (SQLException ex) {
-        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
     }
-        
+
+    // Update client information
+    String updateClientQuery = "UPDATE client SET ClientName = ?, ClientNumber = ? WHERE ClientID = (SELECT ClientID FROM booking WHERE BookingID = ?)";
+    try (PreparedStatement ps = con.prepareStatement(updateClientQuery)) {
+        ps.setString(1, clientName);
+        ps.setString(2, clientNumber);
+        ps.setString(3, bookingID);
+        ps.executeUpdate();
+    }
+
+    // Update booking details
+    String updateBookingQuery = "UPDATE booking SET Theme = ?, EventDate = ?, Location = ?, TimeStart = ?, TimeEnd = ?, " +
+                                "PackageID = ?, NumberOfGuests = ?, NumberOfLaborers = ?, CateringStyle = ?, Status = ?, TotalPrice = ? " +
+                                "WHERE BookingID = ?";
+    try (PreparedStatement ps = con.prepareStatement(updateBookingQuery)) {
+        ps.setString(1, theme);
+        ps.setDate(2, eventDate);
+        ps.setString(3, location);
+        ps.setTime(4, timeStart);
+        ps.setTime(5, timeEnd);
+        ps.setInt(6, Integer.parseInt(packagePickerStr));
+        ps.setInt(7, numberOfGuests);
+        ps.setInt(8, numberOfLaborers);
+        ps.setString(9, cateringStyle);
+        ps.setString(10, status);
+        ps.setDouble(11, totalPrice);
+        ps.setString(12, bookingID);
+
+        int rowsUpdated = ps.executeUpdate();
+        if (rowsUpdated > 0) {
+            JOptionPane.showMessageDialog(null, "Booking updated successfully!", "Update Success", JOptionPane.INFORMATION_MESSAGE);
+        } else {
+            JOptionPane.showMessageDialog(null, "No booking found with the provided Booking ID.", "Update Error", JOptionPane.ERROR_MESSAGE);
+            con.rollback(); // Revert transaction if update fails
+            return;
+        }
+    }
+
+    con.commit(); // Commit transaction if all updates are successful
+
+} catch (SQLException ex) {
+    JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    ex.printStackTrace();
+}
+    
     
     }//GEN-LAST:event_updateActionPerformed
 
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
         // Clear text fields
-    txtSearchBookingID.setText("");
+    txtSearchBookingI.setText("");
     txtClientName.setText("");
     txtClientNum.setText("");
     txtTheme.setText("");
@@ -857,9 +997,6 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
     Status.setSelectedIndex(0); // Reset to the first status
     NumberOfGuests.setValue(0); // Reset spinner
     NumberOfLaborers.setValue(0); // Reset spinner
-
-    // Show a debug message (optional)
-    JOptionPane.showMessageDialog(null, "Form cleared successfully.", "Clear Success", JOptionPane.INFORMATION_MESSAGE);
 
     }//GEN-LAST:event_ClearActionPerformed
 
@@ -935,6 +1072,22 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
         });
     }//GEN-LAST:event_logoutActionPerformed
 
+    private void BtnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReportActionPerformed
+        BtnReport.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                SaleCatalog laborer = new SaleCatalog();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+
+    }//GEN-LAST:event_BtnReportActionPerformed
+
+    private void StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StatusActionPerformed
+
     public double calculateLaborPay(int laborerId, int hoursWorked) {
     double hourlyRate = 0.0; // Default hourly rate if not found
     
@@ -996,7 +1149,7 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
 
         // Calculate total amount based on catering style
         if ("Plated catering".equalsIgnoreCase(cateringStyle)) {
-        totalAmount = (20 * guestCount) + laborPay + reservationfee +(packagePrice * guestCount); // Include packagePrice for plated catering
+        totalAmount = (30 * guestCount) + laborPay + reservationfee +(packagePrice * guestCount); // Include packagePrice for plated catering
         } else {
             totalAmount = (packagePrice * guestCount) + reservationfee +laborPay; // Default package price calculation for other catering styles
         }
@@ -1015,6 +1168,21 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
             }
         });
     }
+    
+    // Optional: Clear booking fields if no booking is found
+private void clearBookingFields() {
+    idplaceholder.setText("");
+    txtTheme.setText("");
+    jCalendarComboBox1.setDate(null);
+    txtLocation.setText("");
+    txtTimeStart.setText("");
+    txtTimeEnds.setText("");
+    PackagePicker.setText("");
+    pickCateringStyle.setSelectedItem("Select Catering Style");
+    NumberOfGuests.setValue(0);
+    NumberOfLaborers.setValue(0);
+    Status.setSelectedItem("Select Status");
+}
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBooking;
@@ -1022,6 +1190,7 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
     private javax.swing.JButton BtnHome;
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
+    private javax.swing.JButton BtnReport;
     private javax.swing.JButton Clear;
     private javax.swing.JSpinner NumberOfGuests;
     private javax.swing.JSpinner NumberOfLaborers;
@@ -1032,6 +1201,7 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
     private javax.swing.JButton SearchBtn;
     private javax.swing.JComboBox<String> Status;
     private javax.swing.JButton ViewReceipt;
+    private javax.swing.JTextField idplaceholder;
     private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;
@@ -1039,7 +1209,11 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
     private javax.swing.JLabel jLabel18;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel25;
     private javax.swing.JLabel jLabel26;
@@ -1062,7 +1236,7 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientNum;
     private javax.swing.JTextField txtLocation;
-    private javax.swing.JTextField txtSearchBookingID;
+    private javax.swing.JTextField txtSearchBookingI;
     private javax.swing.JTextField txtTheme;
     private javax.swing.JTextField txtTimeEnds;
     private javax.swing.JTextField txtTimeStart;

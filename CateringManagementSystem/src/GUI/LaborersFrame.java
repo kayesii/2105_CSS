@@ -1,5 +1,6 @@
 
 package GUI;
+import com.mysql.cj.jdbc.result.ResultSetMetaData;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.sql.Connection;
@@ -84,7 +85,6 @@ public class LaborersFrame extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jPanel1 = new javax.swing.JPanel();
         jPanelLaborerDetails = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
@@ -103,28 +103,29 @@ public class LaborersFrame extends javax.swing.JFrame {
         cmbStatusPay = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
-        AllLaborer = new javax.swing.JButton();
         jScrollPane6 = new javax.swing.JScrollPane();
         jScrollPane5 = new javax.swing.JScrollPane();
         LaborerTable = new javax.swing.JTable();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel15 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        AllLaborer = new javax.swing.JButton();
+        jLabel16 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
         BtnPackages = new javax.swing.JButton();
         BtnBooking = new javax.swing.JButton();
         BtnHome = new javax.swing.JButton();
-        jLabel10 = new javax.swing.JLabel();
-        jLabel11 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         BtnLaborer = new javax.swing.JButton();
         logout = new javax.swing.JButton();
+        BtnReport = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
-
-        jPanel1.setBackground(new java.awt.Color(245, 222, 179));
-        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanelLaborerDetails.setBackground(new java.awt.Color(210, 180, 140));
         jPanelLaborerDetails.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -136,8 +137,8 @@ public class LaborersFrame extends javax.swing.JFrame {
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Hourly Rate:");
         jPanelLaborerDetails.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 90, 20));
-        jPanelLaborerDetails.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 300, -1));
-        jPanelLaborerDetails.add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 300, -1));
+        jPanelLaborerDetails.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 240, -1));
+        jPanelLaborerDetails.add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 240, -1));
 
         cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "WaitStaff", " " }));
         jPanelLaborerDetails.add(cmbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 150, 20));
@@ -156,15 +157,14 @@ public class LaborersFrame extends javax.swing.JFrame {
         });
         jPanelLaborerDetails.add(addLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 100, 120, 40));
 
-        SearchLaborer.setBackground(new java.awt.Color(205, 133, 63));
         SearchLaborer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        SearchLaborer.setText("Search");
+        SearchLaborer.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
         SearchLaborer.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 SearchLaborerActionPerformed(evt);
             }
         });
-        jPanelLaborerDetails.add(SearchLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 120, 40));
+        jPanelLaborerDetails.add(SearchLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 20, 60, 50));
 
         Update.setBackground(new java.awt.Color(205, 133, 63));
         Update.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -193,7 +193,7 @@ public class LaborersFrame extends javax.swing.JFrame {
             }
         });
         jPanelLaborerDetails.add(txtHourlyRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 150, -1));
-        jPanelLaborerDetails.add(txtLaborerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 140, -1));
+        jPanelLaborerDetails.add(txtLaborerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 240, -1));
 
         cmbStatusPay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Unpaid", "Paid" }));
         jPanelLaborerDetails.add(cmbStatusPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 150, 20));
@@ -206,15 +206,7 @@ public class LaborersFrame extends javax.swing.JFrame {
         jLabel9.setText("Name:");
         jPanelLaborerDetails.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
 
-        AllLaborer.setText("Laborer List");
-        AllLaborer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                AllLaborerActionPerformed(evt);
-            }
-        });
-        jPanelLaborerDetails.add(AllLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
-
-        jPanel1.add(jPanelLaborerDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 960, 150));
+        getContentPane().add(jPanelLaborerDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 170, 960, 150));
 
         LaborerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -232,23 +224,42 @@ public class LaborersFrame extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jScrollPane5);
 
-        jPanel1.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 1060, 180));
+        getContentPane().add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 340, 1060, 180));
 
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel12.setText("LABORER INFORMATION");
-        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 300, -1));
+        jLabel20.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel20.setText("L");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 100, 40, -1));
 
-        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jLabel15.setText("LABORER INFORMATION");
-        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 300, -1));
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel22.setText("aborer");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(450, 110, 110, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
+        jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel19.setText("I");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 100, 40, -1));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel21.setText("nformation");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(600, 110, 190, -1));
+
+        AllLaborer.setBackground(new java.awt.Color(205, 133, 63));
+        AllLaborer.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        AllLaborer.setText("Laborer Records");
+        AllLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AllLaborerActionPerformed(evt);
+            }
+        });
+        getContentPane().add(AllLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(890, 110, 140, 40));
+
+        jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
 
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         BtnCalendar.setBackground(new java.awt.Color(210, 180, 140));
-        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnCalendar.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnCalendar.setText("CALENDAR");
         BtnCalendar.setBorder(null);
         BtnCalendar.addActionListener(new java.awt.event.ActionListener() {
@@ -256,10 +267,10 @@ public class LaborersFrame extends javax.swing.JFrame {
                 BtnCalendarActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 30, 140, 40));
+        jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, 40));
 
         BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
-        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnPackages.setText("PACKAGES");
         BtnPackages.setBorder(null);
         BtnPackages.addActionListener(new java.awt.event.ActionListener() {
@@ -267,10 +278,10 @@ public class LaborersFrame extends javax.swing.JFrame {
                 BtnPackagesActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 140, 40));
+        jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 120, 40));
 
         BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
-        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnBooking.setText("BOOKING");
         BtnBooking.setBorder(null);
         BtnBooking.addActionListener(new java.awt.event.ActionListener() {
@@ -278,10 +289,10 @@ public class LaborersFrame extends javax.swing.JFrame {
                 BtnBookingActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
+        jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 30, 120, 40));
 
         BtnHome.setBackground(new java.awt.Color(210, 180, 140));
-        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnHome.setText("HOME");
         BtnHome.setBorder(null);
         BtnHome.addActionListener(new java.awt.event.ActionListener() {
@@ -289,18 +300,18 @@ public class LaborersFrame extends javax.swing.JFrame {
                 BtnHomeActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 140, 40));
+        jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 120, 40));
 
-        jLabel10.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel10.setText("PALATES  ");
-        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
+        jLabel13.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
+        jLabel13.setText("PALATES  ");
+        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
 
-        jLabel11.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel11.setText("&   plates");
-        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
+        jLabel14.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
+        jLabel14.setText("&   plates");
+        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
 
         BtnLaborer.setBackground(new java.awt.Color(205, 133, 63));
-        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnLaborer.setText("LABOR");
         BtnLaborer.setBorder(null);
         BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
@@ -308,7 +319,7 @@ public class LaborersFrame extends javax.swing.JFrame {
                 BtnLaborerActionPerformed(evt);
             }
         });
-        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
 
         logout.setBackground(new java.awt.Color(210, 180, 140));
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
@@ -318,9 +329,20 @@ public class LaborersFrame extends javax.swing.JFrame {
                 logoutActionPerformed(evt);
             }
         });
-        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 40, 40));
+        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 40, 40));
 
-        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
+        BtnReport.setBackground(new java.awt.Color(210, 180, 140));
+        BtnReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnReport.setText("REPORT");
+        BtnReport.setBorder(null);
+        BtnReport.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnReportActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 30, 120, 40));
+
+        getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -514,6 +536,17 @@ public class LaborersFrame extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHourlyRateActionPerformed
 
+    private void AllLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllLaborerActionPerformed
+    AllLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersTable lt = new LaborersTable();
+                lt.setVisible(true);
+                lt.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_AllLaborerActionPerformed
+
     private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
         BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -562,7 +595,7 @@ public class LaborersFrame extends javax.swing.JFrame {
         BtnLaborer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                LaborersFrame laborer = new LaborersFrame();
+                LaborersTable laborer = new LaborersTable();
                 laborer.setVisible(true);
                 laborer .setLocationRelativeTo(null); // Center the SignUP frame
             }
@@ -586,9 +619,16 @@ public class LaborersFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_logoutActionPerformed
 
-    private void AllLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllLaborerActionPerformed
-     
-    }//GEN-LAST:event_AllLaborerActionPerformed
+    private void BtnReportActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnReportActionPerformed
+        BtnReport.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                SaleCatalog laborer = new SaleCatalog();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnReportActionPerformed
 
 
 
@@ -634,6 +674,7 @@ public class LaborersFrame extends javax.swing.JFrame {
     private javax.swing.JButton BtnHome;
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
+    private javax.swing.JButton BtnReport;
     private javax.swing.JTable LaborerTable;
     private javax.swing.JButton SearchLaborer;
     private javax.swing.JButton Update;
@@ -641,10 +682,13 @@ public class LaborersFrame extends javax.swing.JFrame {
     private javax.swing.JComboBox<String> cmbRole;
     private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JComboBox<String> cmbStatusPay;
-    private javax.swing.JLabel jLabel10;
-    private javax.swing.JLabel jLabel11;
-    private javax.swing.JLabel jLabel12;
-    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel13;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
+    private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -652,7 +696,6 @@ public class LaborersFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
-    private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanelLaborerDetails;
     private javax.swing.JScrollPane jScrollPane5;
