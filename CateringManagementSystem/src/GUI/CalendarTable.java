@@ -10,17 +10,18 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class ReservationCalendar extends javax.swing.JFrame {
+public class CalendarTable extends javax.swing.JFrame {
 
     private JTable calendarTable;
     private JLabel labelMonth, labelYear;
     private JButton btnPreviousMonth, btnNextMonth, btnPreviousYear, btnNextYear, btnHome, btnBooking, btnLaborer, btnPackages;
-    private JLabel labelClientID, labelEventName, labelReservationDate, labelStatus, noReservationMessage;
+    private JLabel labelClientName, labelEventName, noReservationMessage, legendLabel;
+    private JPanel legendPanel;
 
     private Calendar calendar;
-    private HashMap<String, String> dateStatusMap; // Stores date and status for coloring
+    private HashMap<String, String> dateBookingStatusMap; // Booking statuses
 
-    public ReservationCalendar() {
+    public CalendarTable() {
         // Initialize components
         labelMonth = new JLabel("Month", SwingConstants.CENTER);
         labelYear = new JLabel("Year", SwingConstants.CENTER);
@@ -31,7 +32,7 @@ public class ReservationCalendar extends javax.swing.JFrame {
         btnNextYear = new JButton(">>");
 
         calendar = Calendar.getInstance();
-        dateStatusMap = new HashMap<>();
+        dateBookingStatusMap = new HashMap<>();
 
         DefaultTableModel calendarTableModel = new DefaultTableModel(6, 7);
         calendarTable = new JTable(calendarTableModel) {
@@ -46,11 +47,11 @@ public class ReservationCalendar extends javax.swing.JFrame {
 
                 if (value != null && !value.toString().isEmpty()) {
                     String selectedDate = constructDateString(value.toString().trim());
-                    String status = dateStatusMap.get(selectedDate);
+                    String bookingStatus = dateBookingStatusMap.get(selectedDate);
 
-                    if ("Pending".equalsIgnoreCase(status)) {
-                        c.setBackground(Color.ORANGE);
-                    } else if ("Cancelled".equalsIgnoreCase(status)) {
+                    if ("Completed".equalsIgnoreCase(bookingStatus)) {
+                        c.setBackground(Color.GREEN);
+                    } else if ("Pending".equalsIgnoreCase(bookingStatus)) {
                         c.setBackground(Color.RED);
                     } else {
                         c.setBackground(Color.WHITE);
@@ -73,35 +74,35 @@ public class ReservationCalendar extends javax.swing.JFrame {
                 Object value = calendarTable.getValueAt(row, column);
                 if (value != null && !value.toString().isEmpty()) {
                     String clickedDate = constructDateString(value.toString().trim());
-                    searchReservations(clickedDate);
+                    fetchBookingDetails(clickedDate);
                 }
             }
         });
 
-        // Set larger font for labels
-        Font labelFont = new Font("Arial", Font.PLAIN, 24);
+        // Other UI components initialization
+        Font labelFont = new Font("Arial", Font.PLAIN, 40);
 
-        labelClientID = new JLabel("ClientID: ");
-        labelClientID.setFont(labelFont);
+        labelClientName = new JLabel("Client Name: ");
+        labelClientName.setFont(labelFont);
 
         labelEventName = new JLabel("Event: ");
         labelEventName.setFont(labelFont);
 
-        labelReservationDate = new JLabel("Reservation Date: ");
-        labelReservationDate.setFont(labelFont);
-
-        labelStatus = new JLabel("Status: ");
-        labelStatus.setFont(labelFont);
-
-        noReservationMessage = new JLabel("No reservations found for this date.", SwingConstants.CENTER);
+        // Update the label text to indicate no events found and center it horizontally
+        noReservationMessage = new JLabel("No Events found on this date.", SwingConstants.CENTER);
         noReservationMessage.setFont(new Font("Arial", Font.BOLD, 26));
         noReservationMessage.setForeground(Color.RED);
         noReservationMessage.setVisible(false);
 
+        // Legend Panel
+        legendPanel = new JPanel();
+        legendLabel = new JLabel("<html><b>Legend:</b><br><font color='green'>Completed</font><br><font color='red'>Pending</font></html>");
+        legendPanel.add(legendLabel);
+
+        // Set up the layout
         setLayout(new BorderLayout());
 
         JPanel topPanel = new JPanel(new GridLayout(2, 1));
-
         JPanel navigationPanel = new JPanel(new FlowLayout());
         navigationPanel.add(btnPreviousYear);
         navigationPanel.add(btnPreviousMonth);
@@ -123,42 +124,25 @@ public class ReservationCalendar extends javax.swing.JFrame {
         topPanel.add(navigationPanel);
         topPanel.add(buttonPanel);
 
-        JPanel bottomPanel = new JPanel(new GridLayout(5, 1));
-        bottomPanel.add(labelClientID);
-        bottomPanel.add(labelEventName);
-        bottomPanel.add(labelReservationDate);
-        bottomPanel.add(labelStatus);
-        bottomPanel.add(noReservationMessage);
+        // Bottom panel for labels and legend
+        JPanel bottomPanel = new JPanel(new BorderLayout()); // Use BorderLayout for easy positioning
+        JPanel leftPanel = new JPanel(new GridLayout(3, 1)); // Vertical layout for client name, event, and no message
+        leftPanel.add(labelClientName);
+        leftPanel.add(labelEventName);
+        leftPanel.add(noReservationMessage);
 
+        // Set the left panel to the left side
+        bottomPanel.add(leftPanel, BorderLayout.WEST);
+
+        // Set the legend to the right side
+        bottomPanel.add(legendPanel, BorderLayout.EAST);
+
+        // Add top panel, calendar table and bottom panel
         add(topPanel, BorderLayout.NORTH);
         add(new JScrollPane(calendarTable), BorderLayout.CENTER);
         add(bottomPanel, BorderLayout.SOUTH);
 
-        btnHome.addActionListener(e -> {
-            dispose();
-            HomeFrame home = new HomeFrame();
-            home.setVisible(true);
-            home.setLocationRelativeTo(null);
-        });
-        btnBooking.addActionListener(e -> {
-            dispose();
-            BookingProcess Booking = new BookingProcess();
-            Booking.setVisible(true);
-            Booking.setLocationRelativeTo(null);
-        });
-        btnLaborer.addActionListener(e -> {
-            dispose();
-            LaborersFrame Laborer = new LaborersFrame();
-            Laborer.setVisible(true);
-            Laborer.setLocationRelativeTo(null);
-        });
-        btnPackages.addActionListener(e -> {
-            dispose();
-            PackagesFrame Packages = new PackagesFrame();
-            Packages.setVisible(true);
-            Packages.setLocationRelativeTo(null);
-        });
-
+        // Button actions
         btnPreviousMonth.addActionListener(e -> {
             calendar.add(Calendar.MONTH, -1);
             showCalendar(calendar);
@@ -186,18 +170,6 @@ public class ReservationCalendar extends javax.swing.JFrame {
         setVisible(true);
 
         showCalendar(calendar);
-    }
-
-    private int getMonthNumber(String monthName) {
-        try {
-            SimpleDateFormat sdf = new SimpleDateFormat("MMMM");
-            Calendar cal = Calendar.getInstance();
-            cal.setTime(sdf.parse(monthName));
-            return cal.get(Calendar.MONTH) + 1;
-        } catch (ParseException e) {
-            e.printStackTrace();
-            return -1;
-        }
     }
 
     private String constructDateString(String day) {
@@ -241,59 +213,73 @@ public class ReservationCalendar extends javax.swing.JFrame {
                 }
             }
         }
-        loadStatuses();
+        loadBookingStatuses();
     }
 
-    private void loadStatuses() {
-        dateStatusMap.clear();
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-            String query = "SELECT ReservationDate, Status FROM reservation";
-            PreparedStatement pst = con.prepareStatement(query);
-            ResultSet rs = pst.executeQuery();
+    private void loadBookingStatuses() {
+        dateBookingStatusMap.clear();
 
-            while (rs.next()) {
-                String date = rs.getString("ReservationDate");
-                String status = rs.getString("Status");
-                dateStatusMap.put(date, status);
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+            String queryBooking = "SELECT EventDate, Status FROM booking";
+
+            // Load booking statuses
+            PreparedStatement pstBooking = con.prepareStatement(queryBooking);
+            ResultSet rsBooking = pstBooking.executeQuery();
+            while (rsBooking.next()) {
+                String date = rsBooking.getString("EventDate");
+                String status = rsBooking.getString("Status");
+                dateBookingStatusMap.put(date, status);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error loading statuses: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error loading booking statuses: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
-    private void searchReservations(String inputDate) {
-        if (!inputDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
-            JOptionPane.showMessageDialog(this, "Invalid date format. Please use YYYY-MM-DD.", "Error", JOptionPane.ERROR_MESSAGE);
-            return;
+    private int getMonthNumber(String monthName) {
+        try {
+            SimpleDateFormat sdf = new SimpleDateFormat("MMMM");
+            Calendar cal = Calendar.getInstance();
+            cal.setTime(sdf.parse(monthName));
+            return cal.get(Calendar.MONTH) + 1;
+        } catch (ParseException e) {
+            e.printStackTrace();
+            return -1;
         }
+    }
+
+    private void fetchBookingDetails(String eventDate) {
+        if (eventDate == null) return;
 
         try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-            String query = "SELECT * FROM reservation WHERE ReservationDate = ?";
+            String query = "SELECT b.ClientID, b.Theme, b.EventDate, b.Status, c.ClientName "
+                         + "FROM booking b "
+                         + "JOIN client c ON b.ClientID = c.ClientID "
+                         + "WHERE b.EventDate = ?";
             PreparedStatement pst = con.prepareStatement(query);
-            pst.setString(1, inputDate);
+            pst.setString(1, eventDate);
             ResultSet rs = pst.executeQuery();
 
             if (rs.next()) {
-                labelClientID.setText("ClientID: " + rs.getString("ClientID"));
-                labelEventName.setText("Event: " + rs.getString("EventName"));
-                labelReservationDate.setText("Reservation Date: " + rs.getString("ReservationDate"));
-                labelStatus.setText("Status: " + rs.getString("Status"));
+                String clientName = rs.getString("ClientName");
+                String eventTheme = rs.getString("Theme");
+
+                labelClientName.setText("Client Name: " + clientName);
+                labelEventName.setText("Event: " + eventTheme);
                 noReservationMessage.setVisible(false);
             } else {
-                labelClientID.setText("ClientID: ");
+                labelClientName.setText("Client Name: ");
                 labelEventName.setText("Event: ");
-                labelReservationDate.setText("Reservation Date: ");
-                labelStatus.setText("Status: ");
                 noReservationMessage.setVisible(true);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error fetching reservation: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error fetching booking details: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
     public static void main(String[] args) {
-        new ReservationCalendar();
+        SwingUtilities.invokeLater(() -> new CalendarTable());
     }
+
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
