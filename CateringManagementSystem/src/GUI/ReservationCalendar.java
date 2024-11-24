@@ -2,12 +2,13 @@ package GUI;
 
 import java.sql.Connection;
 import javax.swing.*;
-import javax.swing.table.DefaultTableModel;
+import javax.swing.table.*;
 import java.awt.*;
 import java.awt.event.*;
 import java.text.*;
 import java.sql.*;
 import java.util.Calendar;
+import java.util.HashMap;
 
 public class ReservationCalendar extends javax.swing.JFrame {
 
@@ -17,6 +18,7 @@ public class ReservationCalendar extends javax.swing.JFrame {
     private JLabel labelClientID, labelEventName, labelReservationDate, labelStatus, noReservationMessage;
 
     private Calendar calendar;
+    private HashMap<String, String> dateStatusMap; // Stores date and status for coloring
 
     public ReservationCalendar() {
         // Initialize components
@@ -29,11 +31,52 @@ public class ReservationCalendar extends javax.swing.JFrame {
         btnNextYear = new JButton(">>");
 
         calendar = Calendar.getInstance();
+        dateStatusMap = new HashMap<>();
 
         DefaultTableModel calendarTableModel = new DefaultTableModel(6, 7);
-        calendarTable = new JTable(calendarTableModel);
+        calendarTable = new JTable(calendarTableModel) {
+            @Override
+            public Component prepareRenderer(TableCellRenderer renderer, int row, int column) {
+                Component c = super.prepareRenderer(renderer, row, column);
+                Object value = getValueAt(row, column);
+
+                if (c instanceof JLabel) {
+                    ((JLabel) c).setHorizontalAlignment(SwingConstants.CENTER); // Center text
+                }
+
+                if (value != null && !value.toString().isEmpty()) {
+                    String selectedDate = constructDateString(value.toString().trim());
+                    String status = dateStatusMap.get(selectedDate);
+
+                    if ("Pending".equalsIgnoreCase(status)) {
+                        c.setBackground(Color.GREEN);
+                    } else if ("Cancelled".equalsIgnoreCase(status)) {
+                        c.setBackground(Color.RED);
+                    } else {
+                        c.setBackground(Color.WHITE);
+                    }
+                } else {
+                    c.setBackground(Color.WHITE);
+                }
+                return c;
+            }
+        };
+
         calendarTable.setCellSelectionEnabled(true);
         calendarTable.setRowHeight(50);
+
+        calendarTable.addMouseListener(new MouseAdapter() {
+            @Override
+            public void mouseClicked(MouseEvent e) {
+                int row = calendarTable.getSelectedRow();
+                int column = calendarTable.getSelectedColumn();
+                Object value = calendarTable.getValueAt(row, column);
+                if (value != null && !value.toString().isEmpty()) {
+                    String clickedDate = constructDateString(value.toString().trim());
+                    searchReservations(clickedDate);
+                }
+            }
+        });
 
         // Set larger font for labels
         Font labelFont = new Font("Arial", Font.PLAIN, 24);
@@ -68,14 +111,14 @@ public class ReservationCalendar extends javax.swing.JFrame {
         navigationPanel.add(btnNextYear);
 
         JPanel buttonPanel = new JPanel(new FlowLayout(FlowLayout.LEFT));
+        btnHome = new JButton("Home");
         btnBooking = new JButton("Booking");
         btnLaborer = new JButton("Laborer");
         btnPackages = new JButton("Packages");
-        btnHome = new JButton("Home");
+        buttonPanel.add(btnHome);
         buttonPanel.add(btnBooking);
         buttonPanel.add(btnLaborer);
         buttonPanel.add(btnPackages);
-        buttonPanel.add(btnHome);
 
         topPanel.add(navigationPanel);
         topPanel.add(buttonPanel);
@@ -109,32 +152,11 @@ public class ReservationCalendar extends javax.swing.JFrame {
             Laborer.setVisible(true);
             Laborer.setLocationRelativeTo(null);
         });
-          btnPackages.addActionListener(e -> {
+        btnPackages.addActionListener(e -> {
             dispose();
             PackagesFrame Packages = new PackagesFrame();
             Packages.setVisible(true);
             Packages.setLocationRelativeTo(null);
-        });
-
-        calendarTable.addMouseListener(new MouseAdapter() {
-            @Override
-            public void mouseClicked(MouseEvent e) {
-                int row = calendarTable.getSelectedRow();
-                int column = calendarTable.getSelectedColumn();
-                Object value = calendarTable.getValueAt(row, column);
-                if (value != null && !value.toString().isEmpty()) {
-                    String clickedDate = value.toString().trim();
-                    String month = labelMonth.getText();
-                    String year = labelYear.getText();
-                    try {
-                        int day = Integer.parseInt(clickedDate);
-                        String inputDate = String.format("%s-%02d-%02d", year, getMonthNumber(month), day);
-                        searchReservations(inputDate);
-                    } catch (NumberFormatException ex) {
-                        JOptionPane.showMessageDialog(ReservationCalendar.this, "Invalid date selected", "Error", JOptionPane.ERROR_MESSAGE);
-                    }
-                }
-            }
         });
 
         btnPreviousMonth.addActionListener(e -> {
@@ -178,63 +200,66 @@ public class ReservationCalendar extends javax.swing.JFrame {
         }
     }
 
+    private String constructDateString(String day) {
+        String month = labelMonth.getText();
+        String year = labelYear.getText();
+        try {
+            int dayInt = Integer.parseInt(day);
+            return String.format("%s-%02d-%02d", year, getMonthNumber(month), dayInt);
+        } catch (NumberFormatException ex) {
+            return null;
+        }
+    }
+
     private void showCalendar(Calendar calendar) {
-    int month = calendar.get(Calendar.MONTH);
-    int year = calendar.get(Calendar.YEAR);
+        int month = calendar.get(Calendar.MONTH);
+        int year = calendar.get(Calendar.YEAR);
 
-    labelMonth.setText(new SimpleDateFormat("MMMM").format(calendar.getTime()));
-    labelYear.setText(String.valueOf(year));
+        labelMonth.setText(new SimpleDateFormat("MMMM").format(calendar.getTime()));
+        labelYear.setText(String.valueOf(year));
 
-    calendar.set(year, month, 1);
-    int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
-    int numberOfDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
+        calendar.set(year, month, 1);
+        int firstDayOfWeek = calendar.get(Calendar.DAY_OF_WEEK) - 1;
+        int numberOfDays = calendar.getActualMaximum(Calendar.DAY_OF_MONTH);
 
-    DefaultTableModel model = (DefaultTableModel) calendarTable.getModel();
-    model.setRowCount(6);
-    model.setColumnCount(7);
+        DefaultTableModel model = (DefaultTableModel) calendarTable.getModel();
+        model.setRowCount(6);
+        model.setColumnCount(7);
 
-    int day = 1;
-    for (int i = 0; i < 6; i++) {
-        for (int j = 0; j < 7; j++) {
-            if (i == 0 && j < firstDayOfWeek || day > numberOfDays) {
-                model.setValueAt("", i, j);
-            } else {
-                String date = String.format("%d-%02d-%02d", year, month + 1, day);
-                model.setValueAt(day, i, j);
+        // Set column headers (Sunday to Saturday)
+        String[] days = {"Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"};
+        model.setColumnIdentifiers(days);
 
-                // Check if the current day is reserved
-                if (isDateReserved(date)) {
-                    calendarTable.setCellSelectionEnabled(false); // Disable cell selection
-                    // Set the background color to red for reserved dates
-                    calendarTable.getCellRenderer(i, j).getTableCellRendererComponent(calendarTable, day, false, false, i, j)
-                            .setBackground(Color.RED);
+        int day = 1;
+        for (int i = 0; i < 6; i++) {
+            for (int j = 0; j < 7; j++) {
+                if (i == 0 && j < firstDayOfWeek || day > numberOfDays) {
+                    model.setValueAt("", i, j);
                 } else {
-                    calendarTable.getCellRenderer(i, j).getTableCellRendererComponent(calendarTable, day, false, false, i, j)
-                            .setBackground(null); // Reset to default background
+                    model.setValueAt(day, i, j);
+                    day++;
                 }
-                day++;
             }
         }
+        loadStatuses();
     }
-}
 
-// Helper method to check if a date is reserved
-private boolean isDateReserved(String date) {
-    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-        String query = "SELECT COUNT(*) FROM reservation WHERE ReservationDate = ?";
-        PreparedStatement pst = con.prepareStatement(query);
-        pst.setString(1, date);
-        ResultSet rs = pst.executeQuery();
+    private void loadStatuses() {
+        dateStatusMap.clear();
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+            String query = "SELECT ReservationDate, Status FROM reservation";
+            PreparedStatement pst = con.prepareStatement(query);
+            ResultSet rs = pst.executeQuery();
 
-        if (rs.next()) {
-            return rs.getInt(1) > 0; // Return true if the date is reserved
+            while (rs.next()) {
+                String date = rs.getString("ReservationDate");
+                String status = rs.getString("Status");
+                dateStatusMap.put(date, status);
+            }
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(this, "Error loading statuses: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(this, "Error checking reservation status: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
-    return false; // Return false if there's no reservation for the date
-}
-
 
     private void searchReservations(String inputDate) {
         if (!inputDate.matches("\\d{4}-\\d{2}-\\d{2}")) {
@@ -248,24 +273,21 @@ private boolean isDateReserved(String date) {
             pst.setString(1, inputDate);
             ResultSet rs = pst.executeQuery();
 
-            noReservationMessage.setVisible(false);
-            labelClientID.setText("ClientID: ");
-            labelEventName.setText("Event: ");
-            labelReservationDate.setText("Reservation Date: ");
-            labelStatus.setText("Status: ");
-
-            if (!rs.isBeforeFirst()) {
-                noReservationMessage.setVisible(true);
+            if (rs.next()) {
+                labelClientID.setText("ClientID: " + rs.getString("ClientID"));
+                labelEventName.setText("Event: " + rs.getString("EventName"));
+                labelReservationDate.setText("Reservation Date: " + rs.getString("ReservationDate"));
+                labelStatus.setText("Status: " + rs.getString("Status"));
+                noReservationMessage.setVisible(false);
             } else {
-                while (rs.next()) {
-                    labelClientID.setText("ClientID: " + rs.getString("ClientID"));
-                    labelEventName.setText("Event: " + rs.getString("EventName"));
-                    labelReservationDate.setText("Reservation Date: " + rs.getString("ReservationDate"));
-                    labelStatus.setText("Status: " + rs.getString("Status"));
-                }
+                labelClientID.setText("ClientID: ");
+                labelEventName.setText("Event: ");
+                labelReservationDate.setText("Reservation Date: ");
+                labelStatus.setText("Status: ");
+                noReservationMessage.setVisible(true);
             }
         } catch (SQLException e) {
-            JOptionPane.showMessageDialog(this, "Error retrieving data: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Error fetching reservation: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
         }
     }
 
