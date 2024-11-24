@@ -6,12 +6,12 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-public class FuneralPackages extends javax.swing.JFrame {
+public class PackageF1 extends javax.swing.JFrame {
 
     /**
      * Creates new form FuneralPackagesFrame
      */
-    public FuneralPackages() {
+    public PackageF1() {
         initComponents();
     }
 
@@ -31,9 +31,11 @@ public class FuneralPackages extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel1 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
+        next = new javax.swing.JButton();
+        prev1 = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Sort");
@@ -68,16 +70,46 @@ public class FuneralPackages extends javax.swing.JFrame {
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("₱300 per guest");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, 50));
-
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Package Name Basic Funeral Package Package Price Php 15,000 (Price can be adjusted based on regional costs.) Inclusions Venue Setup Simple and elegant table arrangements. Basic floral centerpiece .png"))); // NOI18N
-        getContentPane().add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 410));
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(870, -40, -1, -1));
 
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        next.setBackground(new java.awt.Color(205, 133, 63));
+        next.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        next.setText("->");
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextActionPerformed(evt);
+            }
+        });
+        jPanel2.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, -1, 40));
+
+        prev1.setBackground(new java.awt.Color(205, 133, 63));
+        prev1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        prev1.setText("<-");
+        prev1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prev1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(prev1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, 40));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Package Name Basic Funeral Package Package Price Php 15,000 (Price can be adjusted based on regional costs.) Inclusions Venue Setup Simple and elegant table arrangements. Basic floral centerpiece .png"))); // NOI18N
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 410));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_nextActionPerformed
+
+    private void prev1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prev1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_prev1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -96,14 +128,18 @@ public class FuneralPackages extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(FuneralPackages.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PackageF1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(FuneralPackages.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PackageF1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(FuneralPackages.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PackageF1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(FuneralPackages.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(PackageF1.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -112,7 +148,7 @@ public class FuneralPackages extends javax.swing.JFrame {
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new FuneralPackages().setVisible(true);
+                new PackageF1().setVisible(true);
             }
         });
     }
@@ -128,5 +164,7 @@ public class FuneralPackages extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton next;
+    private javax.swing.JButton prev1;
     // End of variables declaration//GEN-END:variables
 }

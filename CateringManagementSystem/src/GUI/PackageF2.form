@@ -34,7 +34,7 @@
     <AuxValue name="FormSettings_listenerGenerationStyle" type="java.lang.Integer" value="0"/>
     <AuxValue name="FormSettings_variablesLocal" type="java.lang.Boolean" value="false"/>
     <AuxValue name="FormSettings_variablesModifier" type="java.lang.Integer" value="2"/>
-    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-46,0,0,4,58"/>
+    <AuxValue name="designerSize" type="java.awt.Dimension" value="-84,-19,0,5,115,114,0,18,106,97,118,97,46,97,119,116,46,68,105,109,101,110,115,105,111,110,65,-114,-39,-41,-84,95,68,20,2,0,2,73,0,6,104,101,105,103,104,116,73,0,5,119,105,100,116,104,120,112,0,0,1,-46,0,0,4,56"/>
   </AuxValues>
 
   <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
@@ -64,24 +64,11 @@
               <Font name="Segoe UI" size="14" style="0"/>
             </Property>
             <Property name="rows" type="int" value="5"/>
-            <Property name="text" type="java.lang.String" value="&#x9;This package is designed to provide a respectful and comforting &#xa;atmosphere for your loved ones during a difficult time.&#xa;&#xa;Food Menu:&#xa;-Chicken Adobo: A savory Filipino classic.&#xa;-Beef Caldereta: Tender beef in a rich tomato-based sauce.&#xa;-Pancit Canton: A mild noodle dish with vegetables and meats.&#xa;&#xa;Snacks:&#xa;-Lumpiang Shanghai: Crispy spring rolls.&#xa;-Puto &amp; Kutsinta: Soft, sweet rice cakes.&#xa;&#xa;Beverages:&#xa;-Coffee Station: Freshly brewed coffee with sugar and cream.&#xa;-Assorted Tea: A selection of calming teas.&#xa;&#xa;Setting &amp; Decor:&#xa;-Simple white tablecloths with black accents.&#xa;-Floral centerpieces (white lilies/chrysanthemums) and candles for a serene &#xa;atmosphere.&#xa;&#xa;&#x9;This package ensures a peaceful, dignified environment, offering &#xa;comfort through food, drinks, and a simple yet elegant setup.&#xa;"/>
+            <Property name="text" type="java.lang.String" value="The Timeless Remembrance Package offers a dignified catering experience for honoring a loved one with grace and elegance. It blends comforting Filipino dishes with a touch of refinement, creating a memorable and respectful farewell.&#xa;&#xa;Food Menu:&#xa;Chicken Adobo: Tender chicken in a savory marinade of soy sauce, vinegar, garlic, and spices.&#xa;Beef Caldereta: Hearty beef stew with vegetables, potatoes, and a tomato-based sauce.&#xa;Pancit Canton: Noodles with meats and vegetables, symbolizing longevity and prosperity.&#xa;Lechon Kawali: Crispy, golden pork belly with satisfying crunch.&#xa;Lumpiang Shanghai: Crispy spring rolls with a savory filling.&#xa;&#xa;Snacks:&#xa;Puto &amp; Kutsinta: Sweet steamed rice cakes.&#xa;Buko Pandan: Refreshing dessert with coconut and pandan.&#xa;&#xa;Beverages:&#xa;Coffee Station: Freshly brewed coffee with sugar and cream options.&#xa;Assorted Tea: Calming teas like chamomile, green, and jasmine.&#xa;Fruit Juices: Freshly squeezed mango and orange juices.&#xa;&#xa;Setting &amp; Decor:&#xa;Elegant Table Setting: White tablecloths, silver and black accents, fine porcelain plates, crystal glassware, and polished cutlery.&#xa;Floral Centerpieces: White lilies, chrysanthemums, and soft greenery.&#xa;Candles &amp; Lighting: Soft candlelight and ambient lighting to create a peaceful atmosphere.&#xa;&#xa;This package provides comfort and dignity, offering a fitting tribute to a loved one&#x2019;s legacy."/>
           </Properties>
         </Component>
       </SubComponents>
     </Container>
-    <Component class="javax.swing.JLabel" name="jLabel2">
-      <Properties>
-        <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
-          <Font name="Castellar" size="36" style="3"/>
-        </Property>
-        <Property name="text" type="java.lang.String" value="Serenity Farewell Package"/>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="230" y="390" width="660" height="60"/>
-        </Constraint>
-      </Constraints>
-    </Component>
     <Component class="javax.swing.JLabel" name="jLabel3">
       <Properties>
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
@@ -100,7 +87,7 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="Package Id: 1"/>
+        <Property name="text" type="java.lang.String" value="Package Id: 2"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
@@ -113,23 +100,11 @@
         <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
           <Font name="Segoe UI" size="14" style="1"/>
         </Property>
-        <Property name="text" type="java.lang.String" value="&#x20b1;300 per guest"/>
+        <Property name="text" type="java.lang.String" value="&#x20b1;500 per guest"/>
       </Properties>
       <Constraints>
         <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
           <AbsoluteConstraints x="220" y="70" width="-1" height="50"/>
-        </Constraint>
-      </Constraints>
-    </Component>
-    <Component class="javax.swing.JLabel" name="jLabel1">
-      <Properties>
-        <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
-          <Image iconType="3" name="/Images/Package Name Basic Funeral Package Package Price Php 15,000 (Price can be adjusted based on regional costs.) Inclusions Venue Setup Simple and elegant table arrangements. Basic floral centerpiece .png"/>
-        </Property>
-      </Properties>
-      <Constraints>
-        <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
-          <AbsoluteConstraints x="0" y="20" width="-1" height="410"/>
         </Constraint>
       </Constraints>
     </Component>
@@ -154,7 +129,74 @@
         </Constraint>
       </Constraints>
 
-      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignFlowLayout"/>
+      <Layout class="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout">
+        <Property name="useNullLayout" type="boolean" value="false"/>
+      </Layout>
+      <SubComponents>
+        <Component class="javax.swing.JButton" name="next">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3f" green="85" red="cd" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="-&gt;"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="nextActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="1000" y="420" width="-1" height="40"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JButton" name="prev1">
+          <Properties>
+            <Property name="background" type="java.awt.Color" editor="org.netbeans.beaninfo.editors.ColorEditor">
+              <Color blue="3f" green="85" red="cd" type="rgb"/>
+            </Property>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Segoe UI" size="18" style="1"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="&lt;-"/>
+          </Properties>
+          <Events>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="prev1ActionPerformed"/>
+          </Events>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="10" y="420" width="-1" height="40"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel2">
+          <Properties>
+            <Property name="font" type="java.awt.Font" editor="org.netbeans.beaninfo.editors.FontEditor">
+              <Font name="Castellar" size="36" style="3"/>
+            </Property>
+            <Property name="text" type="java.lang.String" value="Timeless Remembrance Package"/>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="190" y="390" width="740" height="60"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+        <Component class="javax.swing.JLabel" name="jLabel1">
+          <Properties>
+            <Property name="icon" type="javax.swing.Icon" editor="org.netbeans.modules.form.editors2.IconEditor">
+              <Image iconType="3" name="/Images/funeralTwo.png"/>
+            </Property>
+          </Properties>
+          <Constraints>
+            <Constraint layoutClass="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout" value="org.netbeans.modules.form.compat2.layouts.DesignAbsoluteLayout$AbsoluteConstraintsDescription">
+              <AbsoluteConstraints x="0" y="20" width="-1" height="410"/>
+            </Constraint>
+          </Constraints>
+        </Component>
+      </SubComponents>
     </Container>
   </SubComponents>
 </Form>

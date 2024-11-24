@@ -38,16 +38,16 @@ public class PackagesFrame extends javax.swing.JFrame {
         BtnLaborer = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         BtnReport = new javax.swing.JButton();
-        jButtonFuneralPack = new javax.swing.JButton();
+        P1F1 = new javax.swing.JButton();
         jButtonBaptismPack = new javax.swing.JButton();
         jButtonBdayPack = new javax.swing.JButton();
         jButtonWedPack = new javax.swing.JButton();
+        P1F2 = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 540));
-        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
@@ -64,7 +64,7 @@ public class PackagesFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, 40));
 
-        BtnPackages.setBackground(new java.awt.Color(205, 133, 63));
+        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
         BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnPackages.setText("PACKAGES");
         BtnPackages.setBorder(null);
@@ -105,7 +105,7 @@ public class PackagesFrame extends javax.swing.JFrame {
         jLabel14.setText("&   plates");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
 
-        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setBackground(new java.awt.Color(205, 133, 63));
         BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnLaborer.setText("LABOR");
         BtnLaborer.setBorder(null);
@@ -139,31 +139,41 @@ public class PackagesFrame extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
 
-        jButtonFuneralPack.setBackground(new java.awt.Color(210, 180, 140));
-        jButtonFuneralPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButtonFuneralPack.setText("Funeral Packages");
-        jButtonFuneralPack.addActionListener(new java.awt.event.ActionListener() {
+        P1F1.setBackground(new java.awt.Color(210, 180, 140));
+        P1F1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        P1F1.setText("Serenity Farewell ");
+        P1F1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButtonFuneralPackActionPerformed(evt);
+                P1F1ActionPerformed(evt);
             }
         });
-        getContentPane().add(jButtonFuneralPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 140, 320, 150));
+        getContentPane().add(P1F1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 250, 60));
 
         jButtonBaptismPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonBaptismPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonBaptismPack.setText("Baptism Packages");
-        getContentPane().add(jButtonBaptismPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 320, 320, 150));
+        getContentPane().add(jButtonBaptismPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 320, 150));
 
         jButtonBdayPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonBdayPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonBdayPack.setText("Birthday Packages");
         jButtonBdayPack.setBorder(null);
-        getContentPane().add(jButtonBdayPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 140, 320, 150));
+        getContentPane().add(jButtonBdayPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 320, 150));
 
         jButtonWedPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonWedPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonWedPack.setText("Wedding Packages");
-        getContentPane().add(jButtonWedPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 320, 320, 150));
+        getContentPane().add(jButtonWedPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 320, 150));
+
+        P1F2.setBackground(new java.awt.Color(210, 180, 140));
+        P1F2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        P1F2.setText("Timeless Remembrance");
+        P1F2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P1F2ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(P1F2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 310, 60));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
@@ -171,16 +181,16 @@ public class PackagesFrame extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButtonFuneralPackActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButtonFuneralPackActionPerformed
-        jButtonFuneralPack.addActionListener(new ActionListener() {
+    private void P1F1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1F1ActionPerformed
+        BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                
-                FuneralPackages FP1 = new FuneralPackages ();
-                FP1.setVisible(true);
-                FP1.setLocationRelativeTo(null); // Center the SignUP frame
+                dispose();
+                PackageF1 f1 = new PackageF1();
+                f1.setVisible(true);
+                f1.setLocationRelativeTo(null); // Center the SignUP frame
             }
         });
-    }//GEN-LAST:event_jButtonFuneralPackActionPerformed
+    }//GEN-LAST:event_P1F1ActionPerformed
 
     private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
         BtnCalendar.addActionListener(new ActionListener() {
@@ -265,6 +275,10 @@ public class PackagesFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_BtnReportActionPerformed
 
+    private void P1F2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1F2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_P1F2ActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -308,9 +322,10 @@ public class PackagesFrame extends javax.swing.JFrame {
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
     private javax.swing.JButton BtnReport;
+    private javax.swing.JButton P1F1;
+    private javax.swing.JButton P1F2;
     private javax.swing.JButton jButtonBaptismPack;
     private javax.swing.JButton jButtonBdayPack;
-    private javax.swing.JButton jButtonFuneralPack;
     private javax.swing.JButton jButtonWedPack;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
