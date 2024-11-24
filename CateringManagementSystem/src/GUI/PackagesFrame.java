@@ -5,6 +5,7 @@
 package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import javax.swing.JOptionPane;
 /**
  *
  * @author Ivan
@@ -40,14 +41,15 @@ public class PackagesFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         BtnLaborer = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(0, 0));
         setMinimumSize(new java.awt.Dimension(1080, 540));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(245, 222, 179));
-        jPanel1.setBorder(new javax.swing.border.MatteBorder(null));
         jPanel1.setMinimumSize(new java.awt.Dimension(1050, 410));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
@@ -118,6 +120,7 @@ public class PackagesFrame extends javax.swing.JFrame {
         BtnHome.setBackground(new java.awt.Color(210, 180, 140));
         BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         BtnHome.setText("HOME");
+        BtnHome.setBorder(null);
         BtnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnHomeActionPerformed(evt);
@@ -143,6 +146,16 @@ public class PackagesFrame extends javax.swing.JFrame {
             }
         });
         jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
+
+        logout.setBackground(new java.awt.Color(210, 180, 140));
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
+        logout.setBorder(null);
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 40, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
@@ -179,9 +192,9 @@ public class PackagesFrame extends javax.swing.JFrame {
         BtnBooking.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                BookingFrame bookingF = new BookingFrame();
-                bookingF.setVisible(true);
-                bookingF.setLocationRelativeTo(null); // Center the SignUP frame
+                BookingProcess booking = new BookingProcess();
+                booking.setVisible(true);
+                booking.setLocationRelativeTo(null); // Center the SignUP frame
             }
         });
     }//GEN-LAST:event_BtnBookingActionPerformed
@@ -207,6 +220,23 @@ public class PackagesFrame extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_BtnLaborerActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Show a confirmation dialog to the user before logging out
+                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
+
+                // If the user selects "Yes" (confirm == 0), log out and dispose of the frame
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose(); // Close the current LogIn frame
+                    LogIn login = new LogIn();
+                    login.setVisible(true); // Make the LogIn frame visible
+                    login.setLocationRelativeTo(null); // Center the LogIn frame
+                }
+            }
+        });
+    }//GEN-LAST:event_logoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -258,5 +288,6 @@ public class PackagesFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel8;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JButton logout;
     // End of variables declaration//GEN-END:variables
 }

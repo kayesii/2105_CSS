@@ -7,10 +7,15 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
+import java.util.Date;
+import javax.swing.JButton;
+import javax.swing.JDialog;
 import javax.swing.JOptionPane;
+import javax.swing.JScrollPane;
+import javax.swing.JTable;
+import javax.swing.table.DefaultTableModel;
 
 public class LaborersFrame extends javax.swing.JFrame {
-
     /**
      * Creates new form LaborersFrame
      */
@@ -89,9 +94,6 @@ public class LaborersFrame extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         addLaborer = new javax.swing.JButton();
         SearchLaborer = new javax.swing.JButton();
-        jScrollPane6 = new javax.swing.JScrollPane();
-        jScrollPane5 = new javax.swing.JScrollPane();
-        LaborerTable = new javax.swing.JTable();
         Update = new javax.swing.JButton();
         cmbStatus = new javax.swing.JComboBox<>();
         jLabel6 = new javax.swing.JLabel();
@@ -101,14 +103,21 @@ public class LaborersFrame extends javax.swing.JFrame {
         cmbStatusPay = new javax.swing.JComboBox<>();
         jLabel8 = new javax.swing.JLabel();
         jLabel9 = new javax.swing.JLabel();
+        AllLaborer = new javax.swing.JButton();
+        jScrollPane6 = new javax.swing.JScrollPane();
+        jScrollPane5 = new javax.swing.JScrollPane();
+        LaborerTable = new javax.swing.JTable();
+        jLabel12 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
         BtnPackages = new javax.swing.JButton();
         BtnBooking = new javax.swing.JButton();
         BtnHome = new javax.swing.JButton();
-        jLabel13 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
         BtnLaborer = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
@@ -122,20 +131,20 @@ public class LaborersFrame extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Laborer Id");
-        jPanelLaborerDetails.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, -1, 20));
+        jPanelLaborerDetails.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 20, -1, 20));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel4.setText("Hourly Rate:");
-        jPanelLaborerDetails.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(620, 30, 90, 20));
-        jPanelLaborerDetails.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 60, 300, -1));
-        jPanelLaborerDetails.add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 90, 300, -1));
+        jPanelLaborerDetails.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 20, 90, 20));
+        jPanelLaborerDetails.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 50, 300, -1));
+        jPanelLaborerDetails.add(txtPhone, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 80, 300, -1));
 
         cmbRole.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "WaitStaff", " " }));
-        jPanelLaborerDetails.add(cmbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 30, 150, 20));
+        jPanelLaborerDetails.add(cmbRole, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 20, 150, 20));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("Status pay:");
-        jPanelLaborerDetails.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 70, 90, 20));
+        jPanelLaborerDetails.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 50, 90, 20));
 
         addLaborer.setBackground(new java.awt.Color(205, 133, 63));
         addLaborer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -145,7 +154,7 @@ public class LaborersFrame extends javax.swing.JFrame {
                 addLaborerActionPerformed(evt);
             }
         });
-        jPanelLaborerDetails.add(addLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 120, 120, 40));
+        jPanelLaborerDetails.add(addLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 100, 120, 40));
 
         SearchLaborer.setBackground(new java.awt.Color(205, 133, 63));
         SearchLaborer.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -155,7 +164,57 @@ public class LaborersFrame extends javax.swing.JFrame {
                 SearchLaborerActionPerformed(evt);
             }
         });
-        jPanelLaborerDetails.add(SearchLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 120, 80, 40));
+        jPanelLaborerDetails.add(SearchLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(550, 100, 120, 40));
+
+        Update.setBackground(new java.awt.Color(205, 133, 63));
+        Update.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        Update.setText("Update");
+        Update.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                UpdateActionPerformed(evt);
+            }
+        });
+        jPanelLaborerDetails.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 100, 120, 40));
+
+        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Not Active" }));
+        jPanelLaborerDetails.add(cmbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 50, 150, 20));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel6.setText("Role:");
+        jPanelLaborerDetails.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 20, 37, 20));
+
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel7.setText("Phone:");
+        jPanelLaborerDetails.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 80, 48, 20));
+
+        txtHourlyRate.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txtHourlyRateActionPerformed(evt);
+            }
+        });
+        jPanelLaborerDetails.add(txtHourlyRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 20, 150, -1));
+        jPanelLaborerDetails.add(txtLaborerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 20, 140, -1));
+
+        cmbStatusPay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Unpaid", "Paid" }));
+        jPanelLaborerDetails.add(cmbStatusPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(780, 50, 150, 20));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel8.setText("Status:");
+        jPanelLaborerDetails.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(430, 50, 60, 20));
+
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel9.setText("Name:");
+        jPanelLaborerDetails.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, -1, 20));
+
+        AllLaborer.setText("Laborer List");
+        AllLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                AllLaborerActionPerformed(evt);
+            }
+        });
+        jPanelLaborerDetails.add(AllLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+
+        jPanel1.add(jPanelLaborerDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, 960, 150));
 
         LaborerTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
@@ -173,49 +232,15 @@ public class LaborersFrame extends javax.swing.JFrame {
 
         jScrollPane6.setViewportView(jScrollPane5);
 
-        jPanelLaborerDetails.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 170, 1010, 230));
+        jPanel1.add(jScrollPane6, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 240, 1060, 180));
 
-        Update.setBackground(new java.awt.Color(205, 133, 63));
-        Update.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Update.setText("Update");
-        Update.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                UpdateActionPerformed(evt);
-            }
-        });
-        jPanelLaborerDetails.add(Update, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 120, 80, 40));
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel12.setText("LABORER INFORMATION");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 210, 300, -1));
 
-        cmbStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Active", "Not Active" }));
-        jPanelLaborerDetails.add(cmbStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 60, 150, 20));
-
-        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel6.setText("Role:");
-        jPanelLaborerDetails.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 30, 37, 20));
-
-        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel7.setText("Phone:");
-        jPanelLaborerDetails.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 90, 48, 20));
-
-        txtHourlyRate.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txtHourlyRateActionPerformed(evt);
-            }
-        });
-        jPanelLaborerDetails.add(txtHourlyRate, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 30, 200, -1));
-        jPanelLaborerDetails.add(txtLaborerId, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 20, 300, -1));
-
-        cmbStatusPay.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "N/A", "Unpaid", "Paid" }));
-        jPanelLaborerDetails.add(cmbStatusPay, new org.netbeans.lib.awtextra.AbsoluteConstraints(730, 70, 150, 20));
-
-        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel8.setText("Status:");
-        jPanelLaborerDetails.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 60, 60, 20));
-
-        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel9.setText("Name:");
-        jPanelLaborerDetails.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 60, -1, 20));
-
-        jPanel1.add(jPanelLaborerDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 1050, 420));
+        jLabel15.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        jLabel15.setText("LABORER INFORMATION");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(420, 10, 300, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -255,9 +280,10 @@ public class LaborersFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
 
-        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
+        BtnHome.setBackground(new java.awt.Color(210, 180, 140));
         BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         BtnHome.setText("HOME");
+        BtnHome.setBorder(null);
         BtnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnHomeActionPerformed(evt);
@@ -265,15 +291,15 @@ public class LaborersFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 30, 140, 40));
 
-        jLabel13.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel13.setText("PALATES  ");
-        jPanel2.add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
+        jLabel10.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel10.setText("PALATES  ");
+        jPanel2.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
 
-        jLabel14.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        jLabel14.setText("&   plates");
-        jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
+        jLabel11.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel11.setText("&   plates");
+        jPanel2.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 240, 60));
 
-        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setBackground(new java.awt.Color(205, 133, 63));
         BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         BtnLaborer.setText("LABOR");
         BtnLaborer.setBorder(null);
@@ -284,65 +310,20 @@ public class LaborersFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
 
+        logout.setBackground(new java.awt.Color(210, 180, 140));
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
+        logout.setBorder(null);
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 40, 40));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
-        BtnCalendar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                ReservationCalendar calendar = new ReservationCalendar();
-                calendar.setVisible(true);
-                calendar.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnCalendarActionPerformed
-
-    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
-        BtnPackages.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                PackagesFrame packages = new PackagesFrame();
-                packages.setVisible(true);
-                packages.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnPackagesActionPerformed
-
-    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
-        BtnBooking.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                BookingFrame bookingF = new BookingFrame();
-                bookingF.setVisible(true);
-                bookingF.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnBookingActionPerformed
-
-    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
-        BtnHome.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                HomeFrame home = new HomeFrame();
-                home.setVisible(true);
-                home.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnHomeActionPerformed
-
-    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
-        BtnLaborer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LaborersFrame laborer = new LaborersFrame();
-                laborer.setVisible(true);
-                laborer .setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnLaborerActionPerformed
 
     private void addLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLaborerActionPerformed
     String name = txtName.getText().trim();
@@ -446,71 +427,170 @@ public class LaborersFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_SearchLaborerActionPerformed
 
     private void UpdateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateActionPerformed
-     String name = txtName.getText().trim();
-String phone = txtPhone.getText().trim();
-String role = cmbRole.getSelectedItem().toString();
-String status = cmbStatus.getSelectedItem().toString(); // This is for "Active" or "Inactive"
-String statusPay = cmbStatusPay.getSelectedItem().toString(); // This is for "Paid" or "Unpaid"
-String hourlyRateStr = txtHourlyRate.getText().trim();
-String laborerIdStr = txtLaborerId.getText().trim(); // Assuming txtLaborerId is the text field for Laborer ID
+ String name = txtName.getText().trim();
+    String phone = txtPhone.getText().trim();
+    String role = cmbRole.getSelectedItem().toString();
+    String status = cmbStatus.getSelectedItem().toString(); // Active or Inactive
+    String statusPay = cmbStatusPay.getSelectedItem().toString(); // Paid or Unpaid
+    String hourlyRateStr = txtHourlyRate.getText().trim();
+    String laborerIdStr = txtLaborerId.getText().trim(); // Laborer ID
 
-// Validate input
-if (name.isEmpty() || phone.isEmpty() || hourlyRateStr.isEmpty() || laborerIdStr.isEmpty()) {
-    JOptionPane.showMessageDialog(this, "Please fill in all the details.", "Input Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-int laborerId;
-try {
-    laborerId = Integer.parseInt(laborerIdStr); // Convert Laborer ID to integer
-} catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(this, "Invalid Laborer ID. Please enter a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-double hourlyRate;
-try {
-    hourlyRate = Double.parseDouble(hourlyRateStr); // Convert hourly rate to double
-} catch (NumberFormatException e) {
-    JOptionPane.showMessageDialog(this, "Invalid hourly rate. Please enter a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-// Query to update the laborer's personal information
-String updateLaborerQuery = "UPDATE laborer SET Name = ?, PhoneNumber = ?, Role = ?, Status = ?, HourlyRate = ? WHERE LaborerID = ?";
-
-try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
-     PreparedStatement ps = con.prepareStatement(updateLaborerQuery)) {
-
-    // Set parameters for the update query
-    ps.setString(1, name);
-    ps.setString(2, phone);
-    ps.setString(3, role);
-    ps.setString(4, status); // "Active" or "Inactive"
-    ps.setDouble(5, hourlyRate);
-    ps.setInt(6, laborerId);
-
-    // Execute the update
-    int rowsUpdated = ps.executeUpdate();
-
-    if (rowsUpdated > 0) {
-        JOptionPane.showMessageDialog(this, "Laborer information updated successfully!", "Success", JOptionPane.INFORMATION_MESSAGE);
-    } else {
-        JOptionPane.showMessageDialog(this, "Failed to update laborer information. Please check the Laborer ID.", "Error", JOptionPane.ERROR_MESSAGE);
+    // Validate input fields
+    if (name.isEmpty() || phone.isEmpty() || hourlyRateStr.isEmpty() || laborerIdStr.isEmpty()) {
+        JOptionPane.showMessageDialog(this, "Please fill in all the details.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
 
-    loadLaborerToTable(); // Reload the table after update
+    int laborerId;
+    try {
+        laborerId = Integer.parseInt(laborerIdStr); // Convert Laborer ID to integer
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid Laborer ID. Please enter a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-} catch (SQLException ex) {
-    JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace();
-}
+    double hourlyRate;
+    try {
+        hourlyRate = Double.parseDouble(hourlyRateStr); // Convert hourly rate to double
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(this, "Invalid hourly rate. Please enter a numeric value.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
+    // Query to check event date for past events
+    String checkPastEventQuery = "SELECT b.eventDate, bl.StatusPay FROM booking_laborer bl " +
+                                 "INNER JOIN booking b ON bl.bookingID = b.bookingID " +
+                                 "WHERE bl.LaborerID = ? AND b.eventDate < ?"; // Only select past events
+
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+         PreparedStatement psCheck = con.prepareStatement(checkPastEventQuery)) {
+
+        psCheck.setInt(1, laborerId);
+        psCheck.setDate(2, new java.sql.Date(System.currentTimeMillis())); // Current date to filter past events
+
+        try (ResultSet rs = psCheck.executeQuery()) {
+            if (rs.next()) {
+                // Proceed with updating the laborer's details and statusPay for past events
+                String updateLaborerQuery = "UPDATE laborer l " +
+                                            "INNER JOIN booking_laborer bl ON l.LaborerID = bl.LaborerID " +
+                                            "INNER JOIN booking b ON bl.bookingID = b.bookingID " +
+                                            "SET l.Name = ?, l.PhoneNumber = ?, l.Role = ?, l.Status = ?, l.HourlyRate = ?, bl.StatusPay = ? " +
+                                            "WHERE l.LaborerID = ? AND b.eventDate < ?"; // Only update for past events
+
+                try (PreparedStatement psUpdate = con.prepareStatement(updateLaborerQuery)) {
+                    // Set parameters for the update query
+                    psUpdate.setString(1, name);
+                    psUpdate.setString(2, phone);
+                    psUpdate.setString(3, role);
+                    psUpdate.setString(4, status); // "Active" or "Inactive"
+                    psUpdate.setDouble(5, hourlyRate);
+                    psUpdate.setString(6, statusPay); // "Paid" or "Unpaid"
+                    psUpdate.setInt(7, laborerId);
+                    psUpdate.setDate(8, new java.sql.Date(System.currentTimeMillis())); // Current date to filter past events
+
+                    // Execute the update
+                    int rowsUpdated = psUpdate.executeUpdate();
+
+                    if (rowsUpdated > 0) {
+                        JOptionPane.showMessageDialog(this, "Laborer information and payment status updated for past events!", "Success", JOptionPane.INFORMATION_MESSAGE);
+                    } else {
+                        JOptionPane.showMessageDialog(this, "No past events found for the selected laborer.", "Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    loadLaborerToTable(); // Reload the table after update
+                }
+            } else {
+                JOptionPane.showMessageDialog(this, "No past events found for the selected laborer.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(this, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+    }
     }//GEN-LAST:event_UpdateActionPerformed
 
     private void txtHourlyRateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtHourlyRateActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtHourlyRateActionPerformed
+
+    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
+        BtnCalendar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ReservationCalendar calendar = new ReservationCalendar();
+                calendar.setVisible(true);
+                calendar.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnCalendarActionPerformed
+
+    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
+        BtnPackages.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackagesFrame packages = new PackagesFrame();
+                packages.setVisible(true);
+                packages.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnPackagesActionPerformed
+
+    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
+        BtnBooking.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                BookingProcess booking = new BookingProcess();
+                booking.setVisible(true);
+                booking.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnBookingActionPerformed
+
+    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
+        BtnHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
+                home.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnHomeActionPerformed
+
+    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
+        BtnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnLaborerActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Show a confirmation dialog to the user before logging out
+                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
+
+                // If the user selects "Yes" (confirm == 0), log out and dispose of the frame
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose(); // Close the current LogIn frame
+                    LogIn login = new LogIn();
+                    login.setVisible(true); // Make the LogIn frame visible
+                    login.setLocationRelativeTo(null); // Center the LogIn frame
+                }
+            }
+        });
+    }//GEN-LAST:event_logoutActionPerformed
+
+    private void AllLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AllLaborerActionPerformed
+     
+    }//GEN-LAST:event_AllLaborerActionPerformed
+
+
 
     /**
      * @param args the command line arguments
@@ -548,6 +628,7 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton AllLaborer;
     private javax.swing.JButton BtnBooking;
     private javax.swing.JButton BtnCalendar;
     private javax.swing.JButton BtnHome;
@@ -560,8 +641,10 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
     private javax.swing.JComboBox<String> cmbRole;
     private javax.swing.JComboBox<String> cmbStatus;
     private javax.swing.JComboBox<String> cmbStatusPay;
-    private javax.swing.JLabel jLabel13;
-    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
+    private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
@@ -574,6 +657,7 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
     private javax.swing.JPanel jPanelLaborerDetails;
     private javax.swing.JScrollPane jScrollPane5;
     private javax.swing.JScrollPane jScrollPane6;
+    private javax.swing.JButton logout;
     private javax.swing.JTextField txtHourlyRate;
     private javax.swing.JTextField txtLaborerId;
     private javax.swing.JTextField txtName;

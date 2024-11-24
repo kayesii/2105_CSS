@@ -214,8 +214,10 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         BtnLaborer = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(245, 222, 179));
@@ -248,10 +250,15 @@ public class BookingFrame extends javax.swing.JFrame {
                 SORTBYUPCOMINGEVENTActionPerformed(evt);
             }
         });
-        jPanel1.add(SORTBYUPCOMINGEVENT, new org.netbeans.lib.awtextra.AbsoluteConstraints(930, 20, 140, 40));
+        jPanel1.add(SORTBYUPCOMINGEVENT, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 20, 140, 40));
 
         Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
-        jPanel1.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 150, 120, 30));
+        Status.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StatusActionPerformed(evt);
+            }
+        });
+        jPanel1.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 190, 120, 30));
 
         SearchByStatus.setText("Search");
         SearchByStatus.addActionListener(new java.awt.event.ActionListener() {
@@ -259,7 +266,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 SearchByStatusActionPerformed(evt);
             }
         });
-        jPanel1.add(SearchByStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(950, 180, 120, 40));
+        jPanel1.add(SearchByStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 220, 120, 40));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -288,7 +295,7 @@ public class BookingFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnPackages, new org.netbeans.lib.awtextra.AbsoluteConstraints(710, 30, 140, 40));
 
-        BtnBooking.setBackground(new java.awt.Color(210, 180, 140));
+        BtnBooking.setBackground(new java.awt.Color(205, 133, 63));
         BtnBooking.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         BtnBooking.setText("BOOKING");
         BtnBooking.setBorder(null);
@@ -299,9 +306,10 @@ public class BookingFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnBooking, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 30, 140, 40));
 
-        BtnHome.setBackground(new java.awt.Color(205, 133, 63));
+        BtnHome.setBackground(new java.awt.Color(210, 180, 140));
         BtnHome.setFont(new java.awt.Font("Segoe UI", 1, 22)); // NOI18N
         BtnHome.setText("HOME");
+        BtnHome.setBorder(null);
         BtnHome.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 BtnHomeActionPerformed(evt);
@@ -328,10 +336,45 @@ public class BookingFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
 
+        logout.setBackground(new java.awt.Color(210, 180, 140));
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
+        logout.setBorder(null);
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 40, 40));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void SORTBYUPCOMINGEVENTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SORTBYUPCOMINGEVENTActionPerformed
+      // Clear the existing data in the table
+    DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
+    model.setRowCount(0); // Clear existing rows
+
+    // Now reload the upcoming events into the table
+    loadUpcomingBookingsToTable(); // Call your method to fetch data from the database and refresh the table
+
+    }//GEN-LAST:event_SORTBYUPCOMINGEVENTActionPerformed
+
+    private void SearchByStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchByStatusActionPerformed
+   // Add an ActionListener to the button
+SearchByStatus.addActionListener(new ActionListener() {
+    @Override
+    public void actionPerformed(ActionEvent e) {
+        String selectedStatus = (String) Status.getSelectedItem();  // Get the selected status from the combo box
+        filterBookingsByPaymentStatus(selectedStatus);  // Call the method to filter the bookings by selected status
+    }
+});
+    }//GEN-LAST:event_SearchByStatusActionPerformed
+
+    private void StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_StatusActionPerformed
 
     private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
         BtnCalendar.addActionListener(new ActionListener() {
@@ -359,9 +402,9 @@ public class BookingFrame extends javax.swing.JFrame {
         BtnBooking.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                BookingFrame bookingF = new BookingFrame();
-                bookingF.setVisible(true);
-                bookingF.setLocationRelativeTo(null); // Center the SignUP frame
+                BookingProcess booking = new BookingProcess();
+                booking.setVisible(true);
+                booking.setLocationRelativeTo(null); // Center the SignUP frame
             }
         });
     }//GEN-LAST:event_BtnBookingActionPerformed
@@ -388,26 +431,22 @@ public class BookingFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_BtnLaborerActionPerformed
 
-    private void SORTBYUPCOMINGEVENTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SORTBYUPCOMINGEVENTActionPerformed
-      // Clear the existing data in the table
-    DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
-    model.setRowCount(0); // Clear existing rows
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Show a confirmation dialog to the user before logging out
+                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
 
-    // Now reload the upcoming events into the table
-    loadUpcomingBookingsToTable(); // Call your method to fetch data from the database and refresh the table
-
-    }//GEN-LAST:event_SORTBYUPCOMINGEVENTActionPerformed
-
-    private void SearchByStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchByStatusActionPerformed
-   // Add an ActionListener to the button
-SearchByStatus.addActionListener(new ActionListener() {
-    @Override
-    public void actionPerformed(ActionEvent e) {
-        String selectedStatus = (String) Status.getSelectedItem();  // Get the selected status from the combo box
-        filterBookingsByPaymentStatus(selectedStatus);  // Call the method to filter the bookings by selected status
-    }
-});
-    }//GEN-LAST:event_SearchByStatusActionPerformed
+                // If the user selects "Yes" (confirm == 0), log out and dispose of the frame
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose(); // Close the current LogIn frame
+                    LogIn login = new LogIn();
+                    login.setVisible(true); // Make the LogIn frame visible
+                    login.setLocationRelativeTo(null); // Center the LogIn frame
+                }
+            }
+        });
+    }//GEN-LAST:event_logoutActionPerformed
 
     /**
      * @param args the command line arguments
@@ -464,5 +503,6 @@ SearchByStatus.addActionListener(new ActionListener() {
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JScrollPane jScrollPane3;
+    private javax.swing.JButton logout;
     // End of variables declaration//GEN-END:variables
 }

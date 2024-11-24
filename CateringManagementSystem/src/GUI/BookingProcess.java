@@ -72,8 +72,10 @@ public class BookingProcess extends JFrame {
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
         BtnLaborer = new javax.swing.JButton();
+        logout = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(245, 222, 179));
@@ -108,7 +110,7 @@ public class BookingProcess extends JFrame {
         jLabel16.setText("Client Information");
         jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 10, 160, 20));
 
-        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 880, 80));
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 100, 880, 80));
 
         jPanel4.setBackground(new java.awt.Color(210, 180, 140));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -176,7 +178,7 @@ public class BookingProcess extends JFrame {
         jPanel4.add(NumberOfLaborers, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 160, 60, -1));
         jPanel4.add(jCalendarComboBox1, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 130, -1));
 
-        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 200, 440, 200));
+        jPanel1.add(jPanel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 440, 200));
 
         jPanel5.setBackground(new java.awt.Color(210, 180, 140));
         jPanel5.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -201,7 +203,7 @@ public class BookingProcess extends JFrame {
         pickCateringStyle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buffet catering", "Plated catering" }));
         jPanel5.add(pickCateringStyle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, 170, 30));
 
-        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 200, 210, 200));
+        jPanel1.add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(460, 190, 210, 200));
 
         RecordBtn.setBackground(new java.awt.Color(210, 180, 140));
         RecordBtn.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
@@ -244,7 +246,7 @@ public class BookingProcess extends JFrame {
         });
         jPanel8.add(ViewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 170, 50));
 
-        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 200, 210, 200));
+        jPanel1.add(jPanel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 190, 210, 200));
 
         Save.setText("Save");
         Save.addActionListener(new java.awt.event.ActionListener() {
@@ -252,7 +254,7 @@ public class BookingProcess extends JFrame {
                 SaveActionPerformed(evt);
             }
         });
-        jPanel1.add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 350, 160, 50));
+        jPanel1.add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 340, 160, 50));
 
         SearchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
         SearchBtn.addActionListener(new java.awt.event.ActionListener() {
@@ -268,7 +270,7 @@ public class BookingProcess extends JFrame {
                 updateActionPerformed(evt);
             }
         });
-        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 290, 160, 50));
+        jPanel1.add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 280, 160, 50));
 
         Clear.setText("Clear");
         Clear.addActionListener(new java.awt.event.ActionListener() {
@@ -350,6 +352,16 @@ public class BookingProcess extends JFrame {
         });
         jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(860, 30, 140, 40));
 
+        logout.setBackground(new java.awt.Color(210, 180, 140));
+        logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
+        logout.setBorder(null);
+        logout.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                logoutActionPerformed(evt);
+            }
+        });
+        jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1020, 30, 40, 40));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 100));
 
         pack();
@@ -395,10 +407,10 @@ public class BookingProcess extends JFrame {
     }//GEN-LAST:event_txtTimeStartActionPerformed
 
     private void SaveActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SaveActionPerformed
-                                
     // Step 1: Validate client information
     String clientName = txtClientName.getText().trim();
     String clientNum = txtClientNum.getText().trim();
+    // Step 3: Check if the client already has a reservation based on clientName and clientNumber (for uniqueness)
 
     if (clientName.isEmpty() || clientNum.isEmpty()) {
         JOptionPane.showMessageDialog(null, "Please fill in all client details.", "Client Error", JOptionPane.ERROR_MESSAGE);
@@ -438,7 +450,41 @@ public class BookingProcess extends JFrame {
             }
         }
 
-        // Step 3: Get event details
+// Debugging: Print values to check if they are correct
+System.out.println("Client Name: " + clientName);
+System.out.println("Client Number: " + clientNum);
+
+// SQL query to check if a reservation exists for the client based on their name and number
+String checkReservationQuery = "SELECT ReservationID FROM reservation WHERE ClientID = (SELECT ClientID FROM client WHERE TRIM(ClientName) = TRIM(?) AND ClientNumber = ? LIMIT 1)";
+
+try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
+    ps.setString(1, clientName);  // Use the client name
+    ps.setString(2, clientNum);   // Use the client number to ensure uniqueness
+    
+    ResultSet rs = ps.executeQuery();
+    
+    // If a reservation exists, delete it
+    if (rs.next()) {
+        int reservationID = rs.getInt("ReservationID");
+
+        // Delete the existing reservation
+        String deleteReservationQuery = "DELETE FROM reservation WHERE ReservationID = ?";
+        try (PreparedStatement deleteStmt = con.prepareStatement(deleteReservationQuery)) {
+            deleteStmt.setInt(1, reservationID);
+            int rowsDeleted = deleteStmt.executeUpdate();
+
+            if (rowsDeleted > 0) {
+                JOptionPane.showMessageDialog(null, "Previous reservation deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                JOptionPane.showMessageDialog(null, "Failed to delete reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } else {
+        JOptionPane.showMessageDialog(null, "No previous reservation found for the client.", "Info", JOptionPane.INFORMATION_MESSAGE);
+    }
+}
+
+        // Step 4: Get event details for the new booking
         String theme = txtTheme.getText().trim();
         String location = txtLocation.getText().trim();
         String timeStartStr = txtTimeStart.getText().trim();
@@ -454,7 +500,7 @@ public class BookingProcess extends JFrame {
             return;
         }
 
-        // Step 4: Get and validate Date and Time from Calendar Picker
+        // Step 5: Get and validate Date and Time from Calendar Picker
         java.util.Date eventDate = jCalendarComboBox1.getDate();  // Get date from the calendar picker
         if (eventDate == null) {
             JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
@@ -463,7 +509,7 @@ public class BookingProcess extends JFrame {
 
         java.sql.Time eventTimeStart = null;
         java.sql.Time eventTimeEnd = null;
-        
+
         try {
             eventTimeStart = java.sql.Time.valueOf(timeStartStr);
         } catch (IllegalArgumentException ex) {
@@ -478,7 +524,7 @@ public class BookingProcess extends JFrame {
             return;
         }
 
-        // Step 5: Validate and parse Package ID
+        // Step 6: Validate and parse Package ID
         int selectedPackageId = -1;
         if (packagePickerStr.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a package.", "Package Error", JOptionPane.ERROR_MESSAGE);
@@ -492,7 +538,7 @@ public class BookingProcess extends JFrame {
             return;
         }
 
-        // Step 6: Retrieve available laborers from the database
+        // Step 7: Retrieve available laborers from the database
         int availableLaborers = 0;
         String laborerQuery = "SELECT COUNT(*) AS availableLaborers FROM laborer WHERE Status = 'Active'";
         try (PreparedStatement ps = con.prepareStatement(laborerQuery)) {
@@ -505,25 +551,22 @@ public class BookingProcess extends JFrame {
             return;
         }
 
-        // Step 7: Compare requested laborers with available laborers
+        // Step 8: Compare requested laborers with available laborers
         if (laborCount > availableLaborers) {
             JOptionPane.showMessageDialog(null, "Not enough available laborers. Only " + availableLaborers + " laborers are available.", "Labor Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Step 8: Calculate hours worked
+        // Step 9: Calculate hours worked
         int hoursWorked = (int) ChronoUnit.HOURS.between(eventTimeStart.toLocalTime(), eventTimeEnd.toLocalTime());
 
-        // Step 9: Calculate total price
+        // Step 10: Calculate total price
         double totalPrice = calculateTotalAmount(selectedPackageId, guestCount, laborCount, hoursWorked, cateringStyle);
 
-        // Step 10: Payment status
+        // Step 11: Payment status
         String paymentStatus = (Status.getSelectedItem() != null) ? Status.getSelectedItem().toString() : "Pending";
-        
-        // You can also log or show it in a message box for confirmation
-        System.out.println("Total Price: " + totalPrice);
 
-        // Step 11: Insert booking details into the database
+        // Step 12: Insert booking details into the database
         String bookingQuery = "INSERT INTO booking (ClientID, PackageId, EventDate, NumberOfGuests, TotalPrice, Status, Theme, Location, TimeStart, TimeEnd, NumberOfLaborers, CateringStyle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = con.prepareStatement(bookingQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setInt(1, clientID);
@@ -547,87 +590,29 @@ public class BookingProcess extends JFrame {
                     bookingId = generatedKeys.getInt(1);  // Retrieve the BookingID
                 }
 
-                // Step 12: Insert labor details and total pay into LaborPayment table
+                // Step 13: Insert labor details and total pay into LaborPayment table
                 String laborPaymentQuery = "INSERT INTO booking_laborer (BookingId, LaborerID, TotalPay, StatusPay) VALUES (?, ?, ?, ?)";
                 for (int laborerId = 1; laborerId <= laborCount; laborerId++) {  // Assuming laborers are numbered 1, 2, ..., laborCount
                     double laborPay = calculateLaborPay(laborerId, hoursWorked);  // You need to define this function
-                    try (PreparedStatement laborPaymentStmt = con.prepareStatement(laborPaymentQuery)) {
-                        laborPaymentStmt.setInt(1, bookingId);
-                        laborPaymentStmt.setInt(2, laborerId);
-                        laborPaymentStmt.setDouble(3, laborPay);
-                        laborPaymentStmt.setString(4, "Unpaid");  // You can change this based on the status
-                        laborPaymentStmt.executeUpdate();
+                    try (PreparedStatement laborPst = con.prepareStatement(laborPaymentQuery)) {
+                        laborPst.setInt(1, bookingId);
+                        laborPst.setInt(2, laborerId);
+                        laborPst.setDouble(3, laborPay);
+                        laborPst.setString(4, "Pending");
+                        laborPst.executeUpdate();
                     }
                 }
 
-                JOptionPane.showMessageDialog(null, "Booking saved successfully! Booking ID: " + bookingId, "Success", JOptionPane.INFORMATION_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Booking confirmed! Total price: Php " + totalPrice, "Booking Successful", JOptionPane.INFORMATION_MESSAGE);
             } else {
-                JOptionPane.showMessageDialog(null, "Failed to save the booking.", "Booking Error", JOptionPane.ERROR_MESSAGE);
+                JOptionPane.showMessageDialog(null, "Error booking the event.", "Booking Error", JOptionPane.ERROR_MESSAGE);
             }
-        } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
         }
-    } catch (SQLException e) {
-        JOptionPane.showMessageDialog(null, "Database connection error: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-
-
     }//GEN-LAST:event_SaveActionPerformed
-
-    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
-        BtnCalendar.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                ReservationCalendar calendar = new ReservationCalendar();
-                calendar.setVisible(true);
-                calendar.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnCalendarActionPerformed
-
-    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
-        BtnPackages.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                PackagesFrame packages = new PackagesFrame();
-                packages.setVisible(true);
-                packages.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnPackagesActionPerformed
-
-    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
-        BtnBooking.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                BookingProcess booking = new BookingProcess();
-                booking.setVisible(true);
-                booking.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnBookingActionPerformed
-
-    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
-        BtnHome.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                HomeFrame home = new HomeFrame();
-                home.setVisible(true);
-                home.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnHomeActionPerformed
-
-    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
-        BtnLaborer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LaborersFrame laborer = new LaborersFrame();
-                laborer.setVisible(true);
-                laborer .setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnLaborerActionPerformed
 
     private void ViewReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewReceiptActionPerformed
         String clientName = txtClientName.getText().trim();
@@ -686,6 +671,9 @@ public class BookingProcess extends JFrame {
         + "End Time: " + timeEndStr + "\n"
         + "Number of Guests: " + guestCount + "\n"
         + "Catering Style: " + cateringStyle + "\n"  // Add catering style to receipt
+        + "-----------------------------------------\n"
+        + "Fee:\n"
+        + "Reservation Fee:₱ 500\n"
         + "-----------------------------------------\n"
         + "Laborers:\n"
         + "Number of Laborers: " + laborCount + "\n"
@@ -875,6 +863,78 @@ public class BookingProcess extends JFrame {
 
     }//GEN-LAST:event_ClearActionPerformed
 
+    private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
+        BtnCalendar.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                ReservationCalendar calendar = new ReservationCalendar();
+                calendar.setVisible(true);
+                calendar.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnCalendarActionPerformed
+
+    private void BtnPackagesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnPackagesActionPerformed
+        BtnPackages.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackagesFrame packages = new PackagesFrame();
+                packages.setVisible(true);
+                packages.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnPackagesActionPerformed
+
+    private void BtnBookingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnBookingActionPerformed
+        BtnBooking.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                BookingProcess booking = new BookingProcess();
+                booking.setVisible(true);
+                booking.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnBookingActionPerformed
+
+    private void BtnHomeActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnHomeActionPerformed
+        BtnHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
+                home.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnHomeActionPerformed
+
+    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
+        BtnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnLaborerActionPerformed
+
+    private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
+        logout.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                // Show a confirmation dialog to the user before logging out
+                int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
+
+                // If the user selects "Yes" (confirm == 0), log out and dispose of the frame
+                if (confirm == JOptionPane.YES_OPTION) {
+                    dispose(); // Close the current LogIn frame
+                    LogIn login = new LogIn();
+                    login.setVisible(true); // Make the LogIn frame visible
+                    login.setLocationRelativeTo(null); // Center the LogIn frame
+                }
+            }
+        });
+    }//GEN-LAST:event_logoutActionPerformed
+
     public double calculateLaborPay(int laborerId, int hoursWorked) {
     double hourlyRate = 0.0; // Default hourly rate if not found
     
@@ -908,6 +968,7 @@ public class BookingProcess extends JFrame {
     double packagePrice = 0.0;
     double laborPay = 0.0;
     double totalAmount = 0.0;
+    double reservationfee = 500.0;
 
     try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
         // Query to fetch the package price
@@ -935,9 +996,9 @@ public class BookingProcess extends JFrame {
 
         // Calculate total amount based on catering style
         if ("Plated catering".equalsIgnoreCase(cateringStyle)) {
-            totalAmount = (20 * guestCount) + laborPay; // 20 pesos per guest for plated catering
+        totalAmount = (20 * guestCount) + laborPay + reservationfee +(packagePrice * guestCount); // Include packagePrice for plated catering
         } else {
-            totalAmount = (packagePrice * guestCount) + laborPay; // Default package price calculation for other catering styles
+            totalAmount = (packagePrice * guestCount) + reservationfee +laborPay; // Default package price calculation for other catering styles
         }
 
     } catch (SQLException ex) {
@@ -996,6 +1057,7 @@ public class BookingProcess extends JFrame {
     private javax.swing.JPanel jPanel4;
     private javax.swing.JPanel jPanel5;
     private javax.swing.JPanel jPanel8;
+    private javax.swing.JButton logout;
     private javax.swing.JComboBox<String> pickCateringStyle;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientNum;

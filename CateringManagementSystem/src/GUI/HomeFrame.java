@@ -173,6 +173,7 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel9 = new javax.swing.JLabel();
         jLabel10 = new javax.swing.JLabel();
         jLabel12 = new javax.swing.JLabel();
+        jButton1 = new javax.swing.JButton();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
         BtnPackages = new javax.swing.JButton();
@@ -185,6 +186,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
+        setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jPanel1.setBackground(new java.awt.Color(245, 222, 179));
@@ -244,7 +246,7 @@ public class HomeFrame extends javax.swing.JFrame {
         ReservationList.setShowGrid(true);
         jScrollPane2.setViewportView(ReservationList);
 
-        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 180, 660, 250));
+        jPanel1.add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 190, 660, 240));
 
         UpdateReservationBtn.setBackground(new java.awt.Color(205, 133, 63));
         UpdateReservationBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -258,14 +260,14 @@ public class HomeFrame extends javax.swing.JFrame {
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel3.setText("Search ID");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 100, 40));
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 140, 100, 40));
 
         txtReservationID.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtReservationIDActionPerformed(evt);
             }
         });
-        jPanel1.add(txtReservationID, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 140, 240, 40));
+        jPanel1.add(txtReservationID, new org.netbeans.lib.awtextra.AbsoluteConstraints(480, 140, 240, 40));
 
         txtClientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -307,7 +309,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 SearchBtnActionPerformed(evt);
             }
         });
-        jPanel1.add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 140, 50, 40));
+        jPanel1.add(SearchBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 140, 50, 40));
 
         txtEventName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -334,7 +336,7 @@ public class HomeFrame extends javax.swing.JFrame {
 
         jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel9.setText("Reservation Record");
-        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(610, 140, 230, -1));
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 140, 230, -1));
 
         jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel10.setText("Upcoming ");
@@ -343,6 +345,14 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Client Name");
         jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 190, 90, 30));
+
+        jButton1.setText("Sale Catalog");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(830, 130, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 100, 1080, 440));
 
@@ -735,8 +745,33 @@ try {
     }//GEN-LAST:event_BtnLaborerActionPerformed
 
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
-        // TODO add your handling code here:
+    logout.addActionListener(new ActionListener() {
+        public void actionPerformed(ActionEvent e) {
+            // Show a confirmation dialog to the user before logging out
+            int confirm = JOptionPane.showConfirmDialog(null, "Are you sure you want to log out?", "Log Out", JOptionPane.YES_NO_OPTION);
+            
+            // If the user selects "Yes" (confirm == 0), log out and dispose of the frame
+            if (confirm == JOptionPane.YES_OPTION) {
+                dispose(); // Close the current LogIn frame
+                LogIn login = new LogIn(); 
+                login.setVisible(true); // Make the LogIn frame visible
+                login.setLocationRelativeTo(null); // Center the LogIn frame
+            }
+        }
+    });
     }//GEN-LAST:event_logoutActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        jButton1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                SaleCatalog laborer = new SaleCatalog();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+  
+    }//GEN-LAST:event_jButton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -754,6 +789,7 @@ try {
     private javax.swing.JButton SearchBtn;
     private javax.swing.JTable UpcomingEvents;
     private javax.swing.JButton UpdateReservationBtn;
+    private javax.swing.JButton jButton1;
     private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel10;
