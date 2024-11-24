@@ -49,7 +49,7 @@ public class ReservationCalendar extends javax.swing.JFrame {
                     String status = dateStatusMap.get(selectedDate);
 
                     if ("Pending".equalsIgnoreCase(status)) {
-                        c.setBackground(Color.GREEN);
+                        c.setBackground(Color.ORANGE);
                     } else if ("Cancelled".equalsIgnoreCase(status)) {
                         c.setBackground(Color.RED);
                     } else {

@@ -301,6 +301,11 @@ public class HomeFrame extends javax.swing.JFrame {
 
         pickStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pickStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Confirmed", "Pending", "Cancelled", " " }));
+        pickStatus.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                pickStatusActionPerformed(evt);
+            }
+        });
         jPanel1.add(pickStatus, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 350, 290, -1));
 
         SearchBtn.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
@@ -772,6 +777,10 @@ try {
         });
   
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void pickStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_pickStatusActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_pickStatusActionPerformed
 
     /**
      * @param args the command line arguments
