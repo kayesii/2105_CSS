@@ -10,7 +10,7 @@ import java.sql.*;
 import java.util.Calendar;
 import java.util.HashMap;
 
-public class CalendarTable extends javax.swing.JFrame {
+public class ReservationCalendar extends javax.swing.JFrame {
 
     private JTable calendarTable;
     private JLabel labelMonth, labelYear;
@@ -21,7 +21,7 @@ public class CalendarTable extends javax.swing.JFrame {
     private Calendar calendar;
     private HashMap<String, String> dateBookingStatusMap; // Booking statuses
 
-    public CalendarTable() {
+    public ReservationCalendar() {
         // Initialize components
         labelMonth = new JLabel("Month", SwingConstants.CENTER);
         labelYear = new JLabel("Year", SwingConstants.CENTER);
@@ -120,6 +120,40 @@ public class CalendarTable extends javax.swing.JFrame {
         buttonPanel.add(btnBooking);
         buttonPanel.add(btnLaborer);
         buttonPanel.add(btnPackages);
+        
+        btnHome.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                HomeFrame home = new HomeFrame();
+                home.setVisible(true);
+                home.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+         btnBooking.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                BookingProcess booking = new BookingProcess();
+                booking.setVisible(true);
+                booking.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+         btnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+         btnPackages.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackagesFrame packages = new PackagesFrame();
+                packages.setVisible(true);
+                packages.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+                                           
 
         topPanel.add(navigationPanel);
         topPanel.add(buttonPanel);
@@ -183,6 +217,7 @@ public class CalendarTable extends javax.swing.JFrame {
         }
     }
 
+    
     private void showCalendar(Calendar calendar) {
         int month = calendar.get(Calendar.MONTH);
         int year = calendar.get(Calendar.YEAR);
@@ -277,8 +312,12 @@ public class CalendarTable extends javax.swing.JFrame {
     }
 
     public static void main(String[] args) {
-        SwingUtilities.invokeLater(() -> new CalendarTable());
+    try {
+        SwingUtilities.invokeLater(() -> new ReservationCalendar());
+    } catch (Exception e) {
+        e.printStackTrace();
     }
+}
 
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents

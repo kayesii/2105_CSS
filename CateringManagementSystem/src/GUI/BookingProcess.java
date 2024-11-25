@@ -1004,7 +1004,7 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
         BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                CalendarTable calendar = new CalendarTable();
+                ReservationCalendar calendar = new ReservationCalendar();
                 calendar.setVisible(true);
                 calendar.setLocationRelativeTo(null); // Center the SignUP frame
             }
