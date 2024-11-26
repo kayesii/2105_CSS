@@ -58,6 +58,10 @@ public class Transaction extends javax.swing.JFrame {
         paymentField = new javax.swing.JTextField();
         jLabel8 = new javax.swing.JLabel();
         cancel = new javax.swing.JButton();
+        Totalpaid = new javax.swing.JTextField();
+        searchField = new javax.swing.JTextField();
+        backbutton = new javax.swing.JButton();
+        jLabel9 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -67,11 +71,11 @@ public class Transaction extends javax.swing.JFrame {
                 bookingIdFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(bookingIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 30, 160, 30));
+        getContentPane().add(bookingIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 160, 30));
 
         jLabel2.setText("payment ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 300, 50, 30));
-        getContentPane().add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 70, 160, 40));
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 50, 30));
+        getContentPane().add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 160, 40));
 
         searchBookingDetails.setText("Search");
         searchBookingDetails.addActionListener(new java.awt.event.ActionListener() {
@@ -79,10 +83,10 @@ public class Transaction extends javax.swing.JFrame {
                 searchBookingDetailsActionPerformed(evt);
             }
         });
-        getContentPane().add(searchBookingDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 30, 80, 30));
+        getContentPane().add(searchBookingDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 80, 30));
 
         jLabel3.setText("Booking Id:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 40, -1, -1));
+        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
 
         downPaymentField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -124,10 +128,10 @@ public class Transaction extends javax.swing.JFrame {
             }
         });
         getContentPane().add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 120, 40));
-        getContentPane().add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 300, 120, 30));
+        getContentPane().add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
 
         jLabel8.setText("Balance");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 50, 30));
+        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 50, 30));
 
         cancel.setText("cancel");
         cancel.addActionListener(new java.awt.event.ActionListener() {
@@ -136,6 +140,25 @@ public class Transaction extends javax.swing.JFrame {
             }
         });
         getContentPane().add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 120, 40));
+        getContentPane().add(Totalpaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 160, 40));
+
+        searchField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchFieldActionPerformed(evt);
+            }
+        });
+        getContentPane().add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 130, 30));
+
+        backbutton.setText("back");
+        backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbuttonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, -1, -1));
+
+        jLabel9.setText("Binayad");
+        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 50, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -145,70 +168,50 @@ public class Transaction extends javax.swing.JFrame {
     }//GEN-LAST:event_bookingIdFieldActionPerformed
 
     private void searchBookingDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBookingDetailsActionPerformed
-       String bookingId = bookingIdField.getText().trim();
-    String clientName = clientNameField.getText().trim();
+    String searchInput = searchField.getText().trim();
 
-    if (bookingId.isEmpty() && clientName.isEmpty()) {
-        showError("Please provide a Booking ID or Client Name.");
-        return;
+if (searchInput.isEmpty()) {
+    showError("Please provide a Booking ID or Client Name to search.");
+    return;
+}
+
+try {
+    String query = """
+            SELECT b.BookingId, b.TotalPrice, b.Balance, b.PaidAmount, c.ClientName
+            FROM booking b
+            JOIN client c ON b.ClientId = c.ClientId
+            WHERE b.BookingId = ? OR c.ClientName = ?""";
+    PreparedStatement ps = con.prepareStatement(query);
+
+    ps.setString(1, searchInput); // Use the same input for both BookingId and ClientName
+    ps.setString(2, searchInput);
+
+    ResultSet rs = ps.executeQuery();
+    if (rs.next()) {
+        // Retrieve values from the result set
+        String bookingId = rs.getString("BookingId");
+        String clientName = rs.getString("ClientName");
+        double totalPrice = rs.getDouble("TotalPrice");
+        double balance = rs.getDouble("Balance");
+        double paidAmount = rs.getDouble("PaidAmount");
+        double downPayment = totalPrice * 0.30; // Calculate 30% down payment
+
+        // Populate the UI fields
+        bookingIdField.setText(bookingId);
+        clientNameField.setText(clientName);
+        totalPriceField.setText(String.format("%.2f", totalPrice));
+        downPaymentField.setText(String.format("%.2f", downPayment));
+        balanceField.setText(String.format("%.2f", balance));
+        Totalpaid.setText(String.format("%.2f", paidAmount));
+    } else {
+        showError("No booking found for the provided details.");
     }
+} catch (SQLException e) {
+    showError("Error retrieving booking details: " + e.getMessage());
+}
 
-    try {
-        String query = """
-                SELECT b.TotalPrice, b.Balance, b.PaidAmount, c.ClientName
-                FROM booking b
-                JOIN client c ON b.ClientId = c.ClientId
-                WHERE b.BookingId = ? OR c.ClientName = ?""";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, bookingId);
-        ps.setString(2, clientName);
-
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            double totalPrice = rs.getDouble("TotalPrice");
-            double balance = rs.getDouble("Balance");
-            double payAmount = rs.getDouble("PaidAmount");
-            double downPayment = totalPrice * 0.30; // 30% down payment
-
-            totalPriceField.setText(String.format("%.2f", totalPrice));
-            downPaymentField.setText(String.format("%.2f", downPayment));
-            balanceField.setText(String.format("%.2f", balance));
-            paymentField.setText(String.format("%.2f", payAmount)); // Display PayAmount
-        } else {
-            showError("No booking found with the provided details.");
-        }
-    } catch (SQLException e) {
-        showError("Error retrieving booking details: " + e.getMessage());
-    }
     }//GEN-LAST:event_searchBookingDetailsActionPerformed
-    private void processPayment() {
-        try {
-            double payment = Double.parseDouble(paymentField.getText().trim());
-            if (payment <= 0) {
-                showError("Payment must be greater than 0.");
-                return;
-            }
-
-            double balance = Double.parseDouble(balanceField.getText());
-            double updatedBalance = balance - payment;
-
-            if (updatedBalance < 0) {
-                showError("Payment exceeds the balance.");
-                return;
-            }
-
-            balanceField.setText(String.format("%.2f", updatedBalance));
-            saveTransaction(payment, updatedBalance);
-
-            if (updatedBalance == 0) {
-                showSuccess("Payment complete! Booking is fully paid.");
-            } else {
-                showSuccess("Partial payment recorded.");
-            }
-        } catch (NumberFormatException e) {
-            showError("Invalid payment amount.");
-        }
-    }
+    
     private void totalPriceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalPriceFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_totalPriceFieldActionPerformed
@@ -223,45 +226,54 @@ public class Transaction extends javax.swing.JFrame {
 
     private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payButtonActionPerformed
        try {
-        // Get the payment amount from the input field
         double payment = Double.parseDouble(paymentField.getText().trim());
         if (payment <= 0) {
             showError("Please enter a valid payment amount.");
             return;
         }
 
-        // Get the current balance from the balance field
-        double currentBalance = Double.parseDouble(balanceField.getText().trim());
-        double remainingBalance = currentBalance - payment;
-
-        // Check if the payment is more than the balance
-        if (remainingBalance < 0) {
-            showError("Payment exceeds the balance.");
-            return;
-        }
-
-        // Get the Booking ID from the input field
         String bookingId = bookingIdField.getText().trim();
         if (bookingId.isEmpty()) {
             showError("Please enter a valid Booking ID.");
             return;
         }
 
-        // Update the balance and payment status in the booking table
-        String updateQuery = "UPDATE booking SET Balance = ?, PaidAmount = ?, PaymentStatus = ? WHERE BookingId = ?";
-        PreparedStatement ps = con.prepareStatement(updateQuery);
-        ps.setDouble(1, remainingBalance);
-        ps.setDouble(2, payment);  // Save the payment amount in the PayAmount column
-        ps.setString(3, (remainingBalance == 0) ? "Paid" : "Partial");  // Update payment status based on balance
-        ps.setString(4, bookingId);
+        String selectQuery = "SELECT PaidAmount, Balance FROM booking WHERE BookingId = ?";
+        PreparedStatement psSelect = con.prepareStatement(selectQuery);
+        psSelect.setString(1, bookingId);
+        
+        ResultSet rs = psSelect.executeQuery();
+        if (rs.next()) {
+            double currentPaidAmount = rs.getDouble("PaidAmount");
+            double currentBalance = rs.getDouble("Balance");
+            double updatedPaidAmount = currentPaidAmount + payment;
+            double remainingBalance = currentBalance - payment;
 
-        int rowsUpdated = ps.executeUpdate();
-        if (rowsUpdated > 0) {
-            showSuccess("Payment successful!");
-            balanceField.setText(String.format("%.2f", remainingBalance));  // Update the balance display
-            paymentField.setText("");  // Clear the payment input field
+            if (remainingBalance < 0) {
+                showError("Payment exceeds the balance.");
+                return;
+            }
+
+            String updateQuery = "UPDATE booking SET Balance = ?, PaidAmount = ?, PaymentStatus = ? WHERE BookingId = ?";
+            PreparedStatement psUpdate = con.prepareStatement(updateQuery);
+            psUpdate.setDouble(1, remainingBalance);
+            psUpdate.setDouble(2, updatedPaidAmount);
+            psUpdate.setString(3, (remainingBalance == 0) ? "Paid" : "Partial");
+            psUpdate.setString(4, bookingId);
+
+            int rowsUpdated = psUpdate.executeUpdate();
+            if (rowsUpdated > 0) {
+                // Record payment in the transactions table
+                saveTransaction(bookingId, payment);
+
+                showSuccess("Payment successful!");
+                balanceField.setText(String.format("%.2f", remainingBalance));
+                paymentField.setText("");
+            } else {
+                showError("Failed to update payment status.");
+            }
         } else {
-            showError("Failed to update payment status.");
+            showError("Booking not found.");
         }
     } catch (SQLException | NumberFormatException ex) {
         showError("Error processing payment: " + ex.getMessage());
@@ -269,97 +281,83 @@ public class Transaction extends javax.swing.JFrame {
     }//GEN-LAST:event_payButtonActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-         String bookingId = bookingIdField.getText().trim();
-        if (bookingId.isEmpty()) {
-            showError("Please enter a valid Booking ID to cancel.");
-            return;
-        }
+      
+        String bookingId = bookingIdField.getText().trim();
+    if (bookingId.isEmpty()) {
+        showError("Please enter a valid Booking ID to cancel.");
+        return;
+    }
 
-        try {
-            String query = "UPDATE booking SET Status = 'Cancelled' WHERE BookingId = ?";
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, bookingId);
+    try {
+        // Query to get the total price and paid amount for the booking
+        String query = "SELECT TotalPrice, PaidAmount FROM booking WHERE BookingId = ?";
+        PreparedStatement ps = con.prepareStatement(query);
+        ps.setString(1, bookingId);
 
-            int rowsUpdated = ps.executeUpdate();
+        ResultSet rs = ps.executeQuery();
+        if (rs.next()) {
+            double totalPrice = rs.getDouble("TotalPrice");
+            double originalPaidAmount = rs.getDouble("PaidAmount");
+
+            // 20% cancellation fee from the total price
+            double cancellationFee = totalPrice * 0.20; // 20% of the TotalPrice
+
+            // Refund amount is the original PaidAmount minus the cancellation fee
+            double refundAmount = originalPaidAmount - cancellationFee;
+
+            // Update the booking with the new PaidAmount (which is the cancellation fee)
+            String updateQuery = "UPDATE booking SET PaidAmount = ?, Balance = 0, PaymentStatus = 'Refunded' WHERE BookingId = ?";
+            PreparedStatement updatePs = con.prepareStatement(updateQuery);
+            updatePs.setDouble(1, cancellationFee); // Set PaidAmount to the cancellation fee
+            updatePs.setString(2, bookingId);
+
+            int rowsUpdated = updatePs.executeUpdate();
             if (rowsUpdated > 0) {
-                showSuccess("Booking has been cancelled.");
-                // Optionally, update payment/transaction info if required.
+                // Record the cancellation transaction in the transactions table
+                saveTransaction(bookingId, cancellationFee); // Save the cancellation fee as the transaction amount
+
+                showSuccess("Booking has been cancelled. Refund amount: ₱" + String.format("%.2f", refundAmount));
             } else {
-                showError("Booking cancellation failed. Please check the Booking ID.");
+                showError("Failed to update booking.");
             }
-        } catch (SQLException e) {
-            showError("Error cancelling booking: " + e.getMessage());
+        } else {
+            showError("Booking not found. Please check the Booking ID.");
         }
+    } catch (SQLException e) {
+        showError("Error cancelling booking: " + e.getMessage());
+    }
     }//GEN-LAST:event_cancelActionPerformed
 
-private double getTotalPriceFromBookingId(String bookingId) {
-        double totalPrice = 0;
-        try {
-            String query = "SELECT TotalPrice FROM booking WHERE BookingId = ?";
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, bookingId);
-            ResultSet rs = ps.executeQuery();
+    private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_searchFieldActionPerformed
 
-            if (rs.next()) {
-                totalPrice = rs.getDouble("TotalPrice");
-            }
-        } catch (SQLException e) {
-            showError("Error fetching total price: " + e.getMessage());
+    private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbuttonActionPerformed
+
+private void saveTransaction(String bookingId, double amount) {
+    try {
+        // Get the current date using LocalDate
+        String currentDate = java.time.LocalDate.now().toString();  // Format: YYYY-MM-DD
+        
+        // Insert query with manually set date
+        String insertQuery = "INSERT INTO transactions (BookingId, date, paymentAmount) VALUES (?, ?, ?)";
+        PreparedStatement psInsert = con.prepareStatement(insertQuery);
+        psInsert.setString(1, bookingId);  // Setting bookingId
+        psInsert.setString(2, currentDate); // Setting current date
+        psInsert.setDouble(3, amount);      // Setting paymentAmount
+
+        int rowsInserted = psInsert.executeUpdate();
+        if (rowsInserted <= 0) {
+            showError("Failed to record transaction.");
         }
-        return totalPrice;
+    } catch (SQLException e) {
+        showError("Error recording transaction: " + e.getMessage());
     }
+}
 
-    private double getTotalPayments(String bookingId) {
-        double totalPayments = 0;
-        try {
-            String query = "SELECT SUM(PaymentAmount) FROM transactions WHERE BookingId = ?";
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, bookingId);
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                totalPayments = rs.getDouble(1);
-            }
-        } catch (SQLException e) {
-            showError("Error fetching total payments: " + e.getMessage());
-        }
-        return totalPayments;
-    }
 
-     private void saveTransaction(double payment, double updatedBalance) {
-        String bookingId = bookingIdField.getText().trim();
-        try {
-            String query = "INSERT INTO transactions (BookingId, PaymentAmount, Balance) VALUES (?, ?, ?)";
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, bookingId);
-            ps.setDouble(2, payment);
-            ps.setDouble(3, updatedBalance);
-
-            ps.executeUpdate();
-        } catch (SQLException e) {
-            showError("Error saving transaction: " + e.getMessage());
-        }
-    }
-
-    private void logRefundTransaction(String bookingId, double refundAmount) throws SQLException {
-        String query = "INSERT INTO transactions (BookingId, Date, PaymentAmount, RefundAmount, PaymentStatus) " +
-                       "VALUES (?, NOW(), 0, ?, 'Refunded')";
-        try (PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setString(1, bookingId);
-            stmt.setDouble(2, refundAmount);
-            stmt.executeUpdate();
-        }
-    }
-
-    private void updateBookingStatus(String bookingId, String status) throws SQLException {
-        String query = "UPDATE booking SET Status = ? WHERE BookingId = ?";
-        try (PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setString(1, status);
-            stmt.setString(2, bookingId);
-            stmt.executeUpdate();
-        }
-    }
-
-    
    public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
@@ -369,6 +367,8 @@ private double getTotalPriceFromBookingId(String bookingId) {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JTextField Totalpaid;
+    private javax.swing.JButton backbutton;
     private javax.swing.JTextField balanceField;
     private javax.swing.JTextField bookingIdField;
     private javax.swing.JButton cancel;
@@ -381,9 +381,11 @@ private double getTotalPriceFromBookingId(String bookingId) {
     private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JButton payButton;
     private javax.swing.JTextField paymentField;
     private javax.swing.JButton searchBookingDetails;
+    private javax.swing.JTextField searchField;
     private javax.swing.JTextField totalPriceField;
     // End of variables declaration//GEN-END:variables
 }

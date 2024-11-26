@@ -116,7 +116,7 @@
                     <Column editable="true" title="Event" type="java.lang.Object"/>
                     <Column editable="true" title="Package Name" type="java.lang.Object"/>
                     <Column editable="true" title="Price" type="java.lang.Object"/>
-                    <Column editable="true" title="Payment Status" type="java.lang.Object"/>
+                    <Column editable="true" title="Status" type="java.lang.Object"/>
                   </Table>
                 </Property>
                 <Property name="columnModel" type="javax.swing.table.TableColumnModel" editor="org.netbeans.modules.form.editors2.TableColumnModelEditor">

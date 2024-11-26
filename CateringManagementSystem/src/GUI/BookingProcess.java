@@ -72,13 +72,13 @@ public class BookingProcess extends JFrame {
         jLabel19 = new javax.swing.JLabel();
         jLabel20 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
-        idplaceholder = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
         statusComboBox = new javax.swing.JComboBox<>();
         ViewReceipt = new javax.swing.JButton();
         Transaction = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        idplaceholder = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -213,27 +213,27 @@ public class BookingProcess extends JFrame {
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
         jLabel4.setText("Phone Number");
-        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 40, 120, 20));
+        jPanel3.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 40, 120, 20));
 
         txtClientNum.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNumActionPerformed(evt);
             }
         });
-        jPanel3.add(txtClientNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(590, 40, 250, -1));
+        jPanel3.add(txtClientNum, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 40, 250, -1));
 
         txtClientName.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtClientNameActionPerformed(evt);
             }
         });
-        jPanel3.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 340, -1));
+        jPanel3.add(txtClientName, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 40, 300, -1));
 
         jLabel16.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel16.setText("Client Information");
         jPanel3.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 10, 160, 20));
 
-        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 880, 80));
+        getContentPane().add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 210, 840, 80));
 
         jPanel4.setBackground(new java.awt.Color(210, 180, 140));
         jPanel4.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -373,39 +373,32 @@ public class BookingProcess extends JFrame {
         jLabel21.setText("ooking       ");
         getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 110, 170, -1));
 
-        idplaceholder.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                idplaceholderActionPerformed(evt);
-            }
-        });
-        getContentPane().add(idplaceholder, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 170, 60));
-
         jPanel6.setBackground(new java.awt.Color(210, 180, 140));
         jPanel6.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel28.setText("Status");
-        jPanel6.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
+        jPanel6.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
 
-        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Upcoming", "Complete", "Cancelled" }));
         statusComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 statusComboBoxActionPerformed(evt);
             }
         });
-        jPanel6.add(statusComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, 30));
+        jPanel6.add(statusComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 160, 30));
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 240, 90));
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 190, 90));
 
         ViewReceipt.setBackground(new java.awt.Color(205, 133, 63));
         ViewReceipt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        ViewReceipt.setText("View Receipt");
+        ViewReceipt.setText("View Total Amount");
         ViewReceipt.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 ViewReceiptActionPerformed(evt);
             }
         });
-        getContentPane().add(ViewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 150, 40));
+        getContentPane().add(ViewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 400, 160, 40));
 
         Transaction.setText("Pay");
         Transaction.addActionListener(new java.awt.event.ActionListener() {
@@ -413,10 +406,17 @@ public class BookingProcess extends JFrame {
                 TransactionActionPerformed(evt);
             }
         });
-        getContentPane().add(Transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 200, 150, 60));
+        getContentPane().add(Transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 450, 200, 50));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
+
+        idplaceholder.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                idplaceholderActionPerformed(evt);
+            }
+        });
+        getContentPane().add(idplaceholder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 170, 60));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -771,7 +771,7 @@ try {
         if ("Plated catering".equals(cateringStyle)) {
             cateringStyleCost = 30 * guestCount;  // 30 * number of guests for plated catering
         }
-
+        double downpayment = totalPrice * 0.30;
         // Update receipt content
         String receiptContent = "-----------------------------------------\n"
                 + "             Palates & Plates            \n"
@@ -793,11 +793,10 @@ try {
                 + "Package Price: ₱" + String.format("%.2f", totalPackagePrice) + "\n"
 
                 + "-----------------------------------------\n"
-                + "Laborers:\n"
-                + "Number of Laborers: " + laborCount + "\n"
-                + "Labor Pay Per Laborer: ₱" + String.format("%.2f", laborPayPerLaborer) + "\n"
-                + "Total Labor Pay: ₱" + String.format("%.2f", totalLaborPay) + "\n"
+                + "Wait Staff: " + laborCount + "\n"
+                + "Wait Staff Pay: ₱" + String.format("%.2f", totalLaborPay) + "\n"
                 + "-----------------------------------------\n"
+                + "Downpayment: ₱" + String.format("%.2f", downpayment) + "\n"
                 + "Total Price for Event: ₱" + String.format("%.2f", totalPrice) + "\n"  // Add package price and catering style cost to total price
                 + "-----------------------------------------\n";
 
@@ -1133,7 +1132,6 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
     private void TransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransactionActionPerformed
         Transaction.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
                 Transaction pay = new Transaction();
                 pay.setVisible(true);
                 pay .setLocationRelativeTo(null); // Center the SignUP frame

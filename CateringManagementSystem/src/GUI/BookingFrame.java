@@ -321,7 +321,7 @@ public class BookingFrame extends javax.swing.JFrame {
                 {null, null, null, null, null, null, null, null}
             },
             new String [] {
-                "ID", "Date", "Client Name", "Number", "Event", "Package Name", "Price", "Payment Status"
+                "ID", "Date", "Client Name", "Number", "Event", "Package Name", "Price", "Status"
             }
         ));
         jScrollPane2.setViewportView(BookingRecords);
