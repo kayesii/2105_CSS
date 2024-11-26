@@ -75,8 +75,9 @@ public class BookingProcess extends JFrame {
         idplaceholder = new javax.swing.JTextField();
         jPanel6 = new javax.swing.JPanel();
         jLabel28 = new javax.swing.JLabel();
-        Status = new javax.swing.JComboBox<>();
+        statusComboBox = new javax.swing.JComboBox<>();
         ViewReceipt = new javax.swing.JButton();
+        Transaction = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -386,13 +387,13 @@ public class BookingProcess extends JFrame {
         jLabel28.setText("Status");
         jPanel6.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, -1, -1));
 
-        Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
-        Status.addActionListener(new java.awt.event.ActionListener() {
+        statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
+        statusComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                StatusActionPerformed(evt);
+                statusComboBoxActionPerformed(evt);
             }
         });
-        jPanel6.add(Status, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, 30));
+        jPanel6.add(statusComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 210, 30));
 
         getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(650, 300, 240, 90));
 
@@ -405,6 +406,14 @@ public class BookingProcess extends JFrame {
             }
         });
         getContentPane().add(ViewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(690, 400, 150, 40));
+
+        Transaction.setText("Pay");
+        Transaction.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                TransactionActionPerformed(evt);
+            }
+        });
+        getContentPane().add(Transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(910, 200, 150, 60));
 
         jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
         getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
@@ -629,50 +638,57 @@ try {
         // Step 10: Calculate total price
         double totalPrice = calculateTotalAmount(selectedPackageId, guestCount, laborCount, hoursWorked, cateringStyle);     
         // Step 11: Payment status
-        String paymentStatus = (Status.getSelectedItem() != null) ? Status.getSelectedItem().toString() : "Pending";
+        String selectedStatus = (statusComboBox.getSelectedItem() != null) 
+                            ? statusComboBox.getSelectedItem().toString() 
+                            : "Pending";
 
-        // Step 12: Insert booking details into the database
-        String bookingQuery = "INSERT INTO booking (ClientID, PackageId, EventDate, NumberOfGuests, TotalPrice, Status, Theme, Location, TimeStart, TimeEnd, NumberOfLaborers, CateringStyle) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
+        
+    String bookingQuery = "INSERT INTO booking (ClientID, PackageId, EventDate, NumberOfGuests, TotalPrice, Status, Theme, Location, TimeStart, TimeEnd, NumberOfLaborers, CateringStyle, Balance) VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?)";
         try (PreparedStatement pst = con.prepareStatement(bookingQuery, PreparedStatement.RETURN_GENERATED_KEYS)) {
             pst.setInt(1, clientID);
             pst.setInt(2, selectedPackageId);
             pst.setDate(3, new java.sql.Date(eventDate.getTime()));  // Use the date directly
             pst.setInt(4, guestCount);
             pst.setDouble(5, totalPrice);
-            pst.setString(6, paymentStatus);
+            pst.setString(6, selectedStatus);
             pst.setString(7, theme);
             pst.setString(8, location);
             pst.setTime(9, eventTimeStart);
             pst.setTime(10, eventTimeEnd);
             pst.setInt(11, laborCount);
             pst.setString(12, cateringStyle);
+            pst.setDouble(13, totalPrice);
 
-            int rowsInserted = pst.executeUpdate();
-            if (rowsInserted > 0) {
-                ResultSet generatedKeys = pst.getGeneratedKeys();
-                int bookingId = -1;
-                if (generatedKeys.next()) {
-                    bookingId = generatedKeys.getInt(1);  // Retrieve the BookingID
-                }
-
-                // Step 13: Insert labor details and total pay into LaborPayment table
-                String laborPaymentQuery = "INSERT INTO booking_laborer (BookingId, LaborerID, TotalPay, StatusPay) VALUES (?, ?, ?, ?)";
-                for (int laborerId = 1; laborerId <= laborCount; laborerId++) {  // Assuming laborers are numbered 1, 2, ..., laborCount
-                    double laborPay = calculateLaborPay(laborerId, hoursWorked);  // You need to define this function
-                    try (PreparedStatement laborPst = con.prepareStatement(laborPaymentQuery)) {
-                        laborPst.setInt(1, bookingId);
-                        laborPst.setInt(2, laborerId);
-                        laborPst.setDouble(3, laborPay);
-                        laborPst.setString(4, "Pending");
-                        laborPst.executeUpdate();
-                    }
-                }
-
-                JOptionPane.showMessageDialog(null, "Booking confirmed! Total price: Php " + totalPrice, "Booking Successful", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Error booking the event.", "Booking Error", JOptionPane.ERROR_MESSAGE);
+    int rowsInserted = pst.executeUpdate();
+    if (rowsInserted > 0) {
+        try (ResultSet generatedKeys = pst.getGeneratedKeys()) {
+            int bookingId = -1;
+            if (generatedKeys.next()) {
+                bookingId = generatedKeys.getInt(1);  // Retrieve the BookingID
             }
+
+            // Step 13: Insert labor details and total pay into LaborPayment table
+            String laborPaymentQuery = "INSERT INTO booking_laborer (BookingId, LaborerID, TotalPay, StatusPay) VALUES (?, ?, ?, ?)";
+            for (int laborerId = 1; laborerId <= laborCount; laborerId++) {  // Assuming laborers are numbered 1, 2, ..., laborCount
+                double laborPay = calculateLaborPay(laborerId, hoursWorked);  // Ensure this method is defined properly
+                try (PreparedStatement laborPst = con.prepareStatement(laborPaymentQuery)) {
+                    laborPst.setInt(1, bookingId);
+                    laborPst.setInt(2, laborerId);
+                    laborPst.setDouble(3, laborPay);
+                    laborPst.setString(4, "Pending");  // Assuming laborer payment status is "Pending"
+                    laborPst.executeUpdate();
+                }
+            }
+
+            JOptionPane.showMessageDialog(null, "Booking confirmed! Total price: Php " + totalPrice, "Booking Successful", JOptionPane.INFORMATION_MESSAGE);
         }
+    } else {
+        JOptionPane.showMessageDialog(null, "Error booking the event.", "Booking Error", JOptionPane.ERROR_MESSAGE);
+    }
+} catch (SQLException e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(null, "Database error occurred: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+}
 
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
@@ -864,7 +880,7 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
                 pickCateringStyle.setSelectedItem(rs.getString("CateringStyle"));
                 NumberOfGuests.setValue(rs.getInt("NumberOfGuests"));
                 NumberOfLaborers.setValue(rs.getInt("NumberOfLaborers"));
-                Status.setSelectedItem(rs.getString("Status"));
+                statusComboBox.setSelectedItem(rs.getString("Status"));
             } else {
                 // If no booking is found for the client
                 JOptionPane.showMessageDialog(null, "Client found, but no booking information available.", "Search Info", JOptionPane.INFORMATION_MESSAGE);
@@ -905,7 +921,7 @@ String packagePickerStr = PackagePicker.getText().trim();
 int numberOfGuests = (int) NumberOfGuests.getValue();
 int numberOfLaborers = (int) NumberOfLaborers.getValue();
 String cateringStyle = pickCateringStyle.getSelectedItem().toString();
-String status = Status.getSelectedItem().toString();
+String status = statusComboBox.getSelectedItem().toString();
 SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
 String eventDateStr = dateFormat.format(jCalendarComboBox1.getDate());
 
@@ -966,7 +982,7 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
 
     // Update booking details
     String updateBookingQuery = "UPDATE booking SET Theme = ?, EventDate = ?, Location = ?, TimeStart = ?, TimeEnd = ?, " +
-                                "PackageID = ?, NumberOfGuests = ?, NumberOfLaborers = ?, CateringStyle = ?, Status = ?, TotalPrice = ? " +
+                                "PackageID = ?, NumberOfGuests = ?, NumberOfLaborers = ?, CateringStyle = ?, Status = ?, TotalPrice = ?" +
                                 "WHERE BookingID = ?";
     try (PreparedStatement ps = con.prepareStatement(updateBookingQuery)) {
         ps.setString(1, theme);
@@ -1016,7 +1032,7 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
     jCalendarComboBox1.setDate(null); // Reset date
     PackagePicker.setText("");
     pickCateringStyle.setSelectedIndex(0); // Reset to the first item
-    Status.setSelectedIndex(0); // Reset to the first status
+    statusComboBox.setSelectedIndex(0); // Reset to the first status
     NumberOfGuests.setValue(0); // Reset spinner
     NumberOfLaborers.setValue(0); // Reset spinner
 
@@ -1106,13 +1122,25 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
 
     }//GEN-LAST:event_BtnReportActionPerformed
 
-    private void StatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StatusActionPerformed
+    private void statusComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_statusComboBoxActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_StatusActionPerformed
+    }//GEN-LAST:event_statusComboBoxActionPerformed
 
     private void idplaceholderActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idplaceholderActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_idplaceholderActionPerformed
+
+    private void TransactionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_TransactionActionPerformed
+        Transaction.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                Transaction pay = new Transaction();
+                pay.setVisible(true);
+                pay .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+
+    }//GEN-LAST:event_TransactionActionPerformed
 
     public double calculateLaborPay(int laborerId, int hoursWorked) {
     double hourlyRate = 0.0; // Default hourly rate if not found
@@ -1207,7 +1235,7 @@ private void clearBookingFields() {
     pickCateringStyle.setSelectedItem("Select Catering Style");
     NumberOfGuests.setValue(0);
     NumberOfLaborers.setValue(0);
-    Status.setSelectedItem("Select Status");
+    statusComboBox.setSelectedItem("Select Status");
 }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
@@ -1225,7 +1253,7 @@ private void clearBookingFields() {
     private javax.swing.JButton RecordBtn;
     private javax.swing.JButton Save;
     private javax.swing.JButton SearchBtn;
-    private javax.swing.JComboBox<String> Status;
+    private javax.swing.JButton Transaction;
     private javax.swing.JButton ViewReceipt;
     private javax.swing.JTextField idplaceholder;
     private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
@@ -1257,6 +1285,7 @@ private void clearBookingFields() {
     private javax.swing.JPanel jPanel6;
     private javax.swing.JButton logout;
     private javax.swing.JComboBox<String> pickCateringStyle;
+    private javax.swing.JComboBox<String> statusComboBox;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientNum;
     private javax.swing.JTextField txtLocation;
