@@ -42,138 +42,182 @@ public class Transaction extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        bookingIdField = new javax.swing.JTextField();
-        jLabel2 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
         clientNameField = new javax.swing.JTextField();
-        searchBookingDetails = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
+        bookingIdField = new javax.swing.JTextField();
+        searchField = new javax.swing.JTextField();
+        additionalFeeField = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel10 = new javax.swing.JLabel();
+        paymentField = new javax.swing.JTextField();
+        jLabel9 = new javax.swing.JLabel();
+        Totalpaid = new javax.swing.JTextField();
+        jLabel8 = new javax.swing.JLabel();
+        balanceField = new javax.swing.JTextField();
+        jLabel7 = new javax.swing.JLabel();
         downPaymentField = new javax.swing.JTextField();
         totalPriceField = new javax.swing.JTextField();
-        balanceField = new javax.swing.JTextField();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
-        jLabel7 = new javax.swing.JLabel();
-        payButton = new javax.swing.JButton();
-        paymentField = new javax.swing.JTextField();
-        jLabel8 = new javax.swing.JLabel();
-        cancel = new javax.swing.JButton();
-        Totalpaid = new javax.swing.JTextField();
-        searchField = new javax.swing.JTextField();
-        backbutton = new javax.swing.JButton();
-        jLabel9 = new javax.swing.JLabel();
-        additionalFeeField = new javax.swing.JTextField();
-        jLabel10 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
+        jLabel3 = new javax.swing.JLabel();
+        searchBookingDetails = new javax.swing.JButton();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
         addtional = new javax.swing.JButton();
+        cancel = new javax.swing.JButton();
+        backbutton = new javax.swing.JButton();
+        payButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jPanel1.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+        jPanel1.add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 170, 170, 30));
 
         bookingIdField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 bookingIdFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(bookingIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 160, 30));
+        jPanel1.add(bookingIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 170, 30));
 
-        jLabel2.setText("additional");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 80, 30));
-        getContentPane().add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 160, 40));
-
-        searchBookingDetails.setText("Search");
-        searchBookingDetails.addActionListener(new java.awt.event.ActionListener() {
+        searchField.setText("Booking Id or Client Name");
+        searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchBookingDetailsActionPerformed(evt);
+                searchFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(searchBookingDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 10, 80, 30));
+        jPanel1.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 70, 190, 40));
+        jPanel1.add(additionalFeeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 370, 170, 30));
 
-        jLabel3.setText("Booking Id:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 50, -1, -1));
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel2.setText("Addtional Charge");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 370, 120, 30));
 
-        downPaymentField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                downPaymentFieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(downPaymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 190, 170, 40));
+        jLabel10.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel10.setText("Payment Amount");
+        jPanel1.add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 410, -1, 30));
+        jPanel1.add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 410, 170, 30));
 
-        totalPriceField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                totalPriceFieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(totalPriceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 140, 170, 40));
+        jLabel9.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel9.setText("Payment Paid");
+        jPanel1.add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 330, 90, 30));
+        jPanel1.add(Totalpaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 330, 170, 30));
+
+        jLabel8.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel8.setText("Balance");
+        jPanel1.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 290, 50, 30));
 
         balanceField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 balanceFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(balanceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 240, 170, 40));
+        jPanel1.add(balanceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 290, 170, 30));
 
-        jLabel4.setText("Client Name:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, -1, -1));
+        jLabel7.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel7.setText("Down Payment(30%)");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 250, 140, 30));
 
-        jLabel5.setText("Total Price:");
-        getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
-
-        jLabel6.setText("Total Price:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 160, -1, -1));
-
-        jLabel7.setText("DownPayment");
-        getContentPane().add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 200, -1, -1));
-
-        payButton.setText("pay");
-        payButton.addActionListener(new java.awt.event.ActionListener() {
+        downPaymentField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                payButtonActionPerformed(evt);
+                downPaymentFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 120, 40));
-        getContentPane().add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 170, 30));
+        jPanel1.add(downPaymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 250, 170, 30));
 
-        jLabel8.setText("Balance");
-        getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 50, 30));
-
-        cancel.setText("cancel");
-        cancel.addActionListener(new java.awt.event.ActionListener() {
+        totalPriceField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                cancelActionPerformed(evt);
+                totalPriceFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 120, 40));
-        getContentPane().add(Totalpaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 160, 40));
+        jPanel1.add(totalPriceField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 170, 30));
 
-        searchField.addActionListener(new java.awt.event.ActionListener() {
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel5.setText("Total Price");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel4.setText("Client Name");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 170, -1, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 13)); // NOI18N
+        jLabel3.setText("Booking Id");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 130, -1, 30));
+
+        searchBookingDetails.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
+        searchBookingDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchFieldActionPerformed(evt);
+                searchBookingDetailsActionPerformed(evt);
             }
         });
-        getContentPane().add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 10, 130, 30));
+        jPanel1.add(searchBookingDetails, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 70, 50, 40));
 
-        backbutton.setText("back");
-        backbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backbuttonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, -1, -1));
+        jLabel17.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel17.setText("M");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 10, 40, -1));
 
-        jLabel9.setText("Binayad");
-        getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 50, 30));
-        getContentPane().add(additionalFeeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 150, 30));
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel18.setText("AKE");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 20, 50, -1));
 
-        jLabel10.setText("payment ");
-        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 50, 30));
+        jLabel15.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel15.setText("a");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 10, 40, -1));
 
-        addtional.setText("additional");
+        jLabel16.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel16.setText("P");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 10, 40, -1));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel14.setText("AYMENT");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(290, 20, 100, -1));
+
+        addtional.setBackground(new java.awt.Color(205, 133, 63));
+        addtional.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        addtional.setText("Charge");
         addtional.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addtionalActionPerformed(evt);
             }
         });
-        getContentPane().add(addtional, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, 110, 40));
+        jPanel1.add(addtional, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 370, 130, 30));
+
+        cancel.setBackground(new java.awt.Color(205, 133, 63));
+        cancel.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        cancel.setText("Refund");
+        cancel.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cancelActionPerformed(evt);
+            }
+        });
+        jPanel1.add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 450, 130, 30));
+
+        backbutton.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton.setText("Return");
+        backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbuttonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 470, 130, 30));
+
+        payButton.setBackground(new java.awt.Color(205, 133, 63));
+        payButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        payButton.setText("Confrim Payment");
+        payButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                payButtonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(330, 410, 130, 30));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 480, 510));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -242,50 +286,64 @@ public class Transaction extends javax.swing.JFrame {
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
         String bookingId = bookingIdField.getText().trim();
-        if (bookingId.isEmpty()) {
-            showError("Please enter a valid Booking ID to cancel.");
-            return;
-        }
+if (bookingId.isEmpty()) {
+    showError("Please enter a valid Booking ID to cancel.");
+    return;
+}
 
-        try {
-            // Query to get the total price and paid amount for the booking
-            String query = "SELECT TotalPrice, PaidAmount FROM booking WHERE BookingId = ?";
-            PreparedStatement ps = con.prepareStatement(query);
-            ps.setString(1, bookingId);
+try {
+    // Query to get the total price and paid amount for the booking
+    String query = "SELECT TotalPrice, PaidAmount FROM booking WHERE BookingId = ?";
+    PreparedStatement ps = con.prepareStatement(query);
+    ps.setString(1, bookingId);
 
-            ResultSet rs = ps.executeQuery();
-            if (rs.next()) {
-                double totalPrice = rs.getDouble("TotalPrice");
-                double originalPaidAmount = rs.getDouble("PaidAmount");
+    ResultSet rs = ps.executeQuery();
+    if (rs.next()) {
+        double totalPrice = rs.getDouble("TotalPrice");
+        double originalPaidAmount = rs.getDouble("PaidAmount");
 
-                // 20% cancellation fee from the total price
-                double cancellationFee = totalPrice * 0.20; // 20% of the TotalPrice
+        // Calculate 20% cancellation fee and refund amount
+        double cancellationFee = totalPrice * 0.20; // 20% of the TotalPrice
+        double refundAmount = originalPaidAmount - cancellationFee;
 
-                // Refund amount is the original PaidAmount minus the cancellation fee
-                double refundAmount = originalPaidAmount - cancellationFee;
+        // Display refund amount and cancellation fee to the user
+        int confirm = JOptionPane.showConfirmDialog(
+            null,
+            "Cancellation Fee: ₱" + String.format("%.2f", cancellationFee) +
+            "\nRefund Amount: ₱" + String.format("%.2f", refundAmount) +
+            "\n\nAre you sure you want to proceed?",
+            "Confirm Cancellation",
+            JOptionPane.YES_NO_OPTION
+        );
 
-                // Update the booking with the new PaidAmount (which is the cancellation fee) and RefundAmount
-                String updateQuery = "UPDATE booking SET PaidAmount = ?, Balance = 0, PaymentStatus = 'Refunded', RefundAmount = ? WHERE BookingId = ?";
-                PreparedStatement updatePs = con.prepareStatement(updateQuery);
-                updatePs.setDouble(1, cancellationFee); // Set PaidAmount to the cancellation fee
-                updatePs.setDouble(2, refundAmount); // Set RefundAmount in booking table
-                updatePs.setString(3, bookingId);
+        if (confirm == JOptionPane.YES_OPTION) {
+            // Update the booking with the new PaidAmount and RefundAmount
+            String updateQuery = "UPDATE booking SET PaidAmount = ?, Balance = 0, PaymentStatus = 'Refunded', RefundAmount = ? WHERE BookingId = ?";
+            PreparedStatement updatePs = con.prepareStatement(updateQuery);
+            updatePs.setDouble(1, cancellationFee); // Set PaidAmount to the cancellation fee
+            updatePs.setDouble(2, refundAmount); // Set RefundAmount in booking table
+            updatePs.setString(3, bookingId);
 
-                int rowsUpdated = updatePs.executeUpdate();
-                if (rowsUpdated > 0) {
-                    // Record the cancellation transaction in the transactions table with refundAmount
-                    saveTransaction(bookingId, 0, refundAmount); // For a refund (paymentAmount = 0, refundAmount = refundAmount)
+            int rowsUpdated = updatePs.executeUpdate();
+            if (rowsUpdated > 0) {
+                // Record the cancellation transaction in the transactions table
+                saveTransaction(bookingId, 0, refundAmount); // For a refund (paymentAmount = 0, refundAmount = refundAmount)
 
-                    showSuccess("Booking has been cancelled. Refund amount: ₱" + String.format("%.2f", refundAmount));
-                } else {
-                    showError("Failed to update booking.");
-                }
+                showSuccess("Booking has been cancelled. Refund amount: ₱" + String.format("%.2f", refundAmount));
             } else {
-                showError("Booking not found. Please check the Booking ID.");
+                showError("Failed to update booking.");
             }
-        } catch (SQLException e) {
-            showError("Error cancelling booking: " + e.getMessage());
+        } else {
+            showInfo("Cancellation process was aborted.");
         }
+    } else {
+        showError("Booking not found. Please check the Booking ID.");
+    }
+} catch (SQLException e) {
+    showError("Error cancelling booking: " + e.getMessage());
+}
+
+   
     }//GEN-LAST:event_cancelActionPerformed
 
     private void balanceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_balanceFieldActionPerformed
@@ -437,7 +495,9 @@ private void saveTransaction(String bookingId, double paymentAmount, double refu
     }
 }
 
-
+private void showInfo(String message) {
+    JOptionPane.showMessageDialog(null, message, "Information", JOptionPane.INFORMATION_MESSAGE);
+}
 
 
    public static void main(String args[]) {
@@ -459,14 +519,19 @@ private void saveTransaction(String bookingId, double paymentAmount, double refu
     private javax.swing.JTextField clientNameField;
     private javax.swing.JTextField downPaymentField;
     private javax.swing.JLabel jLabel10;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JLabel jLabel7;
     private javax.swing.JLabel jLabel8;
     private javax.swing.JLabel jLabel9;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton payButton;
     private javax.swing.JTextField paymentField;
     private javax.swing.JButton searchBookingDetails;

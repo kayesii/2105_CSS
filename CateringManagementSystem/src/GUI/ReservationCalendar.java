@@ -51,7 +51,7 @@ public class ReservationCalendar extends javax.swing.JFrame {
 
                     if ("Completed".equalsIgnoreCase(bookingStatus)) {
                         c.setBackground(Color.GREEN);
-                    } else if ("Pending".equalsIgnoreCase(bookingStatus)) {
+                    } else if ("Upcoming".equalsIgnoreCase(bookingStatus)) {
                         c.setBackground(Color.RED);
                     } else {
                         c.setBackground(Color.WHITE);

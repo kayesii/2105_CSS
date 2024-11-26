@@ -42,88 +42,127 @@ public class reservationPay extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jLabel2 = new javax.swing.JLabel();
-        jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jPanel1 = new javax.swing.JPanel();
+        searchField = new javax.swing.JTextField();
+        search = new javax.swing.JButton();
+        reservationIdField = new javax.swing.JTextField();
         payButton = new javax.swing.JButton();
-        paymentField = new javax.swing.JTextField();
         backbutton = new javax.swing.JButton();
         paymentField1 = new javax.swing.JTextField();
+        jLabel2 = new javax.swing.JLabel();
+        jLabel6 = new javax.swing.JLabel();
+        paymentField = new javax.swing.JTextField();
+        jLabel4 = new javax.swing.JLabel();
         clientNameField = new javax.swing.JTextField();
-        searchField = new javax.swing.JTextField();
-        reservationIdField = new javax.swing.JTextField();
-        search = new javax.swing.JButton();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel18 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        jLabel2.setText("Pay");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 250, 50, 30));
-
-        jLabel3.setText("Reservation Id:");
-        getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 100, -1, -1));
-
-        jLabel4.setText("Client Name:");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 140, -1, -1));
-
-        jLabel6.setText("Reservation Fee:");
-        getContentPane().add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 210, -1, -1));
-
-        payButton.setText("pay");
-        payButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                payButtonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 120, 40));
-
-        paymentField.setText("500");
-        getContentPane().add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 210, -1, 30));
-
-        backbutton.setText("back");
-        backbutton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                backbuttonActionPerformed(evt);
-            }
-        });
-        getContentPane().add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 430, -1, -1));
-
-        paymentField1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                paymentField1ActionPerformed(evt);
-            }
-        });
-        getContentPane().add(paymentField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 170, 30));
-
-        clientNameField.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                clientNameFieldActionPerformed(evt);
-            }
-        });
-        getContentPane().add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 130, 170, 30));
+        jPanel1.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
         searchField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 searchFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 170, 30));
+        jPanel1.add(searchField, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 80, 220, 40));
+
+        search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
+        search.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                searchActionPerformed(evt);
+            }
+        });
+        jPanel1.add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 80, 50, 40));
 
         reservationIdField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 reservationIdFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(reservationIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 90, 170, 30));
+        jPanel1.add(reservationIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 180, 30));
 
-        search.setText("search");
-        search.addActionListener(new java.awt.event.ActionListener() {
+        payButton.setBackground(new java.awt.Color(205, 133, 63));
+        payButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        payButton.setText("Confirm Payment");
+        payButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                searchActionPerformed(evt);
+                payButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(search, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 60, -1, 60));
+        jPanel1.add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 320, 140, 40));
+
+        backbutton.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton.setText("Return");
+        backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbuttonActionPerformed(evt);
+            }
+        });
+        jPanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 90, 40));
+
+        paymentField1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                paymentField1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(paymentField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 180, 30));
+
+        jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel2.setText("Payment Amount:");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 110, 30));
+
+        jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel6.setText("Reservation Fee:");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, 30));
+
+        paymentField.setText("500");
+        jPanel1.add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 90, 30));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel4.setText("Client Name:");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 30));
+
+        clientNameField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                clientNameFieldActionPerformed(evt);
+            }
+        });
+        jPanel1.add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 180, 30));
+
+        jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        jLabel3.setText("Reservation Id:");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 30));
+
+        jLabel15.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel15.setText("a");
+        jPanel1.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, 40, -1));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel14.setText("AYMENT");
+        jPanel1.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 30, 100, -1));
+
+        jLabel16.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel16.setText("P");
+        jPanel1.add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 20, 40, -1));
+
+        jLabel17.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel17.setText("M");
+        jPanel1.add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 20, 40, -1));
+
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel18.setText("AKE");
+        jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 50, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 390));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -273,10 +312,16 @@ private String getReservationIdFromDatabase() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbutton;
     private javax.swing.JTextField clientNameField;
+    private javax.swing.JLabel jLabel14;
+    private javax.swing.JLabel jLabel15;
+    private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel17;
+    private javax.swing.JLabel jLabel18;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel6;
+    private javax.swing.JPanel jPanel1;
     private javax.swing.JButton payButton;
     private javax.swing.JTextField paymentField;
     private javax.swing.JTextField paymentField1;

@@ -79,8 +79,9 @@ public class BookingProcess extends JFrame {
         statusComboBox = new javax.swing.JComboBox<>();
         ViewReceipt = new javax.swing.JButton();
         Transaction = new javax.swing.JButton();
-        idplaceholder = new javax.swing.JTextField();
+        jButton1 = new javax.swing.JButton();
         jLabel17 = new javax.swing.JLabel();
+        idplaceholder = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -180,7 +181,7 @@ public class BookingProcess extends JFrame {
         getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(510, 110, 170, -1));
 
         txtSearchBookingI.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        txtSearchBookingI.setText("Enter Booking ID or Client Name");
+        txtSearchBookingI.setText("Booking id or Client Name");
         txtSearchBookingI.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txtSearchBookingIActionPerformed(evt);
@@ -312,6 +313,8 @@ public class BookingProcess extends JFrame {
         jLabel18.setText("Package");
         jPanel5.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 10, 80, 30));
 
+        PackagesDetails.setBackground(new java.awt.Color(205, 133, 63));
+        PackagesDetails.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         PackagesDetails.setText("Packages Details");
         PackagesDetails.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -341,7 +344,7 @@ public class BookingProcess extends JFrame {
                 ClearActionPerformed(evt);
             }
         });
-        getContentPane().add(Clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 440, 170, 50));
+        getContentPane().add(Clear, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 450, 170, 50));
 
         update.setBackground(new java.awt.Color(205, 133, 63));
         update.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -351,7 +354,7 @@ public class BookingProcess extends JFrame {
                 updateActionPerformed(evt);
             }
         });
-        getContentPane().add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 380, 170, 50));
+        getContentPane().add(update, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 330, 170, 50));
 
         Save.setBackground(new java.awt.Color(205, 133, 63));
         Save.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -361,7 +364,7 @@ public class BookingProcess extends JFrame {
                 SaveActionPerformed(evt);
             }
         });
-        getContentPane().add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 320, 170, 50));
+        getContentPane().add(Save, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 270, 170, 50));
 
         jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
         jLabel19.setText("b");
@@ -380,7 +383,7 @@ public class BookingProcess extends JFrame {
 
         jLabel28.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         jLabel28.setText("Status");
-        jPanel6.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 10, -1, -1));
+        jPanel6.add(jLabel28, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 10, -1, -1));
 
         statusComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Upcoming", "Complete", "Cancelled" }));
         statusComboBox.addActionListener(new java.awt.event.ActionListener() {
@@ -390,7 +393,7 @@ public class BookingProcess extends JFrame {
         });
         jPanel6.add(statusComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 160, 30));
 
-        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 190, 90));
+        getContentPane().add(jPanel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 300, 190, 80));
 
         ViewReceipt.setBackground(new java.awt.Color(205, 133, 63));
         ViewReceipt.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -400,15 +403,30 @@ public class BookingProcess extends JFrame {
                 ViewReceiptActionPerformed(evt);
             }
         });
-        getContentPane().add(ViewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 400, 160, 40));
+        getContentPane().add(ViewReceipt, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 400, 190, 40));
 
-        Transaction.setText("Pay");
+        Transaction.setBackground(new java.awt.Color(205, 133, 63));
+        Transaction.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        Transaction.setText("Process Payment");
         Transaction.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 TransactionActionPerformed(evt);
             }
         });
-        getContentPane().add(Transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 450, 200, 50));
+        getContentPane().add(Transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 460, 190, 40));
+
+        jButton1.setBackground(new java.awt.Color(205, 133, 63));
+        jButton1.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jButton1.setText("Cancel Book");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(jButton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(900, 390, 170, 50));
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
 
         idplaceholder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -416,9 +434,6 @@ public class BookingProcess extends JFrame {
             }
         });
         getContentPane().add(idplaceholder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 170, 60));
-
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -556,9 +571,17 @@ public class BookingProcess extends JFrame {
             JOptionPane.showMessageDialog(null, "Please fill in all event details.", "Event Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
-
+  
         java.util.Date eventDate = jCalendarComboBox1.getDate();  // Get date from the calendar picker
 // Check if the selected date is null
+
+        if (guestCount < 8) {
+    JOptionPane.showMessageDialog(this, "The minimum number of guests is 8.", "Guest Limit Not Met", JOptionPane.ERROR_MESSAGE);
+    guestCount = 8; // Set the guest count to 8 if it's less than 8
+    // Update the spinner value to reflect the new limit (optional)
+    NumberOfGuests.setValue(8);
+    return;
+}
         if (eventDate == null) {
             JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
             return;
@@ -954,7 +977,12 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
         JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-
+    
+    if (numberOfGuests < 8) {
+    JOptionPane.showMessageDialog(this, "The minimum number of guests is 8.", "Guest Limit Not Met", JOptionPane.ERROR_MESSAGE);
+    NumberOfGuests.setValue(8); // Set the guest count to 8 if it's less than 8
+    return;  // Add a return statement to stop further processing
+}
     // Step 3: Parse dates and times
     java.sql.Date eventDate;
     java.sql.Time timeStart, timeEnd;
@@ -1255,6 +1283,47 @@ private void updateBookingDetails(Connection con, String bookingID, String theme
 
     }//GEN-LAST:event_TransactionActionPerformed
 
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+         // Step 1: Get Booking ID
+    String bookingID = idplaceholder.getText().trim();
+    if (bookingID.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please enter a Booking ID to cancel.", "Cancellation Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    // Step 2: Ask for confirmation to cancel the booking
+    int response = JOptionPane.showConfirmDialog(null, "Are you sure you want to cancel this booking?", "Cancel Booking", JOptionPane.YES_NO_OPTION);
+    if (response != JOptionPane.YES_OPTION) {
+        return; // Exit if the user chooses not to cancel
+    }
+
+    // Step 3: Connect to the database and update the booking details
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+        // Start transaction
+        con.setAutoCommit(false);
+
+        // Step 3.1: Update booking status to "Cancelled" and set event date to null
+        String updateQuery = "UPDATE booking SET EventDate = NULL, Status = 'Cancelled' WHERE BookingId = ?";
+        try (PreparedStatement ps = con.prepareStatement(updateQuery)) {
+            ps.setString(1, bookingID);
+
+            int rowsUpdated = ps.executeUpdate();
+            if (rowsUpdated > 0) {
+                con.commit(); // Commit the transaction if the update is successful
+                JOptionPane.showMessageDialog(null, "Booking has been cancelled successfully.", "Cancellation Success", JOptionPane.INFORMATION_MESSAGE);
+            } else {
+                con.rollback(); // Rollback if no rows were updated
+                JOptionPane.showMessageDialog(null, "Booking not found or cancellation failed.", "Cancellation Failed", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (SQLException e) {
+            con.rollback(); // Rollback in case of any error
+            JOptionPane.showMessageDialog(null, "Error while cancelling the booking: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Database connection error: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
+    }//GEN-LAST:event_jButton1ActionPerformed
+
     public double calculateLaborPay(int laborerId, int hoursWorked) {
     double hourlyRate = 0.0; // Default hourly rate if not found
     
@@ -1369,6 +1438,7 @@ private void clearBookingFields() {
     private javax.swing.JButton Transaction;
     private javax.swing.JButton ViewReceipt;
     private javax.swing.JTextField idplaceholder;
+    private javax.swing.JButton jButton1;
     private de.wannawork.jcalendar.JCalendarComboBox jCalendarComboBox1;
     private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel12;

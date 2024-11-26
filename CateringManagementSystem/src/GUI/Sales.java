@@ -126,15 +126,15 @@ public class Sales extends javax.swing.JFrame {
 
         jLabel21.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
         jLabel21.setText("s");
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 50, 60));
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(530, 100, 50, 50));
 
         jLabel17.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
         jLabel17.setText("ALE");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 70, -1));
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(560, 110, 70, -1));
 
         jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
         jLabel19.setText("R");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 50, 60));
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 50, 50));
 
         jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
         jLabel14.setText("EPORT");
@@ -250,7 +250,7 @@ public class Sales extends javax.swing.JFrame {
         jLabel22.setText("&   plates");
         jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
 
-        BtnLaborer.setBackground(new java.awt.Color(205, 133, 63));
+        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
         BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnLaborer.setText("LABOR");
         BtnLaborer.setBorder(null);
@@ -271,7 +271,7 @@ public class Sales extends javax.swing.JFrame {
         });
         jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 40, 40));
 
-        BtnReport.setBackground(new java.awt.Color(210, 180, 140));
+        BtnReport.setBackground(new java.awt.Color(205, 133, 63));
         BtnReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnReport.setText("REPORT");
         BtnReport.setBorder(null);
@@ -293,86 +293,97 @@ public class Sales extends javax.swing.JFrame {
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
 
-        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-        String selectedMonth = monthComboBox.getSelectedItem().toString(); // e.g., "January"
-        String yearText = yearTextField.getText(); // e.g., "2024"
+       try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+    String selectedMonth = monthComboBox.getSelectedItem().toString(); // e.g., "January"
+    String yearText = yearTextField.getText(); // e.g., "2024"
 
-        // Validate the year input
-        if (!yearText.matches("\\d{4}")) { // check if year is a 4-digit number
-            JOptionPane.showMessageDialog(this, "Please enter a valid year (YYYY).");
-            return;
-        }
+    // Validate the year input
+    if (!yearText.matches("\\d{4}")) { // check if year is a 4-digit number
+        JOptionPane.showMessageDialog(this, "Please enter a valid year (YYYY).");
+        return;
+    }
 
-        // Map the month name to month number (e.g., "January" -> "01")
-        Map<String, String> monthMap = new HashMap<>();
-        monthMap.put("January", "01");
-        monthMap.put("February", "02");
-        monthMap.put("March", "03");
-        monthMap.put("April", "04");
-        monthMap.put("May", "05");
-        monthMap.put("June", "06");
-        monthMap.put("July", "07");
-        monthMap.put("August", "08");
-        monthMap.put("September", "09");
-        monthMap.put("October", "10");
-        monthMap.put("November", "11");
-        monthMap.put("December", "12");
+    // Map the month name to month number (e.g., "January" -> "01")
+    Map<String, String> monthMap = new HashMap<>();
+    monthMap.put("January", "01");
+    monthMap.put("February", "02");
+    monthMap.put("March", "03");
+    monthMap.put("April", "04");
+    monthMap.put("May", "05");
+    monthMap.put("June", "06");
+    monthMap.put("July", "07");
+    monthMap.put("August", "08");
+    monthMap.put("September", "09");
+    monthMap.put("October", "10");
+    monthMap.put("November", "11");
+    monthMap.put("December", "12");
 
-        String monthNumber = monthMap.get(selectedMonth);
+    String monthNumber = null;
 
+    // If a month is selected, get the corresponding month number
+    if (!selectedMonth.equals("Year")) {
+        monthNumber = monthMap.get(selectedMonth);
         if (monthNumber == null) {
             JOptionPane.showMessageDialog(this, "Invalid month selected.");
             return;
         }
+    }
 
-        // Build the query with the selected month and year
-        String query = "SELECT * FROM transactions WHERE MONTH(Date) = ? AND YEAR(Date) = ?";
+    // Build the query based on the selection
+    String query = "SELECT * FROM transactions WHERE YEAR(Date) = ?";
+    if (monthNumber != null) {
+        query += " AND MONTH(Date) = ?";
+    }
 
-        try (PreparedStatement stmt = con.prepareStatement(query)) {
-            stmt.setString(1, monthNumber); // Set the month (e.g., "01")
-            stmt.setString(2, yearText);    // Set the year (e.g., "2024")
+    try (PreparedStatement stmt = con.prepareStatement(query)) {
+        stmt.setString(1, yearText); // Set the year (e.g., "2024")
 
-            ResultSet rs = stmt.executeQuery();
-
-            // Clear the previous data in the table before populating new data
-            DefaultTableModel model = new DefaultTableModel(new Object[]{"TransactionId", "BookingId", "ReservationId", "Date", "Payment", "Refund"}, 0);
-            CombinedTable.setModel(model);  // Set this model to the table
-
-            // Variables for total sales calculation
-            double totalSale = 0.0;
-
-            // Populate the table with the data from the result set
-            while (rs.next()) {
-                String transactionId = rs.getString("TransactionId"); // Fetch the TransactionId
-                String bookingId = rs.getString("BookingId");
-                String reservation = rs.getString("ReservationId");
-                String date = rs.getString("Date");
-                String paymentAmount = rs.getString("PaymentAmount");
-                String refundAmount = rs.getString("RefundAmount");
-
-                // Ensure paymentAmount and refundAmount are not null
-                double payment = paymentAmount != null ? Double.parseDouble(paymentAmount) : 0.0;
-                double refund = refundAmount != null ? Double.parseDouble(refundAmount) : 0.0;
-
-                // Add the data to the table
-                model.addRow(new Object[]{transactionId, bookingId, reservation, date, payment, refund});
-
-                // Calculate total sales (consider payment only)
-                totalSale += payment;
-            }
-
-            // Update the Total Sale field with the calculated total
-            TotalSaleField.setText("₱" + totalSale);
-
-        } catch (Exception ex) {
-            // Handle any SQL exceptions
-            JOptionPane.showMessageDialog(this, "Error fetching data: " + ex.getMessage());
+        // If a month is selected, set the month as well
+        if (monthNumber != null) {
+            stmt.setString(2, monthNumber); // Set the month (e.g., "01")
         }
 
+        ResultSet rs = stmt.executeQuery();
+
+        // Clear the previous data in the table before populating new data
+        DefaultTableModel model = new DefaultTableModel(new Object[]{"TransactionId", "BookingId", "ReservationId", "Date", "Payment", "Refund"}, 0);
+        CombinedTable.setModel(model);  // Set this model to the table
+
+        // Variables for total sales calculation
+        double totalSale = 0.0;
+
+        // Populate the table with the data from the result set
+        while (rs.next()) {
+            String transactionId = rs.getString("TransactionId"); // Fetch the TransactionId
+            String bookingId = rs.getString("BookingId");
+            String reservation = rs.getString("ReservationId");
+            String date = rs.getString("Date");
+            String paymentAmount = rs.getString("PaymentAmount");
+            String refundAmount = rs.getString("RefundAmount");
+
+            // Ensure paymentAmount and refundAmount are not null
+            double payment = paymentAmount != null ? Double.parseDouble(paymentAmount) : 0.0;
+            double refund = refundAmount != null ? Double.parseDouble(refundAmount) : 0.0;
+
+            // Add the data to the table
+            model.addRow(new Object[]{transactionId, bookingId, reservation, date, payment, refund});
+
+            // Calculate total sales (consider payment only)
+            totalSale += payment;
+        }
+
+        // Update the Total Sale field with the calculated total
+        TotalSaleField.setText("₱" + totalSale);
+
     } catch (Exception ex) {
-        // Handle database connection issues
-        JOptionPane.showMessageDialog(this, "Database connection error: " + ex.getMessage());
+        // Handle any SQL exceptions
+        JOptionPane.showMessageDialog(this, "Error fetching data: " + ex.getMessage());
     }
+
+} catch (Exception ex) {
+    // Handle database connection issues
+    JOptionPane.showMessageDialog(this, "Database connection error: " + ex.getMessage());
+}
     }//GEN-LAST:event_SearchActionPerformed
 
     private void yearTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearTextFieldActionPerformed
