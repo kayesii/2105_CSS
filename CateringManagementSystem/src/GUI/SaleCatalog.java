@@ -20,84 +20,45 @@ public class SaleCatalog extends javax.swing.JFrame {
     }
     
     private void loadReservationsAndBookingsToTable() {
-    double totalSale = 0.0; // Variable to accumulate the total sale
+     Connection conn = null;
+        Statement stmt = null;
+        ResultSet rs = null;
 
-    try {
-        // Establish the database connection
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+        try {
+            // Establish database connection
+            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "password"); // Use your DB credentials
+            stmt = conn.createStatement();
 
-        // Combined SQL query
-        String query = """
-                    SELECT 
-                    r.ReservationID AS Id,
-                    r.ReservationDate AS Date,
-                    c.ClientName,
-                    r.EventName AS Event,
-                    NULL AS Packages,
-                    r.ReservationFee,  -- Reservation Fee from reservation table
-                    r.ReservationFee AS TotalPrice,  -- Reservation Fee is Total Price for reservations
-                    r.Status
-                FROM reservation r
-                INNER JOIN client c ON r.ClientID = c.ClientID
-                WHERE r.Status IN ('Pending', 'Cancelled')
-                
-                UNION ALL
-                
-                SELECT 
-                    b.BookingId AS Id,
-                    b.EventDate AS Date,
-                    c.ClientName,
-                    b.Theme AS Event,
-                    p.PackageName AS Packages,
-                    b.ReservationFee,  -- Reservation Fee from booking table
-                    b.TotalPrice,  -- Total Price from booking table
-                    b.Status
-                FROM booking b
-                INNER JOIN client c ON b.ClientID = c.ClientID
-                INNER JOIN packages p ON b.PackageId = p.PackageID
-                WHERE b.Status IN ('Pending', 'Completed', 'Cancelled');
-                """;
+            // Query to fetch data from booking and transactions tables
+            String query = "SELECT b.BookingId, b.PaymentStatus, t.date, t.paymentAmount " +
+                           "FROM booking b JOIN transactions t ON b.BookingId = t.BookingId";
+            rs = stmt.executeQuery(query);
 
-        PreparedStatement ps = con.prepareStatement(query);
-        ResultSet rs = ps.executeQuery();
+            // Clear existing data
+            tableModel.setRowCount(0);
 
-        // Get the table model
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) CombinedTable.getModel();
-        model.setRowCount(0); // Clear existing rows
+            // Add rows to the table
+            while (rs.next()) {
+                Object[] row = {
+                    rs.getInt("BookingId"),
+                    rs.getString("PaymentStatus"),
+                    rs.getDate("date"),
+                    rs.getDouble("paymentAmount")
+                };
+                tableModel.addRow(row);
+            }
 
-        // Iterate through the result set
-        while (rs.next()) {
-            // Get the total price for the current row (either from ReservationFee or TotalPrice)
-            Object totalPriceObj = rs.getObject("TotalPrice");
-            double totalPrice = (totalPriceObj != null) ? ((Number) totalPriceObj).doubleValue() : 0.0;
-
-            // Accumulate the total sale
-            totalSale += totalPrice;
-
-            // Add the row to the table model
-            model.addRow(new Object[]{
-                rs.getString("Date"),         // ReservationDate or EventDate
-                rs.getString("ClientName"),   // Client Name
-                rs.getString("Event"),        // Event Name or Theme
-                rs.getString("Packages"),     // Package Name (if any)
-                rs.getObject("ReservationFee"), // Reservation Fee
-                totalPrice,                   // Total Price (Reservation Fee or Total Price from booking)
-                rs.getString("Status")        // Status
-            });
+        } catch (SQLException e) {
+            e.printStackTrace();
+        } finally {
+            try {
+                if (rs != null) rs.close();
+                if (stmt != null) stmt.close();
+                if (conn != null) conn.close();
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
         }
-
-        // Set the total sale in the JTextField (e.g., TotalSaleField)
-        TotalSaleField.setText(String.format("%.2f", totalSale));
-
-        // Close connections
-        rs.close();
-        ps.close();
-        con.close();
-
-    } catch (Exception ex) {
-        // Enhanced error message with stack trace
-        JOptionPane.showMessageDialog(this, "Error loading data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
     }
 }
 
@@ -113,7 +74,7 @@ public class SaleCatalog extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane3 = new javax.swing.JScrollPane();
-        CombinedTable = new javax.swing.JTable();
+        tableModel = new javax.swing.JTable();
         TotalSaleField = new javax.swing.JTextField();
         Search = new javax.swing.JButton();
         monthComboBox = new javax.swing.JComboBox<>();
@@ -144,18 +105,18 @@ public class SaleCatalog extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        CombinedTable.setModel(new javax.swing.table.DefaultTableModel(
+        tableModel.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null},
+                {null, null, null, null}
             },
             new String [] {
-                "Date", "Client Name", "Event Name", "Packages", "Reservation Fee", "Total Price", "Status"
+                "Booking Id", "Date", "Status", "Payment"
             }
         ));
-        jScrollPane3.setViewportView(CombinedTable);
+        jScrollPane3.setViewportView(tableModel);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 1030, 310));
 
@@ -525,7 +486,6 @@ public void loadReservationsAndBookingsToTable(String month, String year) {
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
     private javax.swing.JButton BtnReport;
-    private javax.swing.JTable CombinedTable;
     private javax.swing.JButton Search;
     private javax.swing.JTextField TotalSaleField;
     private javax.swing.JLabel jLabel12;
@@ -544,6 +504,7 @@ public void loadReservationsAndBookingsToTable(String month, String year) {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logout;
     private javax.swing.JComboBox<String> monthComboBox;
+    private javax.swing.JTable tableModel;
     private javax.swing.JTextField yearTextField;
     // End of variables declaration//GEN-END:variables
 }
