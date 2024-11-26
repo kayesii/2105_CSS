@@ -13,6 +13,8 @@ import java.sql.SQLException;
 import java.text.SimpleDateFormat;
 import java.time.temporal.ChronoUnit;
 import java.util.Calendar;
+import java.util.Date;
+import java.sql.Time;
 
 public class BookingProcess extends JFrame {
     // Constructor and other methods
@@ -77,8 +79,8 @@ public class BookingProcess extends JFrame {
         statusComboBox = new javax.swing.JComboBox<>();
         ViewReceipt = new javax.swing.JButton();
         Transaction = new javax.swing.JButton();
-        jLabel17 = new javax.swing.JLabel();
         idplaceholder = new javax.swing.JTextField();
+        jLabel17 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -408,15 +410,15 @@ public class BookingProcess extends JFrame {
         });
         getContentPane().add(Transaction, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 450, 200, 50));
 
-        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
-
         idplaceholder.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 idplaceholderActionPerformed(evt);
             }
         });
         getContentPane().add(idplaceholder, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 110, 170, 60));
+
+        jLabel17.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -504,39 +506,39 @@ public class BookingProcess extends JFrame {
             }
         }
 
-// Debugging: Print values to check if they are correct
-System.out.println("Client Name: " + clientName);
-System.out.println("Client Number: " + clientNum);
+            // Debugging: Print values to check if they are correct
+            System.out.println("Client Name: " + clientName);
+            System.out.println("Client Number: " + clientNum);
 
-// SQL query to check if a reservation exists for the client based on their name and number
-String checkReservationQuery = "SELECT ReservationID FROM reservation WHERE ClientID = (SELECT ClientID FROM client WHERE TRIM(ClientName) = TRIM(?) AND ClientNumber = ? LIMIT 1)";
+            // SQL query to check if a reservation exists for the client based on their name and number
+            String checkReservationQuery = "SELECT ReservationID FROM reservation WHERE ClientID = (SELECT ClientID FROM client WHERE TRIM(ClientName) = TRIM(?) AND ClientNumber = ? LIMIT 1)";
 
-try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
-    ps.setString(1, clientName);  // Use the client name
-    ps.setString(2, clientNum);   // Use the client number to ensure uniqueness
-    
-    ResultSet rs = ps.executeQuery();
-    
-    // If a reservation exists, delete it
-    if (rs.next()) {
-        int reservationID = rs.getInt("ReservationID");
+            try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
+                ps.setString(1, clientName);  // Use the client name
+                ps.setString(2, clientNum);   // Use the client number to ensure uniqueness
 
-        // Delete the existing reservation
-        String deleteReservationQuery = "DELETE FROM reservation WHERE ReservationID = ?";
-        try (PreparedStatement deleteStmt = con.prepareStatement(deleteReservationQuery)) {
-            deleteStmt.setInt(1, reservationID);
-            int rowsDeleted = deleteStmt.executeUpdate();
+                ResultSet rs = ps.executeQuery();
 
-            if (rowsDeleted > 0) {
-                JOptionPane.showMessageDialog(null, "Previous reservation deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(null, "Failed to delete reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                // If a reservation exists, delete it
+                if (rs.next()) {
+                    int reservationID = rs.getInt("ReservationID");
+
+                    // Delete the existing reservation
+                    String deleteReservationQuery = "DELETE FROM reservation WHERE ReservationID = ?";
+                    try (PreparedStatement deleteStmt = con.prepareStatement(deleteReservationQuery)) {
+                        deleteStmt.setInt(1, reservationID);
+                        int rowsDeleted = deleteStmt.executeUpdate();
+
+                        if (rowsDeleted > 0) {
+                            JOptionPane.showMessageDialog(null, "Previous reservation deleted successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
+                        } else {
+                            JOptionPane.showMessageDialog(null, "Failed to delete reservation.", "Error", JOptionPane.ERROR_MESSAGE);
+                        }
+                    }
+                } else {
+                    JOptionPane.showMessageDialog(null, "No previous reservation found for the client.", "Info", JOptionPane.INFORMATION_MESSAGE);
+                }
             }
-        }
-    } else {
-        JOptionPane.showMessageDialog(null, "No previous reservation found for the client.", "Info", JOptionPane.INFORMATION_MESSAGE);
-    }
-}
 
         // Step 4: Get event details for the new booking
         String theme = txtTheme.getText().trim();
@@ -556,49 +558,66 @@ try (PreparedStatement ps = con.prepareStatement(checkReservationQuery)) {
         }
 
         java.util.Date eventDate = jCalendarComboBox1.getDate();  // Get date from the calendar picker
-
 // Check if the selected date is null
-if (eventDate == null) {
-    JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        if (eventDate == null) {
+            JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-// Get the current date and time
-Calendar currentCalendar = Calendar.getInstance();
-java.util.Date currentDate = currentCalendar.getTime();
+        // Check if the event date is in the past or less than 1 week from now
+        Calendar currentCalendar = Calendar.getInstance();
+        java.util.Date currentDate = currentCalendar.getTime();
+        if (eventDate.before(currentDate)) {
+            JOptionPane.showMessageDialog(null, "Event date cannot be in the past.", "Date Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-// Check if the selected date is in the past
-if (eventDate.before(currentDate)) {
-    JOptionPane.showMessageDialog(null, "Event date cannot be in the past.", "Date Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        currentCalendar.add(Calendar.DAY_OF_YEAR, 7);
+        java.util.Date minDate = currentCalendar.getTime();
+        if (eventDate.before(minDate)) {
+            JOptionPane.showMessageDialog(null, "Event date must be at least 1 week from today.", "Date Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-// Set minimum date to 1 week from now
-currentCalendar.add(Calendar.DAY_OF_YEAR, 7);  // Adds 7 days to the current date
-java.util.Date minDate = currentCalendar.getTime();
+        // Validate the time format and duration
+        java.sql.Time eventTimeStart = null;
+        java.sql.Time eventTimeEnd = null;
 
-// Check if the selected date is less than 1 week from today
-if (eventDate.before(minDate)) {
-    JOptionPane.showMessageDialog(null, "Event date must be at least 1 week from today.", "Date Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        try {
+            eventTimeStart = java.sql.Time.valueOf(timeStartStr);
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid start time format. Please use HH:mm:ss.", "Start Time Format Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-java.sql.Time eventTimeStart = null;
-java.sql.Time eventTimeEnd = null;
+        try {
+            eventTimeEnd = java.sql.Time.valueOf(timeEndStr);
+        } catch (IllegalArgumentException ex) {
+            JOptionPane.showMessageDialog(null, "Invalid end time format. Please use HH:mm:ss.", "End Time Format Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-try {
-    eventTimeStart = java.sql.Time.valueOf(timeStartStr);
-} catch (IllegalArgumentException ex) {
-    JOptionPane.showMessageDialog(null, "Invalid start time format. Please use HH:mm:ss.", "Start Time Format Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        // Check if event duration is between 2 and 10 hours
+        long eventDuration = ChronoUnit.HOURS.between(eventTimeStart.toLocalTime(), eventTimeEnd.toLocalTime());
+        if (eventDuration < 2 || eventDuration > 10) {
+            JOptionPane.showMessageDialog(null, "Event duration must be between 2 to 10 hours.", "Time Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
 
-try {
-    eventTimeEnd = java.sql.Time.valueOf(timeEndStr);
-} catch (IllegalArgumentException ex) {
-    JOptionPane.showMessageDialog(null, "Invalid end time format. Please use HH:mm:ss.", "End Time Format Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
+        // Check for existing reservations at the same date and time
+        String checkBookingQuery = "SELECT * FROM booking WHERE EventDate = ? AND ((TimeStart BETWEEN ? AND ?) OR (TimeEnd BETWEEN ? AND ?))";
+        try (PreparedStatement ps = con.prepareStatement(checkBookingQuery)) {
+            ps.setDate(1, new java.sql.Date(eventDate.getTime()));
+            ps.setTime(2, eventTimeStart);
+            ps.setTime(3, eventTimeEnd);
+            ps.setTime(4, eventTimeStart);
+            ps.setTime(5, eventTimeEnd);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                JOptionPane.showMessageDialog(null, "Date is not Available","", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
+        }
         // Step 6: Validate and parse Package ID
         int selectedPackageId = -1;
         if (packagePickerStr.isEmpty()) {
@@ -693,6 +712,7 @@ try {
     } catch (SQLException ex) {
         JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
+    
     }//GEN-LAST:event_SaveActionPerformed
 
     private void ViewReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewReceiptActionPerformed
@@ -871,7 +891,8 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
                 if (eventDate != null) {
                     jCalendarComboBox1.setDate(eventDate);
                 }
-
+                
+                
                 txtLocation.setText(rs.getString("Location"));
                 txtTimeStart.setText(rs.getString("TimeStart"));
                 txtTimeEnds.setText(rs.getString("TimeEnd"));
@@ -880,6 +901,8 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
                 NumberOfGuests.setValue(rs.getInt("NumberOfGuests"));
                 NumberOfLaborers.setValue(rs.getInt("NumberOfLaborers"));
                 statusComboBox.setSelectedItem(rs.getString("Status"));
+                
+                
             } else {
                 // If no booking is found for the client
                 JOptionPane.showMessageDialog(null, "Client found, but no booking information available.", "Search Info", JOptionPane.INFORMATION_MESSAGE);
@@ -899,122 +922,106 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
     }//GEN-LAST:event_SearchBtnActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
-        // Step 1: Get Booking ID
-String bookingID = idplaceholder.getText().trim();
-if (bookingID.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Please enter a Booking ID to update.", "Update Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-// For debugging: Print the booking ID with visible brackets to detect hidden characters
-System.out.println("Booking ID: [" + bookingID + "]");
-
-// Step 2: Validate and collect updated data from fields
-String clientName = txtClientName.getText().trim();
-String clientNumber = txtClientNum.getText().trim();
-String theme = txtTheme.getText().trim();
-String location = txtLocation.getText().trim();
-String timeStartStr = txtTimeStart.getText().trim();
-String timeEndStr = txtTimeEnds.getText().trim();
-String packagePickerStr = PackagePicker.getText().trim();
-int numberOfGuests = (int) NumberOfGuests.getValue();
-int numberOfLaborers = (int) NumberOfLaborers.getValue();
-String cateringStyle = pickCateringStyle.getSelectedItem().toString();
-String status = statusComboBox.getSelectedItem().toString();
-SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-String eventDateStr = dateFormat.format(jCalendarComboBox1.getDate());
-
-if (clientName.isEmpty() || clientNumber.isEmpty() || theme.isEmpty() || eventDateStr.isEmpty() || 
-    location.isEmpty() || timeStartStr.isEmpty() || timeEndStr.isEmpty() || packagePickerStr.isEmpty() || 
-    cateringStyle.equals("Select Catering Style")) {
-    JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-// Step 3: Parse dates and times
-java.sql.Date eventDate;
-java.sql.Time timeStart, timeEnd;
-
-try {
-    eventDate = java.sql.Date.valueOf(eventDateStr);
-    timeStart = java.sql.Time.valueOf(timeStartStr);
-    timeEnd = java.sql.Time.valueOf(timeEndStr);
-} catch (IllegalArgumentException ex) {
-    JOptionPane.showMessageDialog(null, "Invalid date or time format. Please check your inputs.", "Format Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-// Step 4: Calculate total price
-double totalPrice = calculateTotalAmount(
-    Integer.parseInt(packagePickerStr), // Package ID (from selected package)
-    numberOfGuests,                     // Number of guests
-    numberOfLaborers,                   // Number of laborers
-    (int) ChronoUnit.HOURS.between(timeStart.toLocalTime(), timeEnd.toLocalTime()), // Hours worked (time duration)
-    cateringStyle                       // Catering style (e.g., "Plated catering" or "Buffet catering")
-);
-
-// Step 5: Connect to the database and update records
-try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-    con.setAutoCommit(false); // Begin transaction
-
-    // Debugging: Check if the booking ID exists in the database
-    String checkBookingQuery = "SELECT * FROM booking WHERE BookingID = ?";
-    try (PreparedStatement psCheck = con.prepareStatement(checkBookingQuery)) {
-        psCheck.setString(1, bookingID);
-        ResultSet rs = psCheck.executeQuery();
-
-        // If no record is found, show error message
-        if (!rs.next()) {
-            JOptionPane.showMessageDialog(null, "No booking found with the provided Booking ID.", "Update Error", JOptionPane.ERROR_MESSAGE);
-            return; // Stop here if no booking found
-        }
+    // Step 1: Get Booking ID
+    String bookingID = idplaceholder.getText().trim();
+    if (bookingID.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please enter a Booking ID to update.", "Update Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
 
-    // Update client information
-    String updateClientQuery = "UPDATE client SET ClientName = ?, ClientNumber = ? WHERE ClientID = (SELECT ClientID FROM booking WHERE BookingID = ?)";
-    try (PreparedStatement ps = con.prepareStatement(updateClientQuery)) {
-        ps.setString(1, clientName);
-        ps.setString(2, clientNumber);
-        ps.setString(3, bookingID);
-        ps.executeUpdate();
+    // For debugging: Print the booking ID with visible brackets to detect hidden characters
+    System.out.println("Booking ID: [" + bookingID + "]");
+
+    // Step 2: Validate and collect updated data from fields
+    String clientName = txtClientName.getText().trim();
+    String clientNumber = txtClientNum.getText().trim();
+    String theme = txtTheme.getText().trim();
+    String location = txtLocation.getText().trim();
+    String timeStartStr = txtTimeStart.getText().trim();
+    String timeEndStr = txtTimeEnds.getText().trim();
+    String packagePickerStr = PackagePicker.getText().trim();
+    int numberOfGuests = (int) NumberOfGuests.getValue();
+    int numberOfLaborers = (int) NumberOfLaborers.getValue();
+    String cateringStyle = pickCateringStyle.getSelectedItem().toString();
+    String status = statusComboBox.getSelectedItem().toString();
+    SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
+    String eventDateStr = dateFormat.format(jCalendarComboBox1.getDate());
+
+    // Validation check: Ensure no field is empty
+    if (clientName.isEmpty() || clientNumber.isEmpty() || theme.isEmpty() || eventDateStr.isEmpty() ||
+        location.isEmpty() || timeStartStr.isEmpty() || timeEndStr.isEmpty() || packagePickerStr.isEmpty() ||
+        cateringStyle.equals("Select Catering Style")) {
+        JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
 
-    // Update booking details
-    String updateBookingQuery = "UPDATE booking SET Theme = ?, EventDate = ?, Location = ?, TimeStart = ?, TimeEnd = ?, " +
-                                "PackageID = ?, NumberOfGuests = ?, NumberOfLaborers = ?, CateringStyle = ?, Status = ?, TotalPrice = ?" +
-                                "WHERE BookingID = ?";
-    try (PreparedStatement ps = con.prepareStatement(updateBookingQuery)) {
-        ps.setString(1, theme);
-        ps.setDate(2, eventDate);
-        ps.setString(3, location);
-        ps.setTime(4, timeStart);
-        ps.setTime(5, timeEnd);
-        ps.setInt(6, Integer.parseInt(packagePickerStr));
-        ps.setInt(7, numberOfGuests);
-        ps.setInt(8, numberOfLaborers);
-        ps.setString(9, cateringStyle);
-        ps.setString(10, status);
-        ps.setDouble(11, totalPrice);
-        ps.setString(12, bookingID);
-
-        int rowsUpdated = ps.executeUpdate();
-        if (rowsUpdated > 0) {
-            JOptionPane.showMessageDialog(null, "Booking updated successfully!", "Update Success", JOptionPane.INFORMATION_MESSAGE);
-        } else {
-            JOptionPane.showMessageDialog(null, "No booking found with the provided Booking ID.", "Update Error", JOptionPane.ERROR_MESSAGE);
-            con.rollback(); // Revert transaction if update fails
+    // Step 3: Parse dates and times
+    java.sql.Date eventDate;
+    java.sql.Time timeStart, timeEnd;
+    try {
+       
+        eventDate = java.sql.Date.valueOf(eventDateStr);
+        timeStart = java.sql.Time.valueOf(timeStartStr);
+        timeEnd = java.sql.Time.valueOf(timeEndStr);
+        
+        // Check if event duration is between 2 and 10 hours
+        long eventDuration = ChronoUnit.HOURS.between(timeStart.toLocalTime(), timeEnd.toLocalTime());
+        if (eventDuration < 2 || eventDuration > 10) {
+            JOptionPane.showMessageDialog(null, "Event duration must be between 2 to 10 hours.", "Time Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+    } catch (IllegalArgumentException ex) {
+        JOptionPane.showMessageDialog(null, "Invalid date or time format. Please check your inputs.", "Format Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+    
+
+    // Check if the selected date is valid
+    if (!isValidEventDate(eventDate)) {
+        return; // Exit if validation fails
     }
 
-    con.commit(); // Commit transaction if all updates are successful
+    // Step 4: Get current booking details from the database to check if the event date is being updated
+    if (!isEventDateAvailable(bookingID, eventDate, timeStart, timeEnd)) {
+        return; // Exit if the date or time is not available
+    }
 
-} catch (SQLException ex) {
-    JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-    ex.printStackTrace();
-}
-    
-    
+    // Step 5: Calculate total price
+    int packageID;
+    try {
+        packageID = Integer.parseInt(packagePickerStr);
+    } catch (NumberFormatException e) {
+        JOptionPane.showMessageDialog(null, "Invalid package selection.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
+
+    double totalPrice = calculateTotalAmount(packageID, numberOfGuests, numberOfLaborers,
+                                              (int) ChronoUnit.HOURS.between(timeStart.toLocalTime(), timeEnd.toLocalTime()),
+                                              cateringStyle);
+
+    // Step 6: Connect to the database and update records
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+        con.setAutoCommit(false); // Begin transaction
+
+        // Step 6.1: Check if the booking exists
+        if (!checkBookingExists(con, bookingID)) {
+            return; // Exit if the booking doesn't exist
+        }
+
+        // Step 6.2: Update client information
+        updateClientInformation(con, bookingID, clientName, clientNumber);
+
+        // Step 6.3: Update booking details
+        updateBookingDetails(con, bookingID, theme, eventDate, location, timeStart, timeEnd, packageID, numberOfGuests,
+                             numberOfLaborers, cateringStyle, status, totalPrice);
+
+        con.commit(); // Commit transaction if all updates are successful
+        JOptionPane.showMessageDialog(null, "Booking updated successfully!", "Update Success", JOptionPane.INFORMATION_MESSAGE);
+
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+    }
     }//GEN-LAST:event_updateActionPerformed
 
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
@@ -1036,7 +1043,115 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
     NumberOfLaborers.setValue(0); // Reset spinner
 
     }//GEN-LAST:event_ClearActionPerformed
+private boolean isValidEventDate(java.sql.Date eventDate) {
+    // Get the current date and time
+    Calendar currentCalendar = Calendar.getInstance();
+    java.util.Date currentDate = currentCalendar.getTime();
 
+    // Check if the selected date is in the past
+    if (eventDate.before(currentDate)) {
+        JOptionPane.showMessageDialog(null, "Event date cannot be in the past.", "Date Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    // Set minimum date to 1 week from now
+    currentCalendar.add(Calendar.DAY_OF_YEAR, 7);  // Adds 7 days to the current date
+    java.util.Date minDate = currentCalendar.getTime();
+
+    // Check if the selected date is less than 1 week from today
+    if (eventDate.before(minDate)) {
+        JOptionPane.showMessageDialog(null, "Event date must be at least 1 week from today.", "Date Error", JOptionPane.ERROR_MESSAGE);
+        return false;
+    }
+
+    return true;
+}
+
+private boolean isEventDateAvailable(String bookingID, java.sql.Date eventDate, java.sql.Time timeStart, java.sql.Time timeEnd) {
+    String checkBookingQuery = "SELECT EventDate, TimeStart, TimeEnd FROM booking WHERE BookingID = ?";
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+         PreparedStatement psCheck = con.prepareStatement(checkBookingQuery)) {
+        psCheck.setString(1, bookingID);
+        ResultSet rs = psCheck.executeQuery();
+        
+        if (rs.next()) {
+            Date existingEventDate = rs.getDate("EventDate");
+            Time existingTimeStart = rs.getTime("TimeStart");
+            Time existingTimeEnd = rs.getTime("TimeEnd");
+
+            // If the event date is not changed, skip the date conflict check
+            if (eventDate.equals(existingEventDate)) {
+                return true; // Date hasn't changed, no need to check availability
+            } else {
+                // Check for conflicts if the event date is changed
+                String checkDateQuery = "SELECT BookingId FROM booking WHERE EventDate = ? AND (" +
+                        "(TimeStart < ? AND TimeEnd > ?) OR (TimeStart < ? AND TimeEnd > ?))";
+                try (PreparedStatement checkDatePst = con.prepareStatement(checkDateQuery)) {
+                    checkDatePst.setDate(1, new java.sql.Date(eventDate.getTime()));
+                    checkDatePst.setTime(2, timeEnd);
+                    checkDatePst.setTime(3, timeStart);
+                    checkDatePst.setTime(4, timeStart);
+                    checkDatePst.setTime(5, timeEnd);
+                    ResultSet dateRs = checkDatePst.executeQuery();
+                    if (dateRs.next()) {
+                        JOptionPane.showMessageDialog(null, "Selected date and time are already booked.", "Date Conflict", JOptionPane.ERROR_MESSAGE);
+                        return false; // Date and time are already booked
+                    }
+                }
+            }
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Database error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+        ex.printStackTrace();
+        return false;
+    }
+    return true; // No conflict
+}
+
+private boolean checkBookingExists(Connection con, String bookingID) throws SQLException {
+    String checkBookingQuery = "SELECT * FROM booking WHERE BookingID = ?";
+    try (PreparedStatement psCheck = con.prepareStatement(checkBookingQuery)) {
+        psCheck.setString(1, bookingID);
+        ResultSet rs = psCheck.executeQuery();
+        if (!rs.next()) {
+            JOptionPane.showMessageDialog(null, "No booking found with the provided Booking ID.", "Update Error", JOptionPane.ERROR_MESSAGE);
+            return false;
+        }
+    }
+    return true;
+}
+
+private void updateClientInformation(Connection con, String bookingID, String clientName, String clientNumber) throws SQLException {
+    String updateClientQuery = "UPDATE client SET ClientName = ?, ClientNumber = ? WHERE ClientID = (SELECT ClientID FROM booking WHERE BookingID = ?)";
+    try (PreparedStatement ps = con.prepareStatement(updateClientQuery)) {
+        ps.setString(1, clientName);
+        ps.setString(2, clientNumber);
+        ps.setString(3, bookingID);
+        ps.executeUpdate();
+    }
+}
+
+private void updateBookingDetails(Connection con, String bookingID, String theme, java.sql.Date eventDate, String location,
+                                   java.sql.Time timeStart, java.sql.Time timeEnd, int packageID, int numberOfGuests,
+                                   int numberOfLaborers, String cateringStyle, String status, double totalPrice) throws SQLException {
+    String updateBookingQuery = "UPDATE booking SET Theme = ?, EventDate = ?, Location = ?, TimeStart = ?, TimeEnd = ?, " +
+                                "PackageID = ?, NumberOfGuests = ?, NumberOfLaborers = ?, CateringStyle = ?, Status = ?, TotalPrice = ? WHERE BookingID = ?";
+    try (PreparedStatement ps = con.prepareStatement(updateBookingQuery)) {
+        ps.setString(1, theme);
+        ps.setDate(2, eventDate);
+        ps.setString(3, location);
+        ps.setTime(4, timeStart);
+        ps.setTime(5, timeEnd);
+        ps.setInt(6, packageID);
+        ps.setInt(7, numberOfGuests);
+        ps.setInt(8, numberOfLaborers);
+        ps.setString(9, cateringStyle);
+        ps.setString(10, status);
+        ps.setDouble(11, totalPrice);
+        ps.setString(12, bookingID);
+        ps.executeUpdate();
+    }
+}
     private void BtnCalendarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnCalendarActionPerformed
         BtnCalendar.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1113,7 +1228,7 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
         BtnReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                SaleCatalog laborer = new SaleCatalog();
+                Sales laborer = new Sales();
                 laborer.setVisible(true);
                 laborer .setLocationRelativeTo(null); // Center the SignUP frame
             }

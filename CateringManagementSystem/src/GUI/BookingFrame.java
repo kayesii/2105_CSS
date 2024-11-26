@@ -10,7 +10,6 @@ import java.sql.DriverManager;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import javax.swing.JOptionPane;
-import javax.swing.JButton;
 import javax.swing.table.DefaultTableModel;
 public class BookingFrame extends javax.swing.JFrame {
 
@@ -565,7 +564,7 @@ SearchByStatus.addActionListener(new ActionListener() {
         BtnReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                SaleCatalog laborer = new SaleCatalog();
+                Sales laborer = new Sales();
                 laborer.setVisible(true);
                 laborer .setLocationRelativeTo(null); // Center the SignUP frame
             }

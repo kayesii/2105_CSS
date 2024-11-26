@@ -181,6 +181,7 @@ public class HomeFrame extends javax.swing.JFrame {
         jTextField1 = new javax.swing.JTextField();
         jLabel14 = new javax.swing.JLabel();
         jLabel15 = new javax.swing.JLabel();
+        payreservation = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -367,7 +368,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 ClearButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(ClearButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(310, 480, 90, 40));
+        getContentPane().add(ClearButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 480, 90, 40));
 
         UpdateReservationBtn.setBackground(new java.awt.Color(205, 133, 63));
         UpdateReservationBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -377,7 +378,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 UpdateReservationBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 480, 90, 40));
+        getContentPane().add(UpdateReservationBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 480, 90, 40));
 
         ReserveBtn.setBackground(new java.awt.Color(205, 133, 63));
         ReserveBtn.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -387,7 +388,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 ReserveBtnActionPerformed(evt);
             }
         });
-        getContentPane().add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 480, 90, 40));
+        getContentPane().add(ReserveBtn, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 480, 90, 40));
 
         pickStatus.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         pickStatus.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Cancelled", " " }));
@@ -460,6 +461,14 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel15.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
         jLabel15.setText("U");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 40, -1));
+
+        payreservation.setText("jButton1");
+        payreservation.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                payreservationActionPerformed(evt);
+            }
+        });
+        getContentPane().add(payreservation, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 480, -1, -1));
 
         jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
         getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
@@ -543,7 +552,7 @@ public class HomeFrame extends javax.swing.JFrame {
         BtnReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                SaleCatalog laborer = new SaleCatalog();
+                Sales laborer = new Sales();
                 laborer.setVisible(true);
                 laborer .setLocationRelativeTo(null); // Center the SignUP frame
             }
@@ -853,6 +862,16 @@ try {
         // TODO add your handling code here:
     }//GEN-LAST:event_jTextField1ActionPerformed
 
+    private void payreservationActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payreservationActionPerformed
+        payreservation.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                reservationPay pay = new reservationPay ();
+                pay.setVisible(true);
+                pay .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_payreservationActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBooking;
@@ -887,6 +906,7 @@ try {
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JTextField jTextField1;
     private javax.swing.JButton logout;
+    private javax.swing.JButton payreservation;
     private javax.swing.JComboBox<String> pickStatus;
     private javax.swing.JTextField txtClientName;
     private javax.swing.JTextField txtClientNumber;

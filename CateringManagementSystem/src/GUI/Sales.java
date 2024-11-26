@@ -10,124 +10,139 @@ import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.util.Date;
+import java.util.HashMap;
+import java.util.Map;
 import javax.swing.table.DefaultTableModel;
 
 
-public class SaleCatalog extends javax.swing.JFrame {
+public class Sales extends javax.swing.JFrame {
 
-    public SaleCatalog() {
+    public Sales() {
         initComponents();
         record();
     }
     
+   
     private void record() {
     try {
         // Establish the database connection
-    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
+        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
 
-    // SQL query to fetch data from the transactions table, including RefundAmount
-    String query = "SELECT TransactionId, BookingId, Date, PaymentAmount, RefundAmount FROM transactions";
+        // SQL query to fetch data from the transactions table, including RefundAmount
+        String query = "SELECT TransactionId, BookingId, ReservationId, Date, PaymentAmount, RefundAmount FROM transactions";
 
-    PreparedStatement ps = con.prepareStatement(query);
-    ResultSet rs = ps.executeQuery();
+        PreparedStatement ps = con.prepareStatement(query);
+        ResultSet rs = ps.executeQuery();
 
-    // Initialize table with appropriate columns
-    String[] columnNames = {"Transaction Id", "Booking Id", "Date", "Payment", "Refund"};
-    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
-    CombinedTable.setModel(model);
+        // Initialize table with appropriate columns
+        String[] columnNames = {"Transaction Id", "Booking Id","Reservation Id", "Date", "Payment", "Refund"};
+        DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+        CombinedTable.setModel(model);
 
-    // SimpleDateFormat to format the date
-    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
+        // SimpleDateFormat to format the date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-    // Iterate through the result set and add rows to the table model
-    while (rs.next()) {
-        int transactionId = rs.getInt("TransactionId");
-        int bookingId = rs.getInt("BookingId");
-        Date date = rs.getDate("Date");
-        double paymentAmount = rs.getDouble("PaymentAmount");
-        double refundAmount = rs.getDouble("RefundAmount");  // Fetch the refund amount
+        double totalPayment = 0;  // Initialize variable to store total payment amount
+        double totalRefund = 0;   // Initialize variable to store total refund amount
 
-        // Format the date
-        String formattedDate = sdf.format(date);
+        // Iterate through the result set and add rows to the table model
+        while (rs.next()) {
+            int transactionId = rs.getInt("TransactionId");
+            int bookingId = rs.getInt("BookingId");
+            int reservationId = rs.getInt("ReservationId");
+            Date date = rs.getDate("Date");
+            double paymentAmount = rs.getDouble("PaymentAmount");
+            double refundAmount = rs.getDouble("RefundAmount");  // Fetch the refund amount
 
-        // Add row to the model
-        model.addRow(new Object[]{transactionId, bookingId, formattedDate, paymentAmount, refundAmount});
+            // Add the payment and refund amounts to the total
+            totalPayment += paymentAmount;
+            totalRefund += refundAmount;
+
+            // Format the date
+            String formattedDate = sdf.format(date);
+
+            // Add row to the model
+            model.addRow(new Object[]{transactionId, bookingId,reservationId, formattedDate, paymentAmount, refundAmount});
+        }
+
+        // Set the total sale value in the TotalSaleField (only payment in this case)
+        TotalSaleField.setText("₱" + (totalPayment - totalRefund));  // Subtract refunds from total payments
+
+        // Ensure the table refreshes after data is added
+        CombinedTable.updateUI();
+
+        // Close resources
+        rs.close();
+        ps.close();
+        con.close();
+
+    } catch (Exception e) {
+        e.printStackTrace();
+        JOptionPane.showMessageDialog(this, "Error loading data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
-
-    // Ensure the table refreshes after data is added
-    CombinedTable.updateUI();
-
-    // Close resources
-    rs.close();
-    ps.close();
-    con.close();
-
-} catch (Exception e) {
-    e.printStackTrace();
-    JOptionPane.showMessageDialog(this, "Error loading data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
-    }
-
-
-
-
-
-
-
-
-
-
-
     @SuppressWarnings("unchecked")
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jLabel20 = new javax.swing.JLabel();
+        jLabel16 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
+        jLabel17 = new javax.swing.JLabel();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel14 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
+        TotalSaleField = new javax.swing.JTextField();
         jScrollPane3 = new javax.swing.JScrollPane();
         CombinedTable = new javax.swing.JTable();
-        TotalSaleField = new javax.swing.JTextField();
         Search = new javax.swing.JButton();
-        monthComboBox = new javax.swing.JComboBox<>();
         yearTextField = new javax.swing.JTextField();
-        jLabel15 = new javax.swing.JLabel();
-        jLabel14 = new javax.swing.JLabel();
+        monthComboBox = new javax.swing.JComboBox<>();
+        jLabel18 = new javax.swing.JLabel();
+        jLabel13 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
         BtnCalendar = new javax.swing.JButton();
         BtnPackages = new javax.swing.JButton();
         BtnBooking = new javax.swing.JButton();
         BtnHome = new javax.swing.JButton();
-        jLabel8 = new javax.swing.JLabel();
-        jLabel6 = new javax.swing.JLabel();
+        jLabel15 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
         BtnLaborer = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         BtnReport = new javax.swing.JButton();
-        jLabel19 = new javax.swing.JLabel();
-        jLabel20 = new javax.swing.JLabel();
-        jLabel16 = new javax.swing.JLabel();
-        jLabel17 = new javax.swing.JLabel();
-        jLabel21 = new javax.swing.JLabel();
-        jLabel12 = new javax.swing.JLabel();
-        jLabel18 = new javax.swing.JLabel();
-        jLabel13 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setLocation(new java.awt.Point(250, 125));
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        CombinedTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null},
-                {null, null, null, null, null}
-            },
-            new String [] {
-                "Booking Id", "Date", "Status", "Payment", "Refund"
-            }
-        ));
-        jScrollPane3.setViewportView(CombinedTable);
+        jLabel20.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel20.setText("C");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 50, 50));
 
-        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 1030, 310));
+        jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel16.setText("ATERING");
+        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 100, -1));
+
+        jLabel21.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel21.setText("s");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 50, 60));
+
+        jLabel17.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel17.setText("ALE");
+        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 70, -1));
+
+        jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel19.setText("R");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 50, 60));
+
+        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
+        jLabel14.setText("EPORT");
+        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 100, -1));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel12.setText("Total Sale: ₱");
+        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, 110, 40));
 
         TotalSaleField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         TotalSaleField.addActionListener(new java.awt.event.ActionListener() {
@@ -137,6 +152,21 @@ public class SaleCatalog extends javax.swing.JFrame {
         });
         getContentPane().add(TotalSaleField, new org.netbeans.lib.awtextra.AbsoluteConstraints(810, 160, 220, 40));
 
+        CombinedTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null},
+                {null, null, null, null, null, null}
+            },
+            new String [] {
+                "Booking Id", "Date", "Status", "Payment", "Refund", "Title 6"
+            }
+        ));
+        jScrollPane3.setViewportView(CombinedTable);
+
+        getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 1030, 310));
+
         Search.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/search (1).png"))); // NOI18N
         Search.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -144,10 +174,6 @@ public class SaleCatalog extends javax.swing.JFrame {
             }
         });
         getContentPane().add(Search, new org.netbeans.lib.awtextra.AbsoluteConstraints(400, 160, 40, 40));
-
-        monthComboBox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        monthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Year" }));
-        getContentPane().add(monthComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 140, 40));
 
         yearTextField.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         yearTextField.setText("YYYY");
@@ -158,12 +184,16 @@ public class SaleCatalog extends javax.swing.JFrame {
         });
         getContentPane().add(yearTextField, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 160, 140, 40));
 
-        jLabel15.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
-        getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(660, 120, 40, -1));
+        monthComboBox.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        monthComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December", "Year" }));
+        getContentPane().add(monthComboBox, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 160, 140, 40));
 
-        jLabel14.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
-        jLabel14.setText("EPORT");
-        getContentPane().add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(680, 110, 100, -1));
+        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel18.setText("Filter");
+        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 50, 40));
+
+        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
+        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
 
         jPanel2.setBackground(new java.awt.Color(210, 180, 140));
         jPanel2.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -212,15 +242,15 @@ public class SaleCatalog extends javax.swing.JFrame {
         });
         jPanel2.add(BtnHome, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 30, 120, 40));
 
-        jLabel8.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
-        jLabel8.setText("PALATES  ");
-        jPanel2.add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
+        jLabel15.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
+        jLabel15.setText("PALATES  ");
+        jPanel2.add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 0, 280, 60));
 
-        jLabel6.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
-        jLabel6.setText("&   plates");
-        jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
+        jLabel22.setFont(new java.awt.Font("Castellar", 3, 30)); // NOI18N
+        jLabel22.setText("&   plates");
+        jPanel2.add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
 
-        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setBackground(new java.awt.Color(205, 133, 63));
         BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnLaborer.setText("LABOR");
         BtnLaborer.setBorder(null);
@@ -241,7 +271,7 @@ public class SaleCatalog extends javax.swing.JFrame {
         });
         jPanel2.add(logout, new org.netbeans.lib.awtextra.AbsoluteConstraints(1010, 30, 40, 40));
 
-        BtnReport.setBackground(new java.awt.Color(205, 133, 63));
+        BtnReport.setBackground(new java.awt.Color(210, 180, 140));
         BtnReport.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnReport.setText("REPORT");
         BtnReport.setBorder(null);
@@ -254,37 +284,6 @@ public class SaleCatalog extends javax.swing.JFrame {
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
 
-        jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
-        jLabel19.setText("R");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(640, 100, 50, 60));
-
-        jLabel20.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
-        jLabel20.setText("C");
-        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(370, 100, 50, 50));
-
-        jLabel16.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
-        jLabel16.setText("ATERING");
-        getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(410, 110, 100, -1));
-
-        jLabel17.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
-        jLabel17.setText("ALE");
-        getContentPane().add(jLabel17, new org.netbeans.lib.awtextra.AbsoluteConstraints(570, 110, 70, -1));
-
-        jLabel21.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
-        jLabel21.setText("s");
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(540, 100, 50, 60));
-
-        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel12.setText("Total Sale: ₱");
-        getContentPane().add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 160, 110, 40));
-
-        jLabel18.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        jLabel18.setText("Filter");
-        getContentPane().add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(60, 160, 50, 40));
-
-        jLabel13.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
-        getContentPane().add(jLabel13, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, -1));
-
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -293,8 +292,87 @@ public class SaleCatalog extends javax.swing.JFrame {
     }//GEN-LAST:event_TotalSaleFieldActionPerformed
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
-         // Get selected month and year input
-  
+
+        try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+        String selectedMonth = monthComboBox.getSelectedItem().toString(); // e.g., "January"
+        String yearText = yearTextField.getText(); // e.g., "2024"
+
+        // Validate the year input
+        if (!yearText.matches("\\d{4}")) { // check if year is a 4-digit number
+            JOptionPane.showMessageDialog(this, "Please enter a valid year (YYYY).");
+            return;
+        }
+
+        // Map the month name to month number (e.g., "January" -> "01")
+        Map<String, String> monthMap = new HashMap<>();
+        monthMap.put("January", "01");
+        monthMap.put("February", "02");
+        monthMap.put("March", "03");
+        monthMap.put("April", "04");
+        monthMap.put("May", "05");
+        monthMap.put("June", "06");
+        monthMap.put("July", "07");
+        monthMap.put("August", "08");
+        monthMap.put("September", "09");
+        monthMap.put("October", "10");
+        monthMap.put("November", "11");
+        monthMap.put("December", "12");
+
+        String monthNumber = monthMap.get(selectedMonth);
+
+        if (monthNumber == null) {
+            JOptionPane.showMessageDialog(this, "Invalid month selected.");
+            return;
+        }
+
+        // Build the query with the selected month and year
+        String query = "SELECT * FROM transactions WHERE MONTH(Date) = ? AND YEAR(Date) = ?";
+
+        try (PreparedStatement stmt = con.prepareStatement(query)) {
+            stmt.setString(1, monthNumber); // Set the month (e.g., "01")
+            stmt.setString(2, yearText);    // Set the year (e.g., "2024")
+
+            ResultSet rs = stmt.executeQuery();
+
+            // Clear the previous data in the table before populating new data
+            DefaultTableModel model = new DefaultTableModel(new Object[]{"TransactionId", "BookingId", "ReservationId", "Date", "Payment", "Refund"}, 0);
+            CombinedTable.setModel(model);  // Set this model to the table
+
+            // Variables for total sales calculation
+            double totalSale = 0.0;
+
+            // Populate the table with the data from the result set
+            while (rs.next()) {
+                String transactionId = rs.getString("TransactionId"); // Fetch the TransactionId
+                String bookingId = rs.getString("BookingId");
+                String reservation = rs.getString("ReservationId");
+                String date = rs.getString("Date");
+                String paymentAmount = rs.getString("PaymentAmount");
+                String refundAmount = rs.getString("RefundAmount");
+
+                // Ensure paymentAmount and refundAmount are not null
+                double payment = paymentAmount != null ? Double.parseDouble(paymentAmount) : 0.0;
+                double refund = refundAmount != null ? Double.parseDouble(refundAmount) : 0.0;
+
+                // Add the data to the table
+                model.addRow(new Object[]{transactionId, bookingId, reservation, date, payment, refund});
+
+                // Calculate total sales (consider payment only)
+                totalSale += payment;
+            }
+
+            // Update the Total Sale field with the calculated total
+            TotalSaleField.setText("₱" + totalSale);
+
+        } catch (Exception ex) {
+            // Handle any SQL exceptions
+            JOptionPane.showMessageDialog(this, "Error fetching data: " + ex.getMessage());
+        }
+
+    } catch (Exception ex) {
+        // Handle database connection issues
+        JOptionPane.showMessageDialog(this, "Database connection error: " + ex.getMessage());
+    }
     }//GEN-LAST:event_SearchActionPerformed
 
     private void yearTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearTextFieldActionPerformed
@@ -349,7 +427,7 @@ public class SaleCatalog extends javax.swing.JFrame {
         BtnLaborer.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                LaborersFrame laborer = new LaborersFrame();
+                LaborersTable laborer = new LaborersTable();
                 laborer.setVisible(true);
                 laborer .setLocationRelativeTo(null); // Center the SignUP frame
             }
@@ -377,15 +455,14 @@ public class SaleCatalog extends javax.swing.JFrame {
         BtnReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                SaleCatalog laborer = new SaleCatalog();
+                Sales laborer = new Sales();
                 laborer.setVisible(true);
                 laborer .setLocationRelativeTo(null); // Center the SignUP frame
             }
         });
-
     }//GEN-LAST:event_BtnReportActionPerformed
 
-   
+
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBooking;
     private javax.swing.JButton BtnCalendar;
@@ -406,8 +483,7 @@ public class SaleCatalog extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel19;
     private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
-    private javax.swing.JLabel jLabel6;
-    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel22;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logout;

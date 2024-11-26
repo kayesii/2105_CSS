@@ -62,6 +62,9 @@ public class Transaction extends javax.swing.JFrame {
         searchField = new javax.swing.JTextField();
         backbutton = new javax.swing.JButton();
         jLabel9 = new javax.swing.JLabel();
+        additionalFeeField = new javax.swing.JTextField();
+        jLabel10 = new javax.swing.JLabel();
+        addtional = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -71,10 +74,10 @@ public class Transaction extends javax.swing.JFrame {
                 bookingIdFieldActionPerformed(evt);
             }
         });
-        getContentPane().add(bookingIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 50, 160, 30));
+        getContentPane().add(bookingIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 50, 160, 30));
 
-        jLabel2.setText("payment ");
-        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 380, 50, 30));
+        jLabel2.setText("additional");
+        getContentPane().add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 420, 80, 30));
         getContentPane().add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 80, 160, 40));
 
         searchBookingDetails.setText("Search");
@@ -127,8 +130,8 @@ public class Transaction extends javax.swing.JFrame {
                 payButtonActionPerformed(evt);
             }
         });
-        getContentPane().add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 260, 120, 40));
-        getContentPane().add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(110, 390, 170, 30));
+        getContentPane().add(payButton, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 220, 120, 40));
+        getContentPane().add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 370, 170, 30));
 
         jLabel8.setText("Balance");
         getContentPane().add(jLabel8, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 250, 50, 30));
@@ -139,7 +142,7 @@ public class Transaction extends javax.swing.JFrame {
                 cancelActionPerformed(evt);
             }
         });
-        getContentPane().add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 310, 120, 40));
+        getContentPane().add(cancel, new org.netbeans.lib.awtextra.AbsoluteConstraints(340, 270, 120, 40));
         getContentPane().add(Totalpaid, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 310, 160, 40));
 
         searchField.addActionListener(new java.awt.event.ActionListener() {
@@ -159,71 +162,22 @@ public class Transaction extends javax.swing.JFrame {
 
         jLabel9.setText("Binayad");
         getContentPane().add(jLabel9, new org.netbeans.lib.awtextra.AbsoluteConstraints(80, 320, 50, 30));
+        getContentPane().add(additionalFeeField, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 430, 150, 30));
+
+        jLabel10.setText("payment ");
+        getContentPane().add(jLabel10, new org.netbeans.lib.awtextra.AbsoluteConstraints(70, 370, 50, 30));
+
+        addtional.setText("additional");
+        addtional.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                addtionalActionPerformed(evt);
+            }
+        });
+        getContentPane().add(addtional, new org.netbeans.lib.awtextra.AbsoluteConstraints(350, 340, 110, 40));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void bookingIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingIdFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_bookingIdFieldActionPerformed
-
-    private void searchBookingDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBookingDetailsActionPerformed
-    String searchInput = searchField.getText().trim();
-
-if (searchInput.isEmpty()) {
-    showError("Please provide a Booking ID or Client Name to search.");
-    return;
-}
-
-try {
-    String query = """
-            SELECT b.BookingId, b.TotalPrice, b.Balance, b.PaidAmount, c.ClientName
-            FROM booking b
-            JOIN client c ON b.ClientId = c.ClientId
-            WHERE b.BookingId = ? OR c.ClientName = ?""";
-    PreparedStatement ps = con.prepareStatement(query);
-
-    ps.setString(1, searchInput); // Use the same input for both BookingId and ClientName
-    ps.setString(2, searchInput);
-
-    ResultSet rs = ps.executeQuery();
-    if (rs.next()) {
-        // Retrieve values from the result set
-        String bookingId = rs.getString("BookingId");
-        String clientName = rs.getString("ClientName");
-        double totalPrice = rs.getDouble("TotalPrice");
-        double balance = rs.getDouble("Balance");
-        double paidAmount = rs.getDouble("PaidAmount");
-        double downPayment = totalPrice * 0.30; // Calculate 30% down payment
-
-        // Populate the UI fields
-        bookingIdField.setText(bookingId);
-        clientNameField.setText(clientName);
-        totalPriceField.setText(String.format("%.2f", totalPrice));
-        downPaymentField.setText(String.format("%.2f", downPayment));
-        balanceField.setText(String.format("%.2f", balance));
-        Totalpaid.setText(String.format("%.2f", paidAmount));
-    } else {
-        showError("No booking found for the provided details.");
-    }
-} catch (SQLException e) {
-    showError("Error retrieving booking details: " + e.getMessage());
-}
-
-    }//GEN-LAST:event_searchBookingDetailsActionPerformed
     
-    private void totalPriceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalPriceFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_totalPriceFieldActionPerformed
-
-    private void downPaymentFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downPaymentFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_downPaymentFieldActionPerformed
-
-    private void balanceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_balanceFieldActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_balanceFieldActionPerformed
-
     private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payButtonActionPerformed
         try {
         double payment = Double.parseDouble(paymentField.getText().trim());
@@ -282,62 +236,182 @@ try {
     }
     }//GEN-LAST:event_payButtonActionPerformed
 
+    private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbuttonActionPerformed
+
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-       String bookingId = bookingIdField.getText().trim();
-    if (bookingId.isEmpty()) {
-        showError("Please enter a valid Booking ID to cancel.");
-        return;
-    }
-
-    try {
-        // Query to get the total price and paid amount for the booking
-        String query = "SELECT TotalPrice, PaidAmount FROM booking WHERE BookingId = ?";
-        PreparedStatement ps = con.prepareStatement(query);
-        ps.setString(1, bookingId);
-
-        ResultSet rs = ps.executeQuery();
-        if (rs.next()) {
-            double totalPrice = rs.getDouble("TotalPrice");
-            double originalPaidAmount = rs.getDouble("PaidAmount");
-
-            // 20% cancellation fee from the total price
-            double cancellationFee = totalPrice * 0.20; // 20% of the TotalPrice
-
-            // Refund amount is the original PaidAmount minus the cancellation fee
-            double refundAmount = originalPaidAmount - cancellationFee;
-
-            // Update the booking with the new PaidAmount (which is the cancellation fee) and RefundAmount
-            String updateQuery = "UPDATE booking SET PaidAmount = ?, Balance = 0, PaymentStatus = 'Refunded', RefundAmount = ? WHERE BookingId = ?";
-            PreparedStatement updatePs = con.prepareStatement(updateQuery);
-            updatePs.setDouble(1, cancellationFee); // Set PaidAmount to the cancellation fee
-            updatePs.setDouble(2, refundAmount); // Set RefundAmount in booking table
-            updatePs.setString(3, bookingId);
-
-            int rowsUpdated = updatePs.executeUpdate();
-            if (rowsUpdated > 0) {
-                // Record the cancellation transaction in the transactions table with refundAmount
-                saveTransaction(bookingId, 0, refundAmount); // For a refund (paymentAmount = 0, refundAmount = refundAmount)
-
-                showSuccess("Booking has been cancelled. Refund amount: ₱" + String.format("%.2f", refundAmount));
-            } else {
-                showError("Failed to update booking.");
-            }
-        } else {
-            showError("Booking not found. Please check the Booking ID.");
+        String bookingId = bookingIdField.getText().trim();
+        if (bookingId.isEmpty()) {
+            showError("Please enter a valid Booking ID to cancel.");
+            return;
         }
-    } catch (SQLException e) {
-        showError("Error cancelling booking: " + e.getMessage());
-    }
 
+        try {
+            // Query to get the total price and paid amount for the booking
+            String query = "SELECT TotalPrice, PaidAmount FROM booking WHERE BookingId = ?";
+            PreparedStatement ps = con.prepareStatement(query);
+            ps.setString(1, bookingId);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                double totalPrice = rs.getDouble("TotalPrice");
+                double originalPaidAmount = rs.getDouble("PaidAmount");
+
+                // 20% cancellation fee from the total price
+                double cancellationFee = totalPrice * 0.20; // 20% of the TotalPrice
+
+                // Refund amount is the original PaidAmount minus the cancellation fee
+                double refundAmount = originalPaidAmount - cancellationFee;
+
+                // Update the booking with the new PaidAmount (which is the cancellation fee) and RefundAmount
+                String updateQuery = "UPDATE booking SET PaidAmount = ?, Balance = 0, PaymentStatus = 'Refunded', RefundAmount = ? WHERE BookingId = ?";
+                PreparedStatement updatePs = con.prepareStatement(updateQuery);
+                updatePs.setDouble(1, cancellationFee); // Set PaidAmount to the cancellation fee
+                updatePs.setDouble(2, refundAmount); // Set RefundAmount in booking table
+                updatePs.setString(3, bookingId);
+
+                int rowsUpdated = updatePs.executeUpdate();
+                if (rowsUpdated > 0) {
+                    // Record the cancellation transaction in the transactions table with refundAmount
+                    saveTransaction(bookingId, 0, refundAmount); // For a refund (paymentAmount = 0, refundAmount = refundAmount)
+
+                    showSuccess("Booking has been cancelled. Refund amount: ₱" + String.format("%.2f", refundAmount));
+                } else {
+                    showError("Failed to update booking.");
+                }
+            } else {
+                showError("Booking not found. Please check the Booking ID.");
+            }
+        } catch (SQLException e) {
+            showError("Error cancelling booking: " + e.getMessage());
+        }
     }//GEN-LAST:event_cancelActionPerformed
+
+    private void balanceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_balanceFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_balanceFieldActionPerformed
+
+    private void downPaymentFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_downPaymentFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_downPaymentFieldActionPerformed
+
+    private void totalPriceFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_totalPriceFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_totalPriceFieldActionPerformed
+
+    private void bookingIdFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookingIdFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookingIdFieldActionPerformed
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_searchFieldActionPerformed
 
-    private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
-        this.dispose();
-    }//GEN-LAST:event_backbuttonActionPerformed
+    private void searchBookingDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchBookingDetailsActionPerformed
+        String searchInput = searchField.getText().trim();
+
+        if (searchInput.isEmpty()) {
+            showError("Please provide a Booking ID or Client Name to search.");
+            return;
+        }
+
+        try {
+            String query = """
+            SELECT b.BookingId, b.TotalPrice, b.Balance, b.PaidAmount, c.ClientName
+            FROM booking b
+            JOIN client c ON b.ClientId = c.ClientId
+            WHERE b.BookingId = ? OR c.ClientName = ?""";
+            PreparedStatement ps = con.prepareStatement(query);
+
+            ps.setString(1, searchInput); // Use the same input for both BookingId and ClientName
+            ps.setString(2, searchInput);
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                // Retrieve values from the result set
+                String bookingId = rs.getString("BookingId");
+                String clientName = rs.getString("ClientName");
+                double totalPrice = rs.getDouble("TotalPrice");
+                double balance = rs.getDouble("Balance");
+                double paidAmount = rs.getDouble("PaidAmount");
+                double downPayment = totalPrice * 0.30; // Calculate 30% down payment
+
+                // Populate the UI fields
+                bookingIdField.setText(bookingId);
+                clientNameField.setText(clientName);
+                totalPriceField.setText(String.format("%.2f", totalPrice));
+                downPaymentField.setText(String.format("%.2f", downPayment));
+                balanceField.setText(String.format("%.2f", balance));
+                Totalpaid.setText(String.format("%.2f", paidAmount));
+            } else {
+                showError("No booking found for the provided details.");
+            }
+        } catch (SQLException e) {
+            showError("Error retrieving booking details: " + e.getMessage());
+        }
+    }//GEN-LAST:event_searchBookingDetailsActionPerformed
+
+    private void addtionalActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addtionalActionPerformed
+       try {
+        // Parse and validate the additional fee
+        double additionalFee = Double.parseDouble(additionalFeeField.getText().trim());
+        if (additionalFee <= 0) {
+            showError("Please enter a valid additional fee amount.");
+            return;
+        }
+
+        // Validate the Booking ID
+        String bookingId = bookingIdField.getText().trim();
+        if (bookingId.isEmpty()) {
+            showError("Please enter a valid Booking ID.");
+            return;
+        }
+
+        // Retrieve current balance and total price from the database
+        String selectQuery = "SELECT Balance, TotalPrice FROM booking WHERE BookingId = ?";
+        PreparedStatement psSelect = con.prepareStatement(selectQuery);
+        psSelect.setString(1, bookingId);
+        
+        ResultSet rs = psSelect.executeQuery();
+        if (rs.next()) {
+            double currentBalance = rs.getDouble("Balance");
+            double currentTotalPrice = rs.getDouble("TotalPrice");
+
+            // Calculate updated values
+            double updatedBalance = currentBalance + additionalFee;
+            double updatedTotalPrice = currentTotalPrice + additionalFee;
+
+            // Update balance and total price in the database
+            String updateQuery = "UPDATE booking SET Balance = ?, TotalPrice = ? WHERE BookingId = ?";
+            PreparedStatement psUpdate = con.prepareStatement(updateQuery);
+            psUpdate.setDouble(1, updatedBalance);
+            psUpdate.setDouble(2, updatedTotalPrice);
+            psUpdate.setString(3, bookingId);
+
+            int rowsUpdated = psUpdate.executeUpdate();
+            if (rowsUpdated > 0) {
+                // Optionally record the addition in the transactions table
+                saveTransaction(bookingId, 0, additionalFee); // No payment, only additional fee
+
+                // Update UI and show success message
+                showSuccess("Additional fee added successfully!");
+                balanceField.setText(String.format("%.2f", updatedBalance));
+                totalPriceField.setText(String.format("%.2f", updatedTotalPrice));
+                additionalFeeField.setText("");
+            } else {
+                showError("Failed to update balance and total price.");
+            }
+        } else {
+            showError("Booking not found.");
+        }
+    } catch (SQLException e) {
+        showError("Error processing additional fee: " + e.getMessage());
+    } catch (NumberFormatException e) {
+        showError("Invalid additional fee amount.");
+    }
+
+    }//GEN-LAST:event_addtionalActionPerformed
 private void saveTransaction(String bookingId, double paymentAmount, double refundAmount) {
     try {
         // Insert payment or refund into the transactions table
@@ -376,12 +450,15 @@ private void saveTransaction(String bookingId, double paymentAmount, double refu
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JTextField Totalpaid;
+    private javax.swing.JTextField additionalFeeField;
+    private javax.swing.JButton addtional;
     private javax.swing.JButton backbutton;
     private javax.swing.JTextField balanceField;
     private javax.swing.JTextField bookingIdField;
     private javax.swing.JButton cancel;
     private javax.swing.JTextField clientNameField;
     private javax.swing.JTextField downPaymentField;
+    private javax.swing.JLabel jLabel10;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;

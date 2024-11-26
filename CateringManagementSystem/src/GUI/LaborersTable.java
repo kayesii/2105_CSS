@@ -288,7 +288,7 @@ public class LaborersTable extends javax.swing.JFrame {
         BtnReport.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
-                SaleCatalog laborer = new SaleCatalog();
+                Sales laborer = new Sales();
                 laborer.setVisible(true);
                 laborer .setLocationRelativeTo(null); // Center the SignUP frame
             }
