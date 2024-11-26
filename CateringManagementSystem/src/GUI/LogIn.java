@@ -24,10 +24,8 @@ public class LogIn extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         jLabel6 = new javax.swing.JLabel();
         background = new javax.swing.JPanel();
-        Exit = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
         jLabel2 = new javax.swing.JLabel();
-        jBtnSignup = new javax.swing.JButton();
         jBtnLogin = new javax.swing.JButton();
         txtPassword = new javax.swing.JPasswordField();
         jLabel5 = new javax.swing.JLabel();
@@ -59,18 +57,6 @@ public class LogIn extends javax.swing.JFrame {
         background.setBorder(javax.swing.BorderFactory.createEtchedBorder(new java.awt.Color(210, 180, 140), new java.awt.Color(255, 239, 213)));
         background.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        Exit.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        Exit.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/exit_icon.png"))); // NOI18N
-        Exit.setText("Exit");
-        buttonGroup1.add(Exit);
-        Exit.setContentAreaFilled(false);
-        Exit.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                ExitActionPerformed(evt);
-            }
-        });
-        background.add(Exit, new org.netbeans.lib.awtextra.AbsoluteConstraints(320, 240, 90, 40));
-
         jLabel1.setBackground(new java.awt.Color(232, 205, 151));
         jLabel1.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jLabel1.setText("LOGIN");
@@ -78,17 +64,6 @@ public class LogIn extends javax.swing.JFrame {
 
         jLabel2.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/login_icon.png"))); // NOI18N
         background.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 10, 50, 50));
-
-        jBtnSignup.setBackground(new java.awt.Color(205, 133, 63));
-        jBtnSignup.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jBtnSignup.setText("Sign Up");
-        buttonGroup1.add(jBtnSignup);
-        jBtnSignup.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jBtnSignupActionPerformed(evt);
-            }
-        });
-        background.add(jBtnSignup, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 220, 140, 30));
 
         jBtnLogin.setBackground(new java.awt.Color(205, 133, 63));
         jBtnLogin.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -99,14 +74,14 @@ public class LogIn extends javax.swing.JFrame {
                 jBtnLoginActionPerformed(evt);
             }
         });
-        background.add(jBtnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 180, 140, 30));
+        background.add(jBtnLogin, new org.netbeans.lib.awtextra.AbsoluteConstraints(130, 210, 140, 30));
 
         txtPassword.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        background.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, 330, 30));
+        background.add(txtPassword, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 160, 330, 30));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel5.setText("Password");
-        background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 120, -1, -1));
+        background.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, -1));
 
         txtName.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         txtName.addActionListener(new java.awt.event.ActionListener() {
@@ -114,11 +89,11 @@ public class LogIn extends javax.swing.JFrame {
                 txtNameActionPerformed(evt);
             }
         });
-        background.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 90, 330, 30));
+        background.add(txtName, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 100, 330, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 16)); // NOI18N
         jLabel3.setText("Username");
-        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 70, -1, -1));
+        background.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 80, -1, -1));
 
         jPanel1.add(background, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 100, 410, 280));
 
@@ -133,21 +108,6 @@ public class LogIn extends javax.swing.JFrame {
     private void txtNameActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txtNameActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txtNameActionPerformed
-
-    private void ExitActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ExitActionPerformed
-         System.exit(0); // Exits the application
-    }//GEN-LAST:event_ExitActionPerformed
-
-    private void jBtnSignupActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnSignupActionPerformed
-        jBtnSignup.addActionListener(new ActionListener() {
-        public void actionPerformed(ActionEvent e) {
-        dispose(); // Close the current LogIn frame
-        SignUP signUp = new SignUP(); // Open the SignUP frame
-        signUp.setVisible(true); // Make the SignUP frame visible
-        signUp.setLocationRelativeTo(null); // Center the SignUP frame
-    }
-});
-    }//GEN-LAST:event_jBtnSignupActionPerformed
 
     private void jBtnLoginActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBtnLoginActionPerformed
         String name = txtName.getText();              
@@ -228,11 +188,9 @@ public class LogIn extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton Exit;
     private javax.swing.JPanel background;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JButton jBtnLogin;
-    private javax.swing.JButton jBtnSignup;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

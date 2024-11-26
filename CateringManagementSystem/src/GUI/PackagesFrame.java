@@ -43,6 +43,8 @@ public class PackagesFrame extends javax.swing.JFrame {
         jButtonBdayPack = new javax.swing.JButton();
         jButtonWedPack = new javax.swing.JButton();
         P1F2 = new javax.swing.JButton();
+        jLabel19 = new javax.swing.JLabel();
+        jLabel21 = new javax.swing.JLabel();
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -147,12 +149,12 @@ public class PackagesFrame extends javax.swing.JFrame {
                 P1F1ActionPerformed(evt);
             }
         });
-        getContentPane().add(P1F1, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 110, 250, 60));
+        getContentPane().add(P1F1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 310, 50));
 
         jButtonBaptismPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonBaptismPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonBaptismPack.setText("Baptism Packages");
-        getContentPane().add(jButtonBaptismPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, 320, 150));
+        getContentPane().add(jButtonBaptismPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 320, 150));
 
         jButtonBdayPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonBdayPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -163,7 +165,7 @@ public class PackagesFrame extends javax.swing.JFrame {
         jButtonWedPack.setBackground(new java.awt.Color(210, 180, 140));
         jButtonWedPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
         jButtonWedPack.setText("Wedding Packages");
-        getContentPane().add(jButtonWedPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 330, 320, 150));
+        getContentPane().add(jButtonWedPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, 320, 150));
 
         P1F2.setBackground(new java.awt.Color(210, 180, 140));
         P1F2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -173,7 +175,15 @@ public class PackagesFrame extends javax.swing.JFrame {
                 P1F2ActionPerformed(evt);
             }
         });
-        getContentPane().add(P1F2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 170, 310, 60));
+        getContentPane().add(P1F2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 310, 50));
+
+        jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel19.setText("F");
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 40, -1));
+
+        jLabel21.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel21.setText("uneral");
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 170, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
@@ -182,7 +192,7 @@ public class PackagesFrame extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void P1F1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1F1ActionPerformed
-        BtnCalendar.addActionListener(new ActionListener() {
+        P1F1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
                 dispose();
                 PackageF1 f1 = new PackageF1();
@@ -276,7 +286,13 @@ public class PackagesFrame extends javax.swing.JFrame {
     }//GEN-LAST:event_BtnReportActionPerformed
 
     private void P1F2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1F2ActionPerformed
-        // TODO add your handling code here:
+        P1F2.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                PackageF2 F2 = new PackageF2();
+                F2.setVisible(true);
+                F2.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
     }//GEN-LAST:event_P1F2ActionPerformed
 
     /**
@@ -330,6 +346,8 @@ public class PackagesFrame extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
+    private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel21;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton logout;
     // End of variables declaration//GEN-END:variables

@@ -108,8 +108,9 @@ public class HomeFrame extends javax.swing.JFrame {
 
         // Query to fetch data from both 'client' and 'reservation' tables
         String query = "SELECT r.ReservationID, r.ReservationDate, c.ClientName, c.ClientNumber, r.EventName, r.Status " +
-                       "FROM reservation r " +
-                       "INNER JOIN client c ON r.ClientID = c.ClientID"; // Adjust if necessary
+               "FROM reservation r " +
+               "INNER JOIN client c ON r.ClientID = c.ClientID " +
+               "WHERE r.Status = 'Pending'";
 
         PreparedStatement ps = con.prepareStatement(query);
         ResultSet rs = ps.executeQuery();
@@ -127,7 +128,7 @@ public class HomeFrame extends javax.swing.JFrame {
                 rs.getString("ClientName"),
                 rs.getString("ClientNumber"),
                 rs.getString("EventName"),
-                rs.getString("Status")
+                rs.getString("Status"),
             });
         }
 
@@ -352,6 +353,9 @@ public class HomeFrame extends javax.swing.JFrame {
         ReservationList.setSelectionBackground(new java.awt.Color(153, 102, 0));
         ReservationList.setShowGrid(true);
         jScrollPane2.setViewportView(ReservationList);
+        if (ReservationList.getColumnModel().getColumnCount() > 0) {
+            ReservationList.getColumnModel().getColumn(5).setHeaderValue("Status");
+        }
 
         getContentPane().add(jScrollPane2, new org.netbeans.lib.awtextra.AbsoluteConstraints(440, 230, 630, 290));
 
@@ -839,6 +843,10 @@ try {
                 "Error",
                 JOptionPane.ERROR_MESSAGE);
         }
+        dispose();
+        HomeFrame home = new HomeFrame(); 
+        home.setVisible(true); 
+        home.setLocationRelativeTo(null); // Center the HomeFrame
     }//GEN-LAST:event_ReserveBtnActionPerformed
 
     private void jTextField1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField1ActionPerformed

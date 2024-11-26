@@ -104,11 +104,25 @@ public class PackageF2 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        // TODO add your handling code here:
+       next.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackageF3 F3 = new PackageF3();
+                F3.setVisible(true);
+                F3.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
     }//GEN-LAST:event_nextActionPerformed
 
     private void prev1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prev1ActionPerformed
-        // TODO add your handling code here:
+        prev1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackageF1 F1 = new PackageF1();
+                F1.setVisible(true);
+                F1.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
     }//GEN-LAST:event_prev1ActionPerformed
 
     /**

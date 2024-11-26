@@ -108,7 +108,14 @@ public class PackageF3 extends javax.swing.JFrame {
     }//GEN-LAST:event_nextActionPerformed
 
     private void prev1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prev1ActionPerformed
-        // TODO add your handling code here:
+    prev1.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                PackageF2 F2 = new PackageF2();
+                F2.setVisible(true);
+                F2.setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });       
     }//GEN-LAST:event_prev1ActionPerformed
 
     /**

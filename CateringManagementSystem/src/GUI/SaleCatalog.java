@@ -492,7 +492,6 @@ public void loadReservationsAndBookingsToTable(String month, String year) {
 
             // Add the row to the table model
             model.addRow(new Object[]{
-                rs.getObject("Id"),           // ReservationID or BookingID
                 rs.getString("Date"),         // ReservationDate or EventDate
                 rs.getString("ClientName"),   // Client Name
                 rs.getString("Event"),        // Event Name or Theme
