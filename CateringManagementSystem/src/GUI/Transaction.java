@@ -225,7 +225,7 @@ try {
     }//GEN-LAST:event_balanceFieldActionPerformed
 
     private void payButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_payButtonActionPerformed
-       try {
+        try {
         double payment = Double.parseDouble(paymentField.getText().trim());
         if (payment <= 0) {
             showError("Please enter a valid payment amount.");
@@ -264,7 +264,7 @@ try {
             int rowsUpdated = psUpdate.executeUpdate();
             if (rowsUpdated > 0) {
                 // Record payment in the transactions table
-                saveTransaction(bookingId, payment);
+                saveTransaction(bookingId, payment, 0); // Regular payment (refundAmount = 0)
 
                 showSuccess("Payment successful!");
                 balanceField.setText(String.format("%.2f", remainingBalance));
@@ -275,14 +275,15 @@ try {
         } else {
             showError("Booking not found.");
         }
-    } catch (SQLException | NumberFormatException ex) {
-        showError("Error processing payment: " + ex.getMessage());
+    } catch (SQLException e) {
+        showError("Error processing payment: " + e.getMessage());
+    } catch (NumberFormatException e) {
+        showError("Invalid payment amount.");
     }
     }//GEN-LAST:event_payButtonActionPerformed
 
     private void cancelActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cancelActionPerformed
-      
-        String bookingId = bookingIdField.getText().trim();
+       String bookingId = bookingIdField.getText().trim();
     if (bookingId.isEmpty()) {
         showError("Please enter a valid Booking ID to cancel.");
         return;
@@ -305,16 +306,17 @@ try {
             // Refund amount is the original PaidAmount minus the cancellation fee
             double refundAmount = originalPaidAmount - cancellationFee;
 
-            // Update the booking with the new PaidAmount (which is the cancellation fee)
-            String updateQuery = "UPDATE booking SET PaidAmount = ?, Balance = 0, PaymentStatus = 'Refunded' WHERE BookingId = ?";
+            // Update the booking with the new PaidAmount (which is the cancellation fee) and RefundAmount
+            String updateQuery = "UPDATE booking SET PaidAmount = ?, Balance = 0, PaymentStatus = 'Refunded', RefundAmount = ? WHERE BookingId = ?";
             PreparedStatement updatePs = con.prepareStatement(updateQuery);
             updatePs.setDouble(1, cancellationFee); // Set PaidAmount to the cancellation fee
-            updatePs.setString(2, bookingId);
+            updatePs.setDouble(2, refundAmount); // Set RefundAmount in booking table
+            updatePs.setString(3, bookingId);
 
             int rowsUpdated = updatePs.executeUpdate();
             if (rowsUpdated > 0) {
-                // Record the cancellation transaction in the transactions table
-                saveTransaction(bookingId, cancellationFee); // Save the cancellation fee as the transaction amount
+                // Record the cancellation transaction in the transactions table with refundAmount
+                saveTransaction(bookingId, 0, refundAmount); // For a refund (paymentAmount = 0, refundAmount = refundAmount)
 
                 showSuccess("Booking has been cancelled. Refund amount: ₱" + String.format("%.2f", refundAmount));
             } else {
@@ -326,6 +328,7 @@ try {
     } catch (SQLException e) {
         showError("Error cancelling booking: " + e.getMessage());
     }
+
     }//GEN-LAST:event_cancelActionPerformed
 
     private void searchFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_searchFieldActionPerformed
@@ -335,27 +338,32 @@ try {
     private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
         this.dispose();
     }//GEN-LAST:event_backbuttonActionPerformed
-
-private void saveTransaction(String bookingId, double amount) {
+private void saveTransaction(String bookingId, double paymentAmount, double refundAmount) {
     try {
-        // Get the current date using LocalDate
-        String currentDate = java.time.LocalDate.now().toString();  // Format: YYYY-MM-DD
-        
-        // Insert query with manually set date
-        String insertQuery = "INSERT INTO transactions (BookingId, date, paymentAmount) VALUES (?, ?, ?)";
-        PreparedStatement psInsert = con.prepareStatement(insertQuery);
-        psInsert.setString(1, bookingId);  // Setting bookingId
-        psInsert.setString(2, currentDate); // Setting current date
-        psInsert.setDouble(3, amount);      // Setting paymentAmount
+        // Insert payment or refund into the transactions table
+        String query = "INSERT INTO transactions (BookingId, Date, PaymentAmount, RefundAmount) VALUES (?, ?, ?, ?)";
+        PreparedStatement ps = con.prepareStatement(query);
 
-        int rowsInserted = psInsert.executeUpdate();
-        if (rowsInserted <= 0) {
-            showError("Failed to record transaction.");
+        ps.setString(1, bookingId); // Booking ID
+        ps.setDate(2, new java.sql.Date(System.currentTimeMillis())); // Current date
+        ps.setDouble(3, paymentAmount); // Payment amount
+        ps.setDouble(4, refundAmount); // Refund amount (0 for regular payments, or actual refund value)
+
+        int rowsAffected = ps.executeUpdate();  // Execute the insert
+
+        if (rowsAffected > 0) {
+            System.out.println("Transaction recorded successfully.");
         }
+
+        // Close resources
+        ps.close();
     } catch (SQLException e) {
-        showError("Error recording transaction: " + e.getMessage());
+        e.printStackTrace();
+        showError("Error saving transaction: " + e.getMessage());
     }
 }
+
+
 
 
    public static void main(String args[]) {

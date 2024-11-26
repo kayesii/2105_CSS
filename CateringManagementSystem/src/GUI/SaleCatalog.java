@@ -9,6 +9,7 @@ import javax.swing.JOptionPane;
 import java.sql.ResultSet;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
+import java.util.Date;
 import javax.swing.table.DefaultTableModel;
 
 
@@ -16,51 +17,59 @@ public class SaleCatalog extends javax.swing.JFrame {
 
     public SaleCatalog() {
         initComponents();
-        loadReservationsAndBookingsToTable();
+        record();
     }
     
-    private void loadReservationsAndBookingsToTable() {
-     Connection conn = null;
-        Statement stmt = null;
-        ResultSet rs = null;
+    private void record() {
+    try {
+        // Establish the database connection
+    Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
 
-        try {
-            // Establish database connection
-            conn = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "password"); // Use your DB credentials
-            stmt = conn.createStatement();
+    // SQL query to fetch data from the transactions table, including RefundAmount
+    String query = "SELECT TransactionId, BookingId, Date, PaymentAmount, RefundAmount FROM transactions";
 
-            // Query to fetch data from booking and transactions tables
-            String query = "SELECT b.BookingId, b.PaymentStatus, t.date, t.paymentAmount " +
-                           "FROM booking b JOIN transactions t ON b.BookingId = t.BookingId";
-            rs = stmt.executeQuery(query);
+    PreparedStatement ps = con.prepareStatement(query);
+    ResultSet rs = ps.executeQuery();
 
-            // Clear existing data
-            tableModel.setRowCount(0);
+    // Initialize table with appropriate columns
+    String[] columnNames = {"Transaction Id", "Booking Id", "Date", "Payment", "Refund"};
+    DefaultTableModel model = new DefaultTableModel(columnNames, 0);
+    CombinedTable.setModel(model);
 
-            // Add rows to the table
-            while (rs.next()) {
-                Object[] row = {
-                    rs.getInt("BookingId"),
-                    rs.getString("PaymentStatus"),
-                    rs.getDate("date"),
-                    rs.getDouble("paymentAmount")
-                };
-                tableModel.addRow(row);
-            }
+    // SimpleDateFormat to format the date
+    SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
 
-        } catch (SQLException e) {
-            e.printStackTrace();
-        } finally {
-            try {
-                if (rs != null) rs.close();
-                if (stmt != null) stmt.close();
-                if (conn != null) conn.close();
-            } catch (SQLException e) {
-                e.printStackTrace();
-            }
-        }
+    // Iterate through the result set and add rows to the table model
+    while (rs.next()) {
+        int transactionId = rs.getInt("TransactionId");
+        int bookingId = rs.getInt("BookingId");
+        Date date = rs.getDate("Date");
+        double paymentAmount = rs.getDouble("PaymentAmount");
+        double refundAmount = rs.getDouble("RefundAmount");  // Fetch the refund amount
+
+        // Format the date
+        String formattedDate = sdf.format(date);
+
+        // Add row to the model
+        model.addRow(new Object[]{transactionId, bookingId, formattedDate, paymentAmount, refundAmount});
     }
+
+    // Ensure the table refreshes after data is added
+    CombinedTable.updateUI();
+
+    // Close resources
+    rs.close();
+    ps.close();
+    con.close();
+
+} catch (Exception e) {
+    e.printStackTrace();
+    JOptionPane.showMessageDialog(this, "Error loading data: " + e.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
 }
+    }
+
+
+
 
 
 
@@ -74,7 +83,7 @@ public class SaleCatalog extends javax.swing.JFrame {
     private void initComponents() {
 
         jScrollPane3 = new javax.swing.JScrollPane();
-        tableModel = new javax.swing.JTable();
+        CombinedTable = new javax.swing.JTable();
         TotalSaleField = new javax.swing.JTextField();
         Search = new javax.swing.JButton();
         monthComboBox = new javax.swing.JComboBox<>();
@@ -105,18 +114,18 @@ public class SaleCatalog extends javax.swing.JFrame {
         setResizable(false);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
-        tableModel.setModel(new javax.swing.table.DefaultTableModel(
+        CombinedTable.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null},
+                {null, null, null, null, null}
             },
             new String [] {
-                "Booking Id", "Date", "Status", "Payment"
+                "Booking Id", "Date", "Status", "Payment", "Refund"
             }
         ));
-        jScrollPane3.setViewportView(tableModel);
+        jScrollPane3.setViewportView(CombinedTable);
 
         getContentPane().add(jScrollPane3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 210, 1030, 310));
 
@@ -285,21 +294,7 @@ public class SaleCatalog extends javax.swing.JFrame {
 
     private void SearchActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchActionPerformed
          // Get selected month and year input
-    String selectedMonth = (String) monthComboBox.getSelectedItem();
-    String yearInput = yearTextField.getText().trim();
-
-    // Validate year input
-    if (!yearInput.matches("\\d{4}")) {
-        JOptionPane.showMessageDialog(this, "Please enter a valid 4-digit year.", "Invalid Input", JOptionPane.ERROR_MESSAGE);
-        return;
-    }
-
-    // If "Year" is selected, pass a null for the month to indicate the entire year should be shown
-    if ("Year".equals(selectedMonth)) {
-        loadReservationsAndBookingsToTable(null, yearInput); // Pass null for month
-    } else {
-        loadReservationsAndBookingsToTable(selectedMonth, yearInput); // Pass selected month
-    }
+  
     }//GEN-LAST:event_SearchActionPerformed
 
     private void yearTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_yearTextFieldActionPerformed
@@ -389,96 +384,8 @@ public class SaleCatalog extends javax.swing.JFrame {
         });
 
     }//GEN-LAST:event_BtnReportActionPerformed
-public void loadReservationsAndBookingsToTable(String month, String year) {
-    double totalSale = 0.0; // Variable to accumulate the total sale
-
-    try {
-        // Establish the database connection
-        Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
-
-        // SQL query with dynamic filtering for month and year
-        String query = """
-                SELECT 
-                    r.ReservationID AS Id,
-                    r.ReservationDate AS Date,
-                    c.ClientName,
-                    r.EventName AS Event,
-                    NULL AS Packages,
-                    r.ReservationFee,  -- Reservation Fee from reservation table
-                    r.ReservationFee AS TotalPrice,  -- Reservation Fee is Total Price for reservations
-                    r.Status
-                FROM reservation r
-                INNER JOIN client c ON r.ClientID = c.ClientID
-                WHERE YEAR(r.ReservationDate) = ? """ +
-                (month != null ? "AND MONTHNAME(r.ReservationDate) = ? " : "") +
-                """
-                UNION ALL
-
-                SELECT 
-                    b.BookingId AS Id,
-                    b.EventDate AS Date,
-                    c.ClientName,
-                    b.Theme AS Event,
-                    p.PackageName AS Packages,
-                    b.ReservationFee,  -- Reservation Fee from booking table
-                    b.TotalPrice,  -- Total Price from booking table
-                    b.Status
-                FROM booking b
-                INNER JOIN client c ON b.ClientID = c.ClientID
-                INNER JOIN packages p ON b.PackageId = p.PackageID
-                WHERE YEAR(b.EventDate) = ? """ +
-                (month != null ? "AND MONTHNAME(b.EventDate) = ? " : "") + ";";
-
-        PreparedStatement ps = con.prepareStatement(query);
-
-        // Set parameters dynamically
-        ps.setString(1, year); // Year filter for reservation
-        if (month != null) ps.setString(2, month); // Month filter for reservation (if provided)
-        ps.setString(month != null ? 3 : 2, year); // Year filter for booking
-        if (month != null) ps.setString(month != null ? 4 : 3, month); // Month filter for booking (if provided)
-
-        ResultSet rs = ps.executeQuery();
-
-        // Get the table model
-        javax.swing.table.DefaultTableModel model = (javax.swing.table.DefaultTableModel) CombinedTable.getModel();
-        model.setRowCount(0); // Clear existing rows
-
-        // Iterate through the result set
-        while (rs.next()) {
-            Object totalPriceObj = rs.getObject("TotalPrice");
-            double totalPrice = (totalPriceObj != null) ? ((Number) totalPriceObj).doubleValue() : 0.0;
-
-            // Accumulate the total sale
-            totalSale += totalPrice;
-
-            // Add the row to the table model
-            model.addRow(new Object[]{
-                rs.getString("Date"),         // ReservationDate or EventDate
-                rs.getString("ClientName"),   // Client Name
-                rs.getString("Event"),        // Event Name or Theme
-                rs.getString("Packages"),     // Package Name (if any)
-                rs.getObject("ReservationFee"), // Reservation Fee
-                totalPrice,                   // Total Price
-                rs.getString("Status")        // Status
-            });
-        }
-
-        // Update the total sales field
-        TotalSaleField.setText(String.format("%.2f", totalSale));
-
-        // Close resources
-        rs.close();
-        ps.close();
-        con.close();
-
-    } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error loading filtered data: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
-        ex.printStackTrace();
-    }
-}
 
    
-
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton BtnBooking;
     private javax.swing.JButton BtnCalendar;
@@ -486,6 +393,7 @@ public void loadReservationsAndBookingsToTable(String month, String year) {
     private javax.swing.JButton BtnLaborer;
     private javax.swing.JButton BtnPackages;
     private javax.swing.JButton BtnReport;
+    private javax.swing.JTable CombinedTable;
     private javax.swing.JButton Search;
     private javax.swing.JTextField TotalSaleField;
     private javax.swing.JLabel jLabel12;
@@ -504,7 +412,6 @@ public void loadReservationsAndBookingsToTable(String month, String year) {
     private javax.swing.JScrollPane jScrollPane3;
     private javax.swing.JButton logout;
     private javax.swing.JComboBox<String> monthComboBox;
-    private javax.swing.JTable tableModel;
     private javax.swing.JTextField yearTextField;
     // End of variables declaration//GEN-END:variables
 }
