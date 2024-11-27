@@ -4,10 +4,7 @@
  */
 package GUI;
 
-/**
- *
- * @author Ivan
- */
+
 public class StandardBirthday extends javax.swing.JFrame {
 
     /**
@@ -100,10 +97,18 @@ public class StandardBirthday extends javax.swing.JFrame {
 
     private void prev1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prev1ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        BasicBirthday basicBirthdayFrame = new BasicBirthday();
+        basicBirthdayFrame.setVisible(true);
+        basicBirthdayFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_prev1ActionPerformed
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-
+       this.dispose();
+        PremiumBirthday premiumBirthdayFrame = new PremiumBirthday();
+        premiumBirthdayFrame.setVisible(true);
+        premiumBirthdayFrame.setLocationRelativeTo(null); 
+        
     }//GEN-LAST:event_nextActionPerformed
 
     /**

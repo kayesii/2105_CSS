@@ -4,10 +4,7 @@
  */
 package GUI;
 
-/**
- *
- * @author Ivan
- */
+
 public class StandardBaptism extends javax.swing.JFrame {
 
     /**
@@ -34,6 +31,7 @@ public class StandardBaptism extends javax.swing.JFrame {
         jLabel5 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         next = new javax.swing.JButton();
+        prev = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -78,6 +76,16 @@ public class StandardBaptism extends javax.swing.JFrame {
         });
         jPanel1.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, -1, 40));
 
+        prev.setBackground(new java.awt.Color(205, 133, 63));
+        prev.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        prev.setText("<-");
+        prev.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prevActionPerformed(evt);
+            }
+        });
+        jPanel1.add(prev, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 420, -1, 40));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/standard baptism.png"))); // NOI18N
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
@@ -88,8 +96,19 @@ public class StandardBaptism extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-
+        this.dispose();
+        PremiumBaptism premiumBaptismFrame = new PremiumBaptism();
+        premiumBaptismFrame.setVisible(true);
+        premiumBaptismFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_nextActionPerformed
+
+    private void prevActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prevActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        BasicBaptism basicBaptismFrame = new BasicBaptism();
+        basicBaptismFrame.setVisible(true);
+        basicBaptismFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_prevActionPerformed
 
     /**
      * @param args the command line arguments
@@ -136,5 +155,6 @@ public class StandardBaptism extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton next;
+    private javax.swing.JButton prev;
     // End of variables declaration//GEN-END:variables
 }

@@ -26,11 +26,92 @@ public class PremiumBaptism extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        jPanel1 = new javax.swing.JPanel();
+        jLabel3 = new javax.swing.JLabel();
+        jLabel5 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        jTextArea1 = new javax.swing.JTextArea();
+        jLabel4 = new javax.swing.JLabel();
+        prev1 = new javax.swing.JButton();
+        jLabel2 = new javax.swing.JLabel();
+        next = new javax.swing.JButton();
+        jLabel1 = new javax.swing.JLabel();
+
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
 
+        jPanel1.setBackground(new java.awt.Color(210, 180, 140));
+        jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        jLabel3.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel3.setText("Palates & Plates Packages");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 620, 60));
+
+        jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel5.setText("₱700 per guest");
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 65, -1, 50));
+
+        jTextArea1.setEditable(false);
+        jTextArea1.setBackground(new java.awt.Color(210, 180, 140));
+        jTextArea1.setColumns(20);
+        jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
+        jTextArea1.setRows(5);
+        jTextArea1.setText("Food Menu:\nLechon Kawali (crispy fried pork belly)\nChicken Inasal (grilled marinated chicken)\nPancit Malabon (seafood noodle dish)\nLumpiang Shanghai (fried spring rolls with pork and shrimp)\nKare-Kare (oxtail stew with peanut sauce)\nPuto \nBibingka (rice cake with salted egg and cheese)\nCustom Themed Cake \nSnacks:\nMini Empanadas (filled with meat or vegetables)\nKropek (crispy fish crackers)\nFruit Salad \nBanana Chips\nBeverages:\nSago’t Gulaman (sweet drink with tapioca pearls and gelatin)\nBuko Juice (fresh coconut water served in the coconut shell)\nCalamansi Juice \nSoft Drinks (Coca-Cola, Sprite, Fanta)\nIced Tea \n\nSetting:\nChairs with premium fabric covers and matching sashes in pastel or vibrant colors\nTables decorated with floral arrangements, often featuring local flowers like Sampaguita \nElegant Tableware\n\nDecor:\nBalloon Arch \nBamboo and Flower Centerpieces \nFairy Lights (creating a warm, inviting atmosphere)\nCustomized Backdrop");
+        jScrollPane1.setViewportView(jTextArea1);
+
+        jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 540, 290));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("PREMIUM BAPTISM");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 300, -1, 50));
+
+        prev1.setBackground(new java.awt.Color(205, 133, 63));
+        prev1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        prev1.setText("<-");
+        prev1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                prev1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(prev1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, 40));
+
+        jLabel2.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
+        jLabel2.setText("Heavenly Blessings package");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 390, 690, 60));
+
+        next.setBackground(new java.awt.Color(205, 133, 63));
+        next.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        next.setText("->");
+        next.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                nextActionPerformed(evt);
+            }
+        });
+        jPanel1.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, -1, 40));
+
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/premium baptism.png"))); // NOI18N
+        jLabel1.setText("jLabel1");
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void prev1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prev1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+        StandardBaptism standardBaptismFrame = new StandardBaptism();
+        standardBaptismFrame.setVisible(true);
+        standardBaptismFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_prev1ActionPerformed
+
+    private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
+        this.dispose();
+        BasicBirthday basicBirthdayFrame = new BasicBirthday();
+        basicBirthdayFrame.setVisible(true);
+        basicBirthdayFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_nextActionPerformed
 
     /**
      * @param args the command line arguments
@@ -68,5 +149,15 @@ public class PremiumBaptism extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
+    private javax.swing.JLabel jLabel5;
+    private javax.swing.JPanel jPanel1;
+    private javax.swing.JScrollPane jScrollPane1;
+    private javax.swing.JTextArea jTextArea1;
+    private javax.swing.JButton next;
+    private javax.swing.JButton prev1;
     // End of variables declaration//GEN-END:variables
 }

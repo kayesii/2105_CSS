@@ -7,10 +7,7 @@ package GUI;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
-/**
- *
- * @author Ivan
- */
+
 public class BasicBaptism extends javax.swing.JFrame {
 
     /**
@@ -59,7 +56,7 @@ public class BasicBaptism extends javax.swing.JFrame {
         jTextArea1.setColumns(20);
         jTextArea1.setFont(new java.awt.Font("Segoe UI", 0, 14)); // NOI18N
         jTextArea1.setRows(5);
-        jTextArea1.setText("Foods\n\n1. Cake \n2. Sandwiches \n3. Fruit salad\n4. Cheese and crackers\n5. Cookies or brownies\n\nBeverages\n\n1. Juice \n2. Soda \n3. Iced tea\n4. Coffee\n5. Water\n6. Fresh lemonade\n\nSetting\n\n1. Simple tables with white or cream-colored tablecloths\n2. Basic chairs or benches\n3. Small altar or podium\n4. Pews or rows of chairs\n5. Minimal stage decor\n\n\nDecor\n\n1. Simple floral arrangements \n2. Balloons (\n3.\n4. Candles or fairy lights\n5. Simple backdrop ");
+        jTextArea1.setText("Foods\n\n1. Cake \n2. Sandwiches \n3. Fruit salad\n4. Cheese and crackers\n5. Cookies or brownies\n\nBeverages\n\n1. Juice \n2. Soda \n3. Iced tea\n4. Coffee\n5. Water\n6. Fresh lemonade\n\nSetting\n\n1. Simple tables with white or cream-colored tablecloths\n2. Basic chairs or benches\n3. Small altar or podium\n4. Pews or rows of chairs\n5. Minimal stage decor\n\n\nDecor\n\n1. Simple floral arrangements \n2. Balloons\n3. Candles or fairy lights\n4. Simple backdrop");
         jScrollPane1.setViewportView(jTextArea1);
 
         jPanel1.add(jScrollPane1, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 80, 540, 290));
@@ -96,7 +93,7 @@ public class BasicBaptism extends javax.swing.JFrame {
         jLabel1.setText("jLabel1");
         jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
 
-        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 460));
+        getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents

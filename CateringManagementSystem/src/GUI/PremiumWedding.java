@@ -4,10 +4,7 @@
  */
 package GUI;
 
-/**
- *
- * @author Ivan
- */
+
 public class PremiumWedding extends javax.swing.JFrame {
 
     /**
@@ -100,10 +97,17 @@ public class PremiumWedding extends javax.swing.JFrame {
 
     private void prev1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prev1ActionPerformed
         // TODO add your handling code here:
+        this.dispose();
+        StandardWedding standardWeddingFrame = new StandardWedding();
+        standardWeddingFrame.setVisible(true);
+        standardWeddingFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_prev1ActionPerformed
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-
+        this.dispose();
+        PackageF1 packageF1Frame = new PackageF1();
+        packageF1Frame.setVisible(true);
+        packageF1Frame.setLocationRelativeTo(null);
     }//GEN-LAST:event_nextActionPerformed
 
     /**
