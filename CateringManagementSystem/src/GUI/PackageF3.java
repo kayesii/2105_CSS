@@ -104,7 +104,11 @@ public class PackageF3 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        // TODO add your handling code here:
+        // TODO add your handling code here:\
+        this.dispose();
+        BasicBaptism basicBaptismFrame = new BasicBaptism();
+        basicBaptismFrame.setVisible(true);
+        basicBaptismFrame.setLocationRelativeTo(null);        
     }//GEN-LAST:event_nextActionPerformed
 
     private void prev1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prev1ActionPerformed

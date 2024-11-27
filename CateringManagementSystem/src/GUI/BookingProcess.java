@@ -867,13 +867,9 @@ public class BookingProcess extends JFrame {
     }//GEN-LAST:event_ViewReceiptActionPerformed
 
     private void PackagesDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PackagesDetailsActionPerformed
-        PackagesDetails.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                PackageF1 F1 = new PackageF1();
-                F1.setVisible(true);
-                F1.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
+        PackageF1 packageFrame = new PackageF1();
+        packageFrame.setVisible(true);
+        packageFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_PackagesDetailsActionPerformed
 
     private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed

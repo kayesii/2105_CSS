@@ -29,12 +29,11 @@ public class PackageF1 extends javax.swing.JFrame {
         jTextArea1 = new javax.swing.JTextArea();
         jLabel2 = new javax.swing.JLabel();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         next = new javax.swing.JButton();
-        prev1 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -63,10 +62,6 @@ public class PackageF1 extends javax.swing.JFrame {
         jLabel3.setText("Palates & Plates Packages");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 620, 60));
 
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Package Id: 1");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, 50));
-
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("₱300 per guest");
         getContentPane().add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, 50));
@@ -85,17 +80,11 @@ public class PackageF1 extends javax.swing.JFrame {
         });
         jPanel2.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, -1, 40));
 
-        prev1.setBackground(new java.awt.Color(205, 133, 63));
-        prev1.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        prev1.setText("<-");
-        prev1.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                prev1ActionPerformed(evt);
-            }
-        });
-        jPanel2.add(prev1, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 420, -1, 40));
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("BASIC FUNERAL");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, 50));
 
-        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Package Name Basic Funeral Package Package Price Php 15,000 (Price can be adjusted based on regional costs.) Inclusions Venue Setup Simple and elegant table arrangements. Basic floral centerpiece .png"))); // NOI18N
+        jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/F1.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 410));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
@@ -104,19 +93,11 @@ public class PackageF1 extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void nextActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nextActionPerformed
-        next.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                PackageF2 F2 = new PackageF2();
-                F2.setVisible(true);
-                F2.setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
+        PackageF2 packageFrame = new PackageF2();
+        packageFrame.setVisible(true);
+        packageFrame.setLocationRelativeTo(null);
+        this.dispose();
     }//GEN-LAST:event_nextActionPerformed
-
-    private void prev1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_prev1ActionPerformed
-        // TODO add your handling code here:
-    }//GEN-LAST:event_prev1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,6 +153,5 @@ public class PackageF1 extends javax.swing.JFrame {
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTextArea jTextArea1;
     private javax.swing.JButton next;
-    private javax.swing.JButton prev1;
     // End of variables declaration//GEN-END:variables
 }

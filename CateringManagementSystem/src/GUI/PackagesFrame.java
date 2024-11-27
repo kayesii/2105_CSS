@@ -194,7 +194,7 @@ public class PackagesFrame extends javax.swing.JFrame {
     private void P1F1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1F1ActionPerformed
         P1F1.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
-                dispose();
+               
                 PackageF1 f1 = new PackageF1();
                 f1.setVisible(true);
                 f1.setLocationRelativeTo(null); // Center the SignUP frame

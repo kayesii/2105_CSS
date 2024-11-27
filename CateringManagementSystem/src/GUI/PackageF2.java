@@ -28,13 +28,13 @@ public class PackageF2 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         next = new javax.swing.JButton();
         prev1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -58,10 +58,6 @@ public class PackageF2 extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
         jLabel3.setText("Palates & Plates Packages");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 620, 60));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Package Id: 2");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, 50));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("₱500 per guest");
@@ -94,6 +90,10 @@ public class PackageF2 extends javax.swing.JFrame {
         jLabel2.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
         jLabel2.setText("Timeless Remembrance Package");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 390, 740, 60));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        jLabel4.setText("STANDARD FUNERAL");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, 50));
 
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/funeralTwo.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 410));
