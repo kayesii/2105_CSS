@@ -39,12 +39,25 @@ public class PackagesFrame extends javax.swing.JFrame {
         logout = new javax.swing.JButton();
         BtnReport = new javax.swing.JButton();
         P1F1 = new javax.swing.JButton();
-        jButtonBaptismPack = new javax.swing.JButton();
-        jButtonBdayPack = new javax.swing.JButton();
-        jButtonWedPack = new javax.swing.JButton();
+        BasicBaptism = new javax.swing.JButton();
+        BasicBirthday = new javax.swing.JButton();
+        BasicWedding = new javax.swing.JButton();
         P1F2 = new javax.swing.JButton();
         jLabel19 = new javax.swing.JLabel();
         jLabel21 = new javax.swing.JLabel();
+        jLabel20 = new javax.swing.JLabel();
+        jLabel22 = new javax.swing.JLabel();
+        P1F3 = new javax.swing.JButton();
+        jLabel23 = new javax.swing.JLabel();
+        jLabel24 = new javax.swing.JLabel();
+        jLabel25 = new javax.swing.JLabel();
+        jLabel26 = new javax.swing.JLabel();
+        StandardBaptism = new javax.swing.JButton();
+        PremiumBaptism = new javax.swing.JButton();
+        StandardBirthday = new javax.swing.JButton();
+        PremiumBirthday = new javax.swing.JButton();
+        StandardWedding = new javax.swing.JButton();
+        PremiumWedding = new javax.swing.JButton();
         jLabel16 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -149,23 +162,38 @@ public class PackagesFrame extends javax.swing.JFrame {
                 P1F1ActionPerformed(evt);
             }
         });
-        getContentPane().add(P1F1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 170, 310, 50));
+        getContentPane().add(P1F1, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 150, 410, 40));
 
-        jButtonBaptismPack.setBackground(new java.awt.Color(210, 180, 140));
-        jButtonBaptismPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButtonBaptismPack.setText("Baptism Packages");
-        getContentPane().add(jButtonBaptismPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 340, 320, 150));
+        BasicBaptism.setBackground(new java.awt.Color(210, 180, 140));
+        BasicBaptism.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BasicBaptism.setText("Sacred start package");
+        BasicBaptism.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BasicBaptismActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BasicBaptism, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 340, 410, 40));
 
-        jButtonBdayPack.setBackground(new java.awt.Color(210, 180, 140));
-        jButtonBdayPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButtonBdayPack.setText("Birthday Packages");
-        jButtonBdayPack.setBorder(null);
-        getContentPane().add(jButtonBdayPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 320, 150));
+        BasicBirthday.setBackground(new java.awt.Color(210, 180, 140));
+        BasicBirthday.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BasicBirthday.setText("Essential Package");
+        BasicBirthday.setBorder(null);
+        BasicBirthday.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BasicBirthdayActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BasicBirthday, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 150, 360, 40));
 
-        jButtonWedPack.setBackground(new java.awt.Color(210, 180, 140));
-        jButtonWedPack.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
-        jButtonWedPack.setText("Wedding Packages");
-        getContentPane().add(jButtonWedPack, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 350, 320, 150));
+        BasicWedding.setBackground(new java.awt.Color(210, 180, 140));
+        BasicWedding.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        BasicWedding.setText("Timeless Love Package");
+        BasicWedding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BasicWeddingActionPerformed(evt);
+            }
+        });
+        getContentPane().add(BasicWedding, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 340, 360, 40));
 
         P1F2.setBackground(new java.awt.Color(210, 180, 140));
         P1F2.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
@@ -175,15 +203,109 @@ public class PackagesFrame extends javax.swing.JFrame {
                 P1F2ActionPerformed(evt);
             }
         });
-        getContentPane().add(P1F2, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 230, 310, 50));
+        getContentPane().add(P1F2, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 200, 410, 40));
 
         jLabel19.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
         jLabel19.setText("F");
-        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 110, 40, -1));
+        getContentPane().add(jLabel19, new org.netbeans.lib.awtextra.AbsoluteConstraints(240, 90, 40, -1));
 
         jLabel21.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
         jLabel21.setText("uneral");
-        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 120, 170, -1));
+        getContentPane().add(jLabel21, new org.netbeans.lib.awtextra.AbsoluteConstraints(280, 100, 170, -1));
+
+        jLabel20.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel20.setText("b");
+        getContentPane().add(jLabel20, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 290, 40, -1));
+
+        jLabel22.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel22.setText("aptism");
+        getContentPane().add(jLabel22, new org.netbeans.lib.awtextra.AbsoluteConstraints(270, 298, 170, -1));
+
+        P1F3.setBackground(new java.awt.Color(210, 180, 140));
+        P1F3.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        P1F3.setText("Opulent Remembrance Package");
+        P1F3.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                P1F3ActionPerformed(evt);
+            }
+        });
+        getContentPane().add(P1F3, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 250, 410, 40));
+
+        jLabel23.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel23.setText("b");
+        getContentPane().add(jLabel23, new org.netbeans.lib.awtextra.AbsoluteConstraints(720, 90, 40, -1));
+
+        jLabel24.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel24.setText("irthday");
+        getContentPane().add(jLabel24, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 100, 170, -1));
+
+        jLabel25.setFont(new java.awt.Font("Castellar", 3, 48)); // NOI18N
+        jLabel25.setText("w");
+        getContentPane().add(jLabel25, new org.netbeans.lib.awtextra.AbsoluteConstraints(700, 290, 60, -1));
+
+        jLabel26.setFont(new java.awt.Font("Segoe UI", 3, 32)); // NOI18N
+        jLabel26.setText("edding");
+        getContentPane().add(jLabel26, new org.netbeans.lib.awtextra.AbsoluteConstraints(760, 300, 170, -1));
+
+        StandardBaptism.setBackground(new java.awt.Color(210, 180, 140));
+        StandardBaptism.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        StandardBaptism.setText("Graceful Celebration Package");
+        StandardBaptism.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StandardBaptismActionPerformed(evt);
+            }
+        });
+        getContentPane().add(StandardBaptism, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 390, 410, 40));
+
+        PremiumBaptism.setBackground(new java.awt.Color(210, 180, 140));
+        PremiumBaptism.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PremiumBaptism.setText("Heavenly Blessings Package");
+        PremiumBaptism.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PremiumBaptismActionPerformed(evt);
+            }
+        });
+        getContentPane().add(PremiumBaptism, new org.netbeans.lib.awtextra.AbsoluteConstraints(120, 440, 410, 40));
+
+        StandardBirthday.setBackground(new java.awt.Color(210, 180, 140));
+        StandardBirthday.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        StandardBirthday.setText("Festive Gathering Package");
+        StandardBirthday.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StandardBirthdayActionPerformed(evt);
+            }
+        });
+        getContentPane().add(StandardBirthday, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 200, 360, -1));
+
+        PremiumBirthday.setBackground(new java.awt.Color(210, 180, 140));
+        PremiumBirthday.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PremiumBirthday.setText("Royal Birthday Package");
+        PremiumBirthday.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PremiumBirthdayActionPerformed(evt);
+            }
+        });
+        getContentPane().add(PremiumBirthday, new org.netbeans.lib.awtextra.AbsoluteConstraints(630, 250, 360, -1));
+
+        StandardWedding.setBackground(new java.awt.Color(210, 180, 140));
+        StandardWedding.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        StandardWedding.setText("Elegant Romance Package");
+        StandardWedding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                StandardWeddingActionPerformed(evt);
+            }
+        });
+        getContentPane().add(StandardWedding, new org.netbeans.lib.awtextra.AbsoluteConstraints(628, 390, 360, -1));
+
+        PremiumWedding.setBackground(new java.awt.Color(210, 180, 140));
+        PremiumWedding.setFont(new java.awt.Font("Segoe UI", 1, 24)); // NOI18N
+        PremiumWedding.setText("Luxurious Wedding Package");
+        PremiumWedding.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                PremiumWeddingActionPerformed(evt);
+            }
+        });
+        getContentPane().add(PremiumWedding, new org.netbeans.lib.awtextra.AbsoluteConstraints(628, 440, 360, -1));
 
         jLabel16.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/Untitled design.png"))); // NOI18N
         getContentPane().add(jLabel16, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 90, 1080, 440));
@@ -295,6 +417,76 @@ public class PackagesFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_P1F2ActionPerformed
 
+    private void BasicBaptismActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BasicBaptismActionPerformed
+        // TODO add your handling code here:
+        BasicBaptism basicBaptismFrame = new BasicBaptism();
+        basicBaptismFrame.setVisible(true);
+        basicBaptismFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_BasicBaptismActionPerformed
+
+    private void StandardBaptismActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StandardBaptismActionPerformed
+        // TODO add your handling code here:
+        StandardBaptism standardBaptismFrame = new StandardBaptism();
+        standardBaptismFrame.setVisible(true);
+        standardBaptismFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_StandardBaptismActionPerformed
+
+    private void BasicBirthdayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BasicBirthdayActionPerformed
+        // TODO add your handling code here:
+        BasicBirthday basicBirthdayFrame = new BasicBirthday();
+        basicBirthdayFrame.setVisible(true);
+        basicBirthdayFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_BasicBirthdayActionPerformed
+
+    private void PremiumBaptismActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PremiumBaptismActionPerformed
+        // TODO add your handling code here:
+        PremiumBaptism premiumBaptismFrame = new PremiumBaptism();
+        premiumBaptismFrame.setVisible(true);
+        premiumBaptismFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_PremiumBaptismActionPerformed
+
+    private void StandardWeddingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StandardWeddingActionPerformed
+        // TODO add your handling code here:
+        StandardWedding standardWeddingFrame = new StandardWedding();
+        standardWeddingFrame.setVisible(true);
+        standardWeddingFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_StandardWeddingActionPerformed
+
+    private void BasicWeddingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BasicWeddingActionPerformed
+        // TODO add your handling code here:
+        BasicWedding basicWeddingFrame = new BasicWedding();
+        basicWeddingFrame.setVisible(true);
+        basicWeddingFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_BasicWeddingActionPerformed
+
+    private void P1F3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_P1F3ActionPerformed
+        // TODO add your handling code here:
+        PackageF3 packageF3Frame = new PackageF3();
+        packageF3Frame.setVisible(true);
+        packageF3Frame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_P1F3ActionPerformed
+
+    private void StandardBirthdayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_StandardBirthdayActionPerformed
+        // TODO add your handling code here:
+        StandardBirthday standardBirthdayFrame = new StandardBirthday();
+        standardBirthdayFrame.setVisible(true);
+        standardBirthdayFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_StandardBirthdayActionPerformed
+
+    private void PremiumBirthdayActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PremiumBirthdayActionPerformed
+        // TODO add your handling code here:
+        PremiumBirthday premiumBirthdayFrame = new PremiumBirthday();
+        premiumBirthdayFrame.setVisible(true);
+        premiumBirthdayFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_PremiumBirthdayActionPerformed
+
+    private void PremiumWeddingActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PremiumWeddingActionPerformed
+        // TODO add your handling code here:
+        PremiumWedding premiumWeddingFrame = new PremiumWedding();
+        premiumWeddingFrame.setVisible(true);
+        premiumWeddingFrame.setLocationRelativeTo(null);
+    }//GEN-LAST:event_PremiumWeddingActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -332,6 +524,9 @@ public class PackagesFrame extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton BasicBaptism;
+    private javax.swing.JButton BasicBirthday;
+    private javax.swing.JButton BasicWedding;
     private javax.swing.JButton BtnBooking;
     private javax.swing.JButton BtnCalendar;
     private javax.swing.JButton BtnHome;
@@ -340,14 +535,24 @@ public class PackagesFrame extends javax.swing.JFrame {
     private javax.swing.JButton BtnReport;
     private javax.swing.JButton P1F1;
     private javax.swing.JButton P1F2;
-    private javax.swing.JButton jButtonBaptismPack;
-    private javax.swing.JButton jButtonBdayPack;
-    private javax.swing.JButton jButtonWedPack;
+    private javax.swing.JButton P1F3;
+    private javax.swing.JButton PremiumBaptism;
+    private javax.swing.JButton PremiumBirthday;
+    private javax.swing.JButton PremiumWedding;
+    private javax.swing.JButton StandardBaptism;
+    private javax.swing.JButton StandardBirthday;
+    private javax.swing.JButton StandardWedding;
     private javax.swing.JLabel jLabel13;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel16;
     private javax.swing.JLabel jLabel19;
+    private javax.swing.JLabel jLabel20;
     private javax.swing.JLabel jLabel21;
+    private javax.swing.JLabel jLabel22;
+    private javax.swing.JLabel jLabel23;
+    private javax.swing.JLabel jLabel24;
+    private javax.swing.JLabel jLabel25;
+    private javax.swing.JLabel jLabel26;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JButton logout;
     // End of variables declaration//GEN-END:variables
