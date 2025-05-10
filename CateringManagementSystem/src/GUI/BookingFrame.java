@@ -79,6 +79,7 @@ public class BookingFrame extends javax.swing.JFrame {
         Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "");
 
         // Query to fetch only upcoming events (where EventDate is greater than the current date)
+        // and exclude cancelled bookings
         String query = """
                 SELECT 
                     b.BookingId,
@@ -92,7 +93,8 @@ public class BookingFrame extends javax.swing.JFrame {
                 FROM booking b
                 INNER JOIN client c ON b.ClientID = c.ClientID
                 INNER JOIN packages p ON b.PackageId = p.PackageID
-                WHERE b.EventDate >= CURDATE() -- Only upcoming events
+                WHERE b.EventDate >= CURDATE()  -- Only upcoming events
+                  AND b.Status != 'Cancelled'   -- Exclude cancelled bookings
                 ORDER BY b.EventDate ASC        -- Sort by EventDate (ascending)
                 """;
 
@@ -101,6 +103,9 @@ public class BookingFrame extends javax.swing.JFrame {
 
         // Create a DefaultTableModel
         DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
+
+        // Clear the existing table rows before adding new data
+        model.setRowCount(0);
 
         // Iterate through the result set and add rows to the table model
         while (rs.next()) {
@@ -125,6 +130,7 @@ public class BookingFrame extends javax.swing.JFrame {
         JOptionPane.showMessageDialog(this, "Error loading upcoming reservations: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
     }
 }
+
    
 
     private void loadPastBookingsToTable() {
@@ -275,9 +281,9 @@ public class BookingFrame extends javax.swing.JFrame {
         BtnHome = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        BtnLaborer = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         BtnReport = new javax.swing.JButton();
+        BtnLaborer = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
@@ -294,7 +300,7 @@ public class BookingFrame extends javax.swing.JFrame {
         getContentPane().add(SORTBYUPCOMINGEVENT, new org.netbeans.lib.awtextra.AbsoluteConstraints(940, 210, -1, 40));
 
         Status.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pending", "Complete", "Cancelled" }));
+        Status.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Upcoming", "Complete", "Cancelled" }));
         Status.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 StatusActionPerformed(evt);
@@ -417,17 +423,6 @@ public class BookingFrame extends javax.swing.JFrame {
         jLabel6.setText("&   plates");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
 
-        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
-        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BtnLaborer.setText("LABOR");
-        BtnLaborer.setBorder(null);
-        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLaborerActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
-
         logout.setBackground(new java.awt.Color(210, 180, 140));
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
         logout.setBorder(null);
@@ -449,20 +444,21 @@ public class BookingFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 30, 120, 40));
 
+        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnLaborer.setText("LABOR");
+        BtnLaborer.setBorder(null);
+        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLaborerActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
+
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
-
-    private void SORTBYUPCOMINGEVENTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SORTBYUPCOMINGEVENTActionPerformed
-      // Clear the existing data in the table
-    DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
-    model.setRowCount(0); // Clear existing rows
-
-    // Now reload the upcoming events into the table
-    loadUpcomingBookingsToTable(); // Call your method to fetch data from the database and refresh the table
-
-    }//GEN-LAST:event_SORTBYUPCOMINGEVENTActionPerformed
 
     private void SearchByStatusActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchByStatusActionPerformed
    // Add an ActionListener to the button
@@ -532,17 +528,6 @@ SearchByStatus.addActionListener(new ActionListener() {
         });
     }//GEN-LAST:event_BtnHomeActionPerformed
 
-    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
-        BtnLaborer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LaborersFrame laborer = new LaborersFrame();
-                laborer.setVisible(true);
-                laborer .setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnLaborerActionPerformed
-
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -571,6 +556,26 @@ SearchByStatus.addActionListener(new ActionListener() {
         });
 
     }//GEN-LAST:event_BtnReportActionPerformed
+
+    private void SORTBYUPCOMINGEVENTActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SORTBYUPCOMINGEVENTActionPerformed
+        // Clear the existing data in the table
+        DefaultTableModel model = (DefaultTableModel) BookingRecords.getModel();
+        model.setRowCount(0); // Clear existing rows
+
+        // Now reload the upcoming events into the table
+        loadUpcomingBookingsToTable(); // Call your method to fetch data from the database and refresh the table
+    }//GEN-LAST:event_SORTBYUPCOMINGEVENTActionPerformed
+
+    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
+        BtnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnLaborerActionPerformed
 
     /**
      * @param args the command line arguments

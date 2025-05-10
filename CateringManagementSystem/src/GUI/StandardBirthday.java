@@ -23,6 +23,7 @@ public class StandardBirthday extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        backbutton = new javax.swing.JButton();
         jPanel1 = new javax.swing.JPanel();
         jLabel3 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
@@ -36,6 +37,16 @@ public class StandardBirthday extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
+
+        backbutton.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton.setText("Return");
+        backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbuttonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 80, 30));
 
         jPanel1.setBackground(new java.awt.Color(210, 180, 140));
         jPanel1.setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -111,6 +122,10 @@ public class StandardBirthday extends javax.swing.JFrame {
         
     }//GEN-LAST:event_nextActionPerformed
 
+    private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbuttonActionPerformed
+
     /**
      * @param args the command line arguments
      */
@@ -147,6 +162,7 @@ public class StandardBirthday extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbutton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

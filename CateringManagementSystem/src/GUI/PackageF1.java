@@ -34,6 +34,7 @@ public class PackageF1 extends javax.swing.JFrame {
         jPanel2 = new javax.swing.JPanel();
         next = new javax.swing.JButton();
         jLabel4 = new javax.swing.JLabel();
+        backbutton = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
@@ -84,8 +85,18 @@ public class PackageF1 extends javax.swing.JFrame {
         jLabel4.setText("BASIC FUNERAL");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(200, 330, -1, 50));
 
+        backbutton.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton.setText("Return");
+        backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbuttonActionPerformed(evt);
+            }
+        });
+        jPanel2.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 80, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/F1.png"))); // NOI18N
-        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 410));
+        jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 30, -1, 400));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
 
@@ -98,6 +109,10 @@ public class PackageF1 extends javax.swing.JFrame {
         packageFrame.setLocationRelativeTo(null);
         this.dispose();
     }//GEN-LAST:event_nextActionPerformed
+
+    private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbuttonActionPerformed
 
     /**
      * @param args the command line arguments
@@ -142,6 +157,7 @@ public class PackageF1 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbutton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;

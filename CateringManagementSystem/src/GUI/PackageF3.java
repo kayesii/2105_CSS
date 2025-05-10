@@ -28,14 +28,15 @@ public class PackageF3 extends javax.swing.JFrame {
         jScrollPane1 = new javax.swing.JScrollPane();
         jTextArea1 = new javax.swing.JTextArea();
         jLabel3 = new javax.swing.JLabel();
-        jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
         jPanel1 = new javax.swing.JPanel();
         jPanel2 = new javax.swing.JPanel();
         next = new javax.swing.JButton();
         prev1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
+        backbutton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        jLabel4 = new javax.swing.JLabel();
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Sort");
@@ -58,10 +59,6 @@ public class PackageF3 extends javax.swing.JFrame {
         jLabel3.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
         jLabel3.setText("Palates & Plates Packages");
         getContentPane().add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(260, 0, 620, 60));
-
-        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
-        jLabel4.setText("Package Id: 3");
-        getContentPane().add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 330, -1, 50));
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("₱700 per guest");
@@ -95,8 +92,22 @@ public class PackageF3 extends javax.swing.JFrame {
         jLabel2.setText("Opulent Remembrance Package");
         jPanel2.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(180, 390, 750, 60));
 
+        backbutton1.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton1.setText("Return");
+        backbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbutton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(backbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 80, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/funeralThree.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 410));
+
+        jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        jLabel4.setText("Premium Funeral");
+        jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 330, -1, 50));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
 
@@ -121,6 +132,10 @@ public class PackageF3 extends javax.swing.JFrame {
             }
         });       
     }//GEN-LAST:event_prev1ActionPerformed
+
+    private void backbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbutton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbutton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -189,6 +204,7 @@ public class PackageF3 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbutton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;

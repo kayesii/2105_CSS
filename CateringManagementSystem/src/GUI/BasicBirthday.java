@@ -32,7 +32,9 @@ public class BasicBirthday extends javax.swing.JFrame {
         prev1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         next = new javax.swing.JButton();
+        backbutton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        backbutton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -46,7 +48,7 @@ public class BasicBirthday extends javax.swing.JFrame {
 
         jLabel5.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel5.setText("₱300 per guest");
-        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 60, -1, 50));
+        jPanel1.add(jLabel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(220, 70, -1, 50));
 
         jTextArea1.setEditable(false);
         jTextArea1.setBackground(new java.awt.Color(210, 180, 140));
@@ -86,11 +88,31 @@ public class BasicBirthday extends javax.swing.JFrame {
         });
         jPanel1.add(next, new org.netbeans.lib.awtextra.AbsoluteConstraints(1000, 420, -1, 40));
 
+        backbutton1.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton1.setText("Return");
+        backbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbutton1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(backbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 80, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/basic birthday.png"))); // NOI18N
         jLabel1.setText("jLabel1");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 10, -1, -1));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
+
+        backbutton.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton.setText("Return");
+        backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbuttonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 80, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -109,6 +131,14 @@ public class BasicBirthday extends javax.swing.JFrame {
         standardBirthdayFrame.setVisible(true);
         standardBirthdayFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_nextActionPerformed
+
+    private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbuttonActionPerformed
+
+    private void backbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbutton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbutton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -146,6 +176,8 @@ public class BasicBirthday extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbutton;
+    private javax.swing.JButton backbutton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;

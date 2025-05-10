@@ -60,6 +60,8 @@ public class reservationPay extends javax.swing.JFrame {
         jLabel16 = new javax.swing.JLabel();
         jLabel17 = new javax.swing.JLabel();
         jLabel18 = new javax.swing.JLabel();
+        jLabel11 = new javax.swing.JLabel();
+        jLabel12 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         getContentPane().setLayout(new org.netbeans.lib.awtextra.AbsoluteLayout());
@@ -87,7 +89,7 @@ public class reservationPay extends javax.swing.JFrame {
                 reservationIdFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(reservationIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 140, 180, 30));
+        jPanel1.add(reservationIdField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 140, 200, 30));
 
         payButton.setBackground(new java.awt.Color(205, 133, 63));
         payButton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
@@ -107,40 +109,40 @@ public class reservationPay extends javax.swing.JFrame {
                 backbuttonActionPerformed(evt);
             }
         });
-        jPanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 340, 90, 40));
+        jPanel1.add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 350, 90, 40));
 
         paymentField1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 paymentField1ActionPerformed(evt);
             }
         });
-        jPanel1.add(paymentField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 260, 180, 30));
+        jPanel1.add(paymentField1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 260, 200, 30));
 
         jLabel2.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel2.setText("Payment Amount:");
-        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 260, 110, 30));
+        jLabel2.setText("Payment Amount");
+        jPanel1.add(jLabel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 260, 110, 30));
 
         jLabel6.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel6.setText("Reservation Fee:");
-        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 220, -1, 30));
+        jLabel6.setText("Reservation Fee");
+        jPanel1.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 220, -1, 30));
 
         paymentField.setText("500");
-        jPanel1.add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 220, 90, 30));
+        jPanel1.add(paymentField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 220, 110, 30));
 
         jLabel4.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel4.setText("Client Name:");
-        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 180, -1, 30));
+        jLabel4.setText("Client Name");
+        jPanel1.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 180, -1, 30));
 
         clientNameField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 clientNameFieldActionPerformed(evt);
             }
         });
-        jPanel1.add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 180, 180, 30));
+        jPanel1.add(clientNameField, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 180, 200, 30));
 
         jLabel3.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        jLabel3.setText("Reservation Id:");
-        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(40, 140, -1, 30));
+        jLabel3.setText("Reservation Id");
+        jPanel1.add(jLabel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 140, -1, 30));
 
         jLabel15.setFont(new java.awt.Font("Castellar", 3, 36)); // NOI18N
         jLabel15.setText("a");
@@ -161,6 +163,14 @@ public class reservationPay extends javax.swing.JFrame {
         jLabel18.setFont(new java.awt.Font("Segoe UI", 3, 22)); // NOI18N
         jLabel18.setText("AKE");
         jPanel1.add(jLabel18, new org.netbeans.lib.awtextra.AbsoluteConstraints(100, 30, 50, -1));
+
+        jLabel11.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel11.setText("₱");
+        jPanel1.add(jLabel11, new org.netbeans.lib.awtextra.AbsoluteConstraints(140, 260, 20, 30));
+
+        jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 15)); // NOI18N
+        jLabel12.setText("₱");
+        jPanel1.add(jLabel12, new org.netbeans.lib.awtextra.AbsoluteConstraints(150, 210, 20, 30));
 
         getContentPane().add(jPanel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 390, 390));
 
@@ -312,6 +322,8 @@ private String getReservationIdFromDatabase() {
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton backbutton;
     private javax.swing.JTextField clientNameField;
+    private javax.swing.JLabel jLabel11;
+    private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel14;
     private javax.swing.JLabel jLabel15;
     private javax.swing.JLabel jLabel16;

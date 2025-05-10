@@ -455,7 +455,9 @@ public class HomeFrame extends javax.swing.JFrame {
         jLabel15.setText("U");
         getContentPane().add(jLabel15, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 100, 40, -1));
 
-        payreservation.setText("jButton1");
+        payreservation.setBackground(new java.awt.Color(205, 133, 63));
+        payreservation.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
+        payreservation.setText("Payment");
         payreservation.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 payreservationActionPerformed(evt);
@@ -669,114 +671,75 @@ private boolean isNumeric(String str) {
     }//GEN-LAST:event_txtSearchIDorNameActionPerformed
 
     private void UpdateReservationBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_UpdateReservationBtnActionPerformed
-   String reservationID = jTextField1.getText().trim();
+    String reservationID = jTextField1.getText().trim();
     String clientName = txtClientName.getText().trim();
     String clientNumber = txtClientNumber.getText().trim();
     String eventName = txtEventName.getText().trim();
     String status = pickStatus.getSelectedItem().toString().trim();
 
-    // Step 4: Get and validate Date from Calendar Picker
-    java.util.Date eventDate = jCalendarComboBox1.getDate(); // Get date from the calendar picker
+    java.util.Date eventDate = jCalendarComboBox1.getDate(); 
     if (eventDate == null) {
         JOptionPane.showMessageDialog(null, "Please select a valid event date.", "Date Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
-    // Format the eventDate to "YYYY-MM-DD" for SQL
     SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
     String formattedDate = sdf.format(eventDate);
 
-    // Step 1: Check if the date is already reserved in the booking table (EventDate)
-    String checkBookingQuery = "SELECT COUNT(*) FROM booking WHERE EventDate = ?";
+    String checkDateQuery = """
+        SELECT 
+            (SELECT COUNT(*) FROM booking WHERE EventDate = ?) +
+            (SELECT COUNT(*) FROM reservation WHERE ReservationDate = ?) AS TotalCount
+        """;
+
     try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-        PreparedStatement checkBookingStmt = con.prepareStatement(checkBookingQuery);
-        checkBookingStmt.setString(1, formattedDate); // Check EventDate in the booking table
-        ResultSet rsBooking = checkBookingStmt.executeQuery();
+        PreparedStatement psCheckDate = con.prepareStatement(checkDateQuery);
+        psCheckDate.setString(1, formattedDate);
+        psCheckDate.setString(2, formattedDate);
 
-        boolean isBookingReserved = false;
-        if (rsBooking.next()) {
-            int countBooking = rsBooking.getInt(1);
-            if (countBooking > 0) {
-                isBookingReserved = true;
-            }
+        ResultSet rsCheck = psCheckDate.executeQuery();
+        if (rsCheck.next() && rsCheck.getInt("TotalCount") > 0) {
+            JOptionPane.showMessageDialog(this, "The selected date is already reserved. Please choose a different date.", "Date Conflict", JOptionPane.ERROR_MESSAGE);
+            return;  // Stop the update process if conflict detected.
         }
 
-        // Step 2: Check if the date is already reserved in the reservation table (ReservationDate)
-        String checkReservationQuery = "SELECT COUNT(*) FROM reservation WHERE ReservationDate = ?";
-        PreparedStatement checkReservationStmt = con.prepareStatement(checkReservationQuery);
-        checkReservationStmt.setString(1, formattedDate); // Check ReservationDate in the reservation table
-        ResultSet rsReservation = checkReservationStmt.executeQuery();
-
-        boolean isReservationReserved = false;
-        if (rsReservation.next()) {
-            int countReservation = rsReservation.getInt(1);
-            if (countReservation > 0) {
-                isReservationReserved = true;
-            }
-        }
-
-        
-
-        // Convert java.util.Date to java.sql.Date for database storage
+        // Proceed to update if no date conflict
         java.sql.Date sqlEventDate = new java.sql.Date(eventDate.getTime());
 
-        // Check if any field is empty
-        if (reservationID.isEmpty() || clientName.isEmpty() || clientNumber.isEmpty() || 
-            eventName.isEmpty() || status.isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please fill all fields to update the reservation.", "Input Error", JOptionPane.ERROR_MESSAGE);
+        if (reservationID.isEmpty() || clientName.isEmpty() || clientNumber.isEmpty() || eventName.isEmpty() || status.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please fill all fields.", "Input Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // Query to get the ClientID based on the ReservationID
         String getClientQuery = "SELECT ClientID FROM reservation WHERE ReservationID = ?";
         PreparedStatement psGetClient = con.prepareStatement(getClientQuery);
         psGetClient.setInt(1, Integer.parseInt(reservationID));
         ResultSet rsClient = psGetClient.executeQuery();
 
-        // Check if a reservation with the given ReservationID exists
         if (rsClient.next()) {
-            // Get the ClientID from the reservation
             int clientID = rsClient.getInt("ClientID");
 
-            // Update query for the client table
             String updateClientQuery = "UPDATE client SET ClientName = ?, ClientNumber = ? WHERE ClientID = ?";
             PreparedStatement psClient = con.prepareStatement(updateClientQuery);
             psClient.setString(1, clientName);
             psClient.setString(2, clientNumber);
-            psClient.setInt(3, clientID); // Use the retrieved ClientID
-            int clientUpdateCount = psClient.executeUpdate();
+            psClient.setInt(3, clientID);
+            psClient.executeUpdate();
 
-            // Update query for the reservation table
             String updateReservationQuery = "UPDATE reservation SET EventName = ?, ReservationDate = ?, Status = ? WHERE ReservationID = ?";
             PreparedStatement psReservation = con.prepareStatement(updateReservationQuery);
             psReservation.setString(1, eventName);
-            psReservation.setDate(2, sqlEventDate); // Use the formatted SQL Date
+            psReservation.setDate(2, sqlEventDate);
             psReservation.setString(3, status);
             psReservation.setInt(4, Integer.parseInt(reservationID));
-            int reservationUpdateCount = psReservation.executeUpdate();
+            psReservation.executeUpdate();
 
-            // Check if the update was successful
-            if (clientUpdateCount > 0 && reservationUpdateCount > 0) {
-                JOptionPane.showMessageDialog(this, "Reservation and client details updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
-            } else {
-                JOptionPane.showMessageDialog(this, "Failed to update reservation. Please check the input.", "Error", JOptionPane.ERROR_MESSAGE);
-            }
-
-            // Close the connections
-            psClient.close();
-            psReservation.close();
-            psGetClient.close();
-            con.close();
-
-            dispose();
-            HomeFrame home = new HomeFrame(); 
-            home.setVisible(true); 
-            home.setLocationRelativeTo(null); // Center the HomeFrame
+            JOptionPane.showMessageDialog(this, "Reservation and client details updated successfully.", "Success", JOptionPane.INFORMATION_MESSAGE);
         } else {
-            JOptionPane.showMessageDialog(this, "Reservation not found. Please check the ReservationID.", "Error", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(this, "Reservation not found.", "Error", JOptionPane.ERROR_MESSAGE);
         }
     } catch (Exception ex) {
-        JOptionPane.showMessageDialog(this, "Error updating reservation: " + ex.getMessage(), "Error", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(this, "Error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
     }
 
     }//GEN-LAST:event_UpdateReservationBtnActionPerformed

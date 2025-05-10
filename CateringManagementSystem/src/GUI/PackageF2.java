@@ -35,7 +35,9 @@ public class PackageF2 extends javax.swing.JFrame {
         prev1 = new javax.swing.JButton();
         jLabel2 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
+        backbutton1 = new javax.swing.JButton();
         jLabel1 = new javax.swing.JLabel();
+        backbutton = new javax.swing.JButton();
 
         jLabel12.setFont(new java.awt.Font("Segoe UI", 1, 14)); // NOI18N
         jLabel12.setText("Sort");
@@ -95,10 +97,30 @@ public class PackageF2 extends javax.swing.JFrame {
         jLabel4.setText("STANDARD FUNERAL");
         jPanel2.add(jLabel4, new org.netbeans.lib.awtextra.AbsoluteConstraints(190, 330, -1, 50));
 
+        backbutton1.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton1.setText("Return");
+        backbutton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbutton1ActionPerformed(evt);
+            }
+        });
+        jPanel2.add(backbutton1, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 80, 30));
+
         jLabel1.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/funeralTwo.png"))); // NOI18N
         jPanel2.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 20, -1, 410));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 470));
+
+        backbutton.setBackground(new java.awt.Color(205, 133, 63));
+        backbutton.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        backbutton.setText("Return");
+        backbutton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                backbuttonActionPerformed(evt);
+            }
+        });
+        getContentPane().add(backbutton, new org.netbeans.lib.awtextra.AbsoluteConstraints(990, 10, 80, 30));
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
@@ -124,6 +146,14 @@ public class PackageF2 extends javax.swing.JFrame {
             }
         });
     }//GEN-LAST:event_prev1ActionPerformed
+
+    private void backbuttonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbuttonActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbuttonActionPerformed
+
+    private void backbutton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backbutton1ActionPerformed
+        this.dispose();
+    }//GEN-LAST:event_backbutton1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -176,6 +206,8 @@ public class PackageF2 extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JButton backbutton;
+    private javax.swing.JButton backbutton1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel12;
     private javax.swing.JLabel jLabel2;

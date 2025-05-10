@@ -35,9 +35,9 @@ public class PackagesFrame extends javax.swing.JFrame {
         BtnHome = new javax.swing.JButton();
         jLabel13 = new javax.swing.JLabel();
         jLabel14 = new javax.swing.JLabel();
-        BtnLaborer = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         BtnReport = new javax.swing.JButton();
+        BtnLaborer = new javax.swing.JButton();
         P1F1 = new javax.swing.JButton();
         BasicBaptism = new javax.swing.JButton();
         BasicBirthday = new javax.swing.JButton();
@@ -79,7 +79,7 @@ public class PackagesFrame extends javax.swing.JFrame {
         });
         jPanel2.add(BtnCalendar, new org.netbeans.lib.awtextra.AbsoluteConstraints(490, 30, 120, 40));
 
-        BtnPackages.setBackground(new java.awt.Color(210, 180, 140));
+        BtnPackages.setBackground(new java.awt.Color(205, 133, 63));
         BtnPackages.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
         BtnPackages.setText("PACKAGES");
         BtnPackages.setBorder(null);
@@ -120,17 +120,6 @@ public class PackagesFrame extends javax.swing.JFrame {
         jLabel14.setText("&   plates");
         jPanel2.add(jLabel14, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
 
-        BtnLaborer.setBackground(new java.awt.Color(205, 133, 63));
-        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BtnLaborer.setText("LABOR");
-        BtnLaborer.setBorder(null);
-        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLaborerActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
-
         logout.setBackground(new java.awt.Color(210, 180, 140));
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
         logout.setBorder(null);
@@ -151,6 +140,17 @@ public class PackagesFrame extends javax.swing.JFrame {
             }
         });
         jPanel2.add(BtnReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 30, 120, 40));
+
+        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnLaborer.setText("LABOR");
+        BtnLaborer.setBorder(null);
+        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLaborerActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
 
@@ -368,17 +368,6 @@ public class PackagesFrame extends javax.swing.JFrame {
         });
     }//GEN-LAST:event_BtnHomeActionPerformed
 
-    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
-        BtnLaborer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LaborersTable laborer = new LaborersTable();
-                laborer.setVisible(true);
-                laborer .setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnLaborerActionPerformed
-
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -486,6 +475,17 @@ public class PackagesFrame extends javax.swing.JFrame {
         premiumWeddingFrame.setVisible(true);
         premiumWeddingFrame.setLocationRelativeTo(null);
     }//GEN-LAST:event_PremiumWeddingActionPerformed
+
+    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
+        BtnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnLaborerActionPerformed
 
     /**
      * @param args the command line arguments

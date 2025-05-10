@@ -33,9 +33,9 @@ public class BookingProcess extends JFrame {
         BtnHome = new javax.swing.JButton();
         jLabel8 = new javax.swing.JLabel();
         jLabel6 = new javax.swing.JLabel();
-        BtnLaborer = new javax.swing.JButton();
         logout = new javax.swing.JButton();
         BtnReport = new javax.swing.JButton();
+        BtnLaborer = new javax.swing.JButton();
         jLabel12 = new javax.swing.JLabel();
         txtSearchBookingI = new javax.swing.JTextField();
         SearchBtn = new javax.swing.JButton();
@@ -67,7 +67,7 @@ public class BookingProcess extends JFrame {
         PackagesDetails = new javax.swing.JButton();
         jLabel25 = new javax.swing.JLabel();
         pickCateringStyle = new javax.swing.JComboBox<>();
-        PackagePicker = new javax.swing.JTextField();
+        PackagePicker = new javax.swing.JComboBox<>();
         Clear = new javax.swing.JButton();
         update = new javax.swing.JButton();
         Save = new javax.swing.JButton();
@@ -142,17 +142,6 @@ public class BookingProcess extends JFrame {
         jLabel6.setText("&   plates");
         jPanel2.add(jLabel6, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 30, 210, 60));
 
-        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
-        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
-        BtnLaborer.setText("LABOR");
-        BtnLaborer.setBorder(null);
-        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                BtnLaborerActionPerformed(evt);
-            }
-        });
-        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
-
         logout.setBackground(new java.awt.Color(210, 180, 140));
         logout.setIcon(new javax.swing.ImageIcon(getClass().getResource("/Images/logout (1).png"))); // NOI18N
         logout.setBorder(null);
@@ -173,6 +162,17 @@ public class BookingProcess extends JFrame {
             }
         });
         jPanel2.add(BtnReport, new org.netbeans.lib.awtextra.AbsoluteConstraints(750, 30, 120, 40));
+
+        BtnLaborer.setBackground(new java.awt.Color(210, 180, 140));
+        BtnLaborer.setFont(new java.awt.Font("Segoe UI", 1, 18)); // NOI18N
+        BtnLaborer.setText("LABOR");
+        BtnLaborer.setBorder(null);
+        BtnLaborer.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                BtnLaborerActionPerformed(evt);
+            }
+        });
+        jPanel2.add(BtnLaborer, new org.netbeans.lib.awtextra.AbsoluteConstraints(880, 30, 120, 40));
 
         getContentPane().add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(0, 0, 1080, 90));
 
@@ -330,9 +330,8 @@ public class BookingProcess extends JFrame {
         pickCateringStyle.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Buffet catering", "Plated catering" }));
         jPanel5.add(pickCateringStyle, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 150, 130, 30));
 
-        PackagePicker.setFont(new java.awt.Font("Segoe UI", 2, 12)); // NOI18N
-        PackagePicker.setText("Enter Package ID");
-        jPanel5.add(PackagePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(20, 50, 130, -1));
+        PackagePicker.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Serenity Farewell Package", "Timeless Remembrance Package", "Opulent Remembrance Package", "Essential Joy Package", "Festive Gathering Package", "Royal Birthday Package", "Sacred Start Package", "Graceful Celebration Package", "Heavenly Blessings Package", "Timeless Love Package", "Elegant Romance Package", "Luxurious Wedding Package" }));
+        jPanel5.add(PackagePicker, new org.netbeans.lib.awtextra.AbsoluteConstraints(10, 40, 150, 30));
 
         getContentPane().add(jPanel5, new org.netbeans.lib.awtextra.AbsoluteConstraints(470, 300, 170, 200));
 
@@ -559,18 +558,19 @@ public class BookingProcess extends JFrame {
         String theme = txtTheme.getText().trim();
         String location = txtLocation.getText().trim();
         String timeStartStr = txtTimeStart.getText().trim();
-        String timeEndStr = txtTimeEnds.getText().trim();
-        String packagePickerStr = PackagePicker.getText().trim();
+        String timeEndStr = txtTimeEnds.getText().trim();    
+        String selectedPackageName = (String) PackagePicker.getSelectedItem();
 
         int guestCount = (int) NumberOfGuests.getValue();
         int laborCount = (int) NumberOfLaborers.getValue();
         String cateringStyle = pickCateringStyle.getSelectedItem().toString();
-
+        
 
         if (theme.isEmpty() || location.isEmpty() || timeStartStr.isEmpty() || timeEndStr.isEmpty() || cateringStyle == null || cateringStyle.equals("Select Catering Style")) {
             JOptionPane.showMessageDialog(null, "Please fill in all event details.", "Event Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
+        
   
         java.util.Date eventDate = jCalendarComboBox1.getDate();  // Get date from the calendar picker
 // Check if the selected date is null
@@ -641,19 +641,29 @@ public class BookingProcess extends JFrame {
                 return;
             }
         }
-        // Step 6: Validate and parse Package ID
-        int selectedPackageId = -1;
-        if (packagePickerStr.isEmpty()) {
-            JOptionPane.showMessageDialog(null, "Please select a package.", "Package Error", JOptionPane.ERROR_MESSAGE);
-            return;
-        }
+        
+           // Retrieve PackageId from selected package name
+    if (selectedPackageName == null || selectedPackageName.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please select a package.", "Package Error", JOptionPane.ERROR_MESSAGE);
+        return;
+    }
 
-        try {
-            selectedPackageId = Integer.parseInt(packagePickerStr);
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid package ID. Please enter a valid number.", "Package ID Error", JOptionPane.ERROR_MESSAGE);
-            return;
+    int selectedPackageId = -1;
+    String packageQuery = "SELECT PackageId FROM packages WHERE PackageName = ?";
+    try (PreparedStatement ps = con.prepareStatement(packageQuery)) {
+        ps.setString(1, selectedPackageName);
+        try (ResultSet rs = ps.executeQuery()) {
+            if (rs.next()) {
+                selectedPackageId = rs.getInt("PackageId");
+            } else {
+                JOptionPane.showMessageDialog(null, "Package not found.", "Error", JOptionPane.ERROR_MESSAGE);
+                return;
+            }
         }
+    }
+        
+        
+      
 
         // Step 7: Retrieve available laborers from the database
         int availableLaborers = 0;
@@ -739,7 +749,7 @@ public class BookingProcess extends JFrame {
     }//GEN-LAST:event_SaveActionPerformed
 
     private void ViewReceiptActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ViewReceiptActionPerformed
-       // Initialize the connection to the database
+     // Initialize the connection to the database
     Connection con = null;
     try {
         // Set up the connection to the MySQL database
@@ -772,49 +782,55 @@ public class BookingProcess extends JFrame {
             return;
         }
 
-        String packagePickerStr = PackagePicker.getText().trim();
-        if (packagePickerStr.isEmpty()) {
+        String selectedPackageName = (String) PackagePicker.getSelectedItem();
+        selectedPackageName = selectedPackageName.trim(); // Remove leading and trailing spaces
+
+        if (selectedPackageName.isEmpty()) {
             JOptionPane.showMessageDialog(null, "Please select a package.", "Package Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        int selectedPackageId;
-        double packagePrice = 0; // To store the price of the selected package
-        try {
-            selectedPackageId = Integer.parseInt(packagePickerStr);
+        int selectedPackageId = -1;
+        double packagePrice = 0;
+        String packageName = "";  // To store the package name
 
-            // Retrieve the package price from the database based on selectedPackageId
-            String packagePriceQuery = "SELECT Price FROM packages WHERE PackageId = ?";
-            try (PreparedStatement ps = con.prepareStatement(packagePriceQuery)) {
-                ps.setInt(1, selectedPackageId);
-                ResultSet rs = ps.executeQuery();
-                if (rs.next()) {
-                    packagePrice = rs.getDouble("Price");
-                } else {
-                    JOptionPane.showMessageDialog(null, "Package not found.", "Package Error", JOptionPane.ERROR_MESSAGE);
-                    return;
-                }
+        // Debugging: Print the selected package name
+        System.out.println("Selected Package: " + selectedPackageName);
+
+        // Retrieve PackageId and Price based on the selected Package Name
+        String packageQuery = "SELECT PackageId, Price, PackageName FROM packages WHERE PackageName = ?";
+        try (PreparedStatement ps = con.prepareStatement(packageQuery)) {
+            ps.setString(1, selectedPackageName);  // Using the package name for the query
+
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                selectedPackageId = rs.getInt("PackageId");
+                packagePrice = rs.getDouble("Price");
+                packageName = rs.getString("PackageName");  // Package Name from the result
+            } else {
+                JOptionPane.showMessageDialog(null, "Package not found: " + selectedPackageName, "Package Error", JOptionPane.ERROR_MESSAGE);
+                return;
             }
-        } catch (NumberFormatException ex) {
-            JOptionPane.showMessageDialog(null, "Invalid package ID. Please enter a valid number.", "Package ID Error", JOptionPane.ERROR_MESSAGE);
+        } catch (SQLException e) {
+            JOptionPane.showMessageDialog(null, "Database error: " + e.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
             return;
         }
 
-        // The rest of your code continues here...
-        
-        // Calculate the total price for the package based on the guest count
+        // Calculate other prices
         double totalPackagePrice = packagePrice * guestCount;
-
         double totalPrice = calculateTotalAmount(selectedPackageId, guestCount, laborCount, hoursWorked, cateringStyle);
         double laborPayPerLaborer = calculateLaborPay(1, hoursWorked);
         double totalLaborPay = laborPayPerLaborer * laborCount;
 
-        // Calculate catering style cost only for "Plated Catering"
         double cateringStyleCost = 0;
         if ("Plated catering".equals(cateringStyle)) {
-            cateringStyleCost = 30 * guestCount;  // 30 * number of guests for plated catering
+            cateringStyleCost = 30 * guestCount;
         }
         double downpayment = totalPrice * 0.30;
+
+        // Calculate the event duration fee (500 per hour)
+        double eventDurationFee = 500 * hoursWorked;
+
         // Update receipt content
         String receiptContent = "-----------------------------------------\n"
                 + "             Palates & Plates            \n"
@@ -828,19 +844,19 @@ public class BookingProcess extends JFrame {
                 + "Start Time: " + timeStartStr + "\n"
                 + "End Time: " + timeEndStr + "\n"
                 + "Number of Guests: " + guestCount + "\n"
-                + "Catering Style: " + cateringStyle + "\n"  // Add catering style to receipt
-                + "-----------------------------------------\n"
-                + "Fee:\n"
-                + "Reservation Fee:₱ 500\n"
-                + (cateringStyleCost > 0 ? "Catering Style Cost: ₱" + String.format("%.2f", cateringStyleCost) + "\n" : "")
-                + "Package Price: ₱" + String.format("%.2f", totalPackagePrice) + "\n"
-
-                + "-----------------------------------------\n"
+                + "Catering Style: " + cateringStyle + "\n"
+                + "Package Name: " + packageName + "\n"  // Include Package Name
+                + "Package Price per Guest: ₱" + String.format("%.2f", packagePrice) + "\n"
                 + "Wait Staff: " + laborCount + "\n"
+                + "-----------------------------------------\n"
+                + "Booking Fee:₱ 500\n"
+                + (cateringStyleCost > 0 ? "Catering Style Cost: ₱" + String.format("%.2f", cateringStyleCost) + "\n" : "")
                 + "Wait Staff Pay: ₱" + String.format("%.2f", totalLaborPay) + "\n"
+                + "Event Duration Fee (₱500/hour): ₱" + String.format("%.2f", eventDurationFee) + "\n"  // Include Event Duration Fee
+                + "Total Package Price: ₱" + String.format("%.2f", totalPackagePrice) + "\n"
                 + "-----------------------------------------\n"
                 + "Downpayment: ₱" + String.format("%.2f", downpayment) + "\n"
-                + "Total Price for Event: ₱" + String.format("%.2f", totalPrice) + "\n"  // Add package price and catering style cost to total price
+                + "Total Price for Event: ₱" + String.format("%.2f", totalPrice) + "\n"
                 + "-----------------------------------------\n";
 
         JTextArea receiptTextArea = new JTextArea(20, 20);
@@ -849,7 +865,7 @@ public class BookingProcess extends JFrame {
 
         JScrollPane scrollPane = new JScrollPane(receiptTextArea);
         JOptionPane.showMessageDialog(null, scrollPane, "Booking Receipt", JOptionPane.INFORMATION_MESSAGE);
-        
+
     } catch (SQLException e) {
         JOptionPane.showMessageDialog(null, "Database connection failed: " + e.getMessage(), "Connection Error", JOptionPane.ERROR_MESSAGE);
         e.printStackTrace();
@@ -863,7 +879,6 @@ public class BookingProcess extends JFrame {
             e.printStackTrace();
         }
     }
-
     }//GEN-LAST:event_ViewReceiptActionPerformed
 
     private void PackagesDetailsActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_PackagesDetailsActionPerformed
@@ -874,70 +889,80 @@ public class BookingProcess extends JFrame {
 
     private void SearchBtnActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_SearchBtnActionPerformed
    String searchInput = txtSearchBookingI.getText().trim(); // Can be Booking ID or Client Name
-if (searchInput.isEmpty()) {
-    JOptionPane.showMessageDialog(null, "Please enter a Booking ID or Client Name", "Search Error", JOptionPane.ERROR_MESSAGE);
-    return;
-}
-
-try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
-    // Construct query that checks both Booking ID and Client Name
-    String searchQuery = "SELECT b.BookingID, b.Theme, b.EventDate, b.Location, b.TimeStart, b.TimeEnd, b.PackageID, " +
-                         "b.NumberOfGuests, b.NumberOfLaborers, b.CateringStyle, b.Status, b.TotalPrice, " +
-                         "c.ClientName, c.ClientNumber " +
-                         "FROM client c " +
-                         "LEFT JOIN booking b ON c.ClientID = b.ClientID " + 
-                         "WHERE b.BookingID = ? OR c.ClientName LIKE ?";
-
-    try (PreparedStatement ps = con.prepareStatement(searchQuery)) {
-        ps.setString(1, searchInput); // First parameter for Booking ID
-        ps.setString(2, "%" + searchInput + "%"); // Second parameter for Client Name (partial match)
-
-        ResultSet rs = ps.executeQuery();
-
-        if (rs.next()) {
-            // Set client details (they will always be fetched)
-            txtClientName.setText(rs.getString("ClientName"));
-            txtClientNum.setText(rs.getString("ClientNumber"));
-
-            // Set booking details if available (it may be null if no booking exists)
-            String bookingID = rs.getString("BookingID");
-            if (bookingID != null) {
-                idplaceholder.setText(bookingID);
-                txtTheme.setText(rs.getString("Theme"));
-
-                // Formatting date before setting it into the combo box
-                java.util.Date eventDate = rs.getDate("EventDate");
-                if (eventDate != null) {
-                    jCalendarComboBox1.setDate(eventDate);
-                }
-                
-                
-                txtLocation.setText(rs.getString("Location"));
-                txtTimeStart.setText(rs.getString("TimeStart"));
-                txtTimeEnds.setText(rs.getString("TimeEnd"));
-                PackagePicker.setText(rs.getString("PackageID"));
-                pickCateringStyle.setSelectedItem(rs.getString("CateringStyle"));
-                NumberOfGuests.setValue(rs.getInt("NumberOfGuests"));
-                NumberOfLaborers.setValue(rs.getInt("NumberOfLaborers"));
-                statusComboBox.setSelectedItem(rs.getString("Status"));
-                
-                
-            } else {
-                // If no booking is found for the client
-                JOptionPane.showMessageDialog(null, "Client found, but no booking information available.", "Search Info", JOptionPane.INFORMATION_MESSAGE);
-                // Optionally, you can clear the booking-related fields if no booking exists.
-                clearBookingFields();
-            }
-        } else {
-            JOptionPane.showMessageDialog(null, "No client or booking found for the provided input.", "Search Error", JOptionPane.ERROR_MESSAGE);
-        }
+    if (searchInput.isEmpty()) {
+        JOptionPane.showMessageDialog(null, "Please enter a Booking ID or Client Name", "Search Error", JOptionPane.ERROR_MESSAGE);
+        return;
     }
-} catch (SQLException ex) {
-    JOptionPane.showMessageDialog(null, "Database connection error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
-}
 
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+        // Construct query that checks both Booking ID and Client Name
+        String searchQuery = "SELECT b.BookingID, b.Theme, b.EventDate, b.Location, b.TimeStart, b.TimeEnd, b.PackageID, " +
+                             "b.NumberOfGuests, b.NumberOfLaborers, b.CateringStyle, b.Status, b.TotalPrice, " +
+                             "c.ClientName, c.ClientNumber " +
+                             "FROM client c " +
+                             "LEFT JOIN booking b ON c.ClientID = b.ClientID " + 
+                             "WHERE b.BookingID = ? OR c.ClientName LIKE ?";
 
+        try (PreparedStatement ps = con.prepareStatement(searchQuery)) {
+            ps.setString(1, searchInput); // First parameter for Booking ID
+            ps.setString(2, "%" + searchInput + "%"); // Second parameter for Client Name (partial match)
 
+            ResultSet rs = ps.executeQuery();
+
+            if (rs.next()) {
+                // Set client details (they will always be fetched)
+                txtClientName.setText(rs.getString("ClientName"));
+                txtClientNum.setText(rs.getString("ClientNumber"));
+
+                // Set booking details if available (it may be null if no booking exists)
+                String bookingID = rs.getString("BookingID");
+                if (bookingID != null) {
+                    idplaceholder.setText(bookingID);
+                    txtTheme.setText(rs.getString("Theme"));
+
+                    // Formatting date before setting it into the combo box
+                    java.util.Date eventDate = rs.getDate("EventDate");
+                    if (eventDate != null) {
+                        jCalendarComboBox1.setDate(eventDate);
+                    }
+
+                    txtLocation.setText(rs.getString("Location"));
+                    txtTimeStart.setText(rs.getString("TimeStart"));
+                    txtTimeEnds.setText(rs.getString("TimeEnd"));
+                    
+                    // Set the Package Name in the ComboBox (package ID was previously stored)
+                    int packageId = rs.getInt("PackageID");
+
+                    // Query to get the package name based on the PackageID
+                    String packageQuery = "SELECT PackageName FROM packages WHERE PackageId = ?";
+                    try (PreparedStatement psPackage = con.prepareStatement(packageQuery)) {
+                        psPackage.setInt(1, packageId);
+                        ResultSet packageRs = psPackage.executeQuery();
+                        if (packageRs.next()) {
+                            String packageName = packageRs.getString("PackageName");
+                            PackagePicker.setSelectedItem(packageName); // Set the combo box to the corresponding package name
+                        }
+                    } catch (SQLException e) {
+                        JOptionPane.showMessageDialog(null, "Error fetching package details: " + e.getMessage(), "Package Error", JOptionPane.ERROR_MESSAGE);
+                    }
+
+                    pickCateringStyle.setSelectedItem(rs.getString("CateringStyle"));
+                    NumberOfGuests.setValue(rs.getInt("NumberOfGuests"));
+                    NumberOfLaborers.setValue(rs.getInt("NumberOfLaborers"));
+                    statusComboBox.setSelectedItem(rs.getString("Status"));
+                } else {
+                    // If no booking is found for the client
+                    JOptionPane.showMessageDialog(null, "Client found, but no booking information available.", "Search Info", JOptionPane.INFORMATION_MESSAGE);
+                    // Optionally, you can clear the booking-related fields if no booking exists.
+                    clearBookingFields();
+                }
+            } else {
+                JOptionPane.showMessageDialog(null, "No client or booking found for the provided input.", "Search Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    } catch (SQLException ex) {
+        JOptionPane.showMessageDialog(null, "Database connection error: " + ex.getMessage(), "Database Error", JOptionPane.ERROR_MESSAGE);
+    }
     }//GEN-LAST:event_SearchBtnActionPerformed
 
     private void updateActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_updateActionPerformed
@@ -958,7 +983,10 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
     String location = txtLocation.getText().trim();
     String timeStartStr = txtTimeStart.getText().trim();
     String timeEndStr = txtTimeEnds.getText().trim();
-    String packagePickerStr = PackagePicker.getText().trim();
+    
+    // Get the selected package name from the combo box
+    String packagePickerStr = PackagePicker.getSelectedItem().toString().trim();
+    
     int numberOfGuests = (int) NumberOfGuests.getValue();
     int numberOfLaborers = (int) NumberOfLaborers.getValue();
     String cateringStyle = pickCateringStyle.getSelectedItem().toString();
@@ -973,17 +1001,17 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
         JOptionPane.showMessageDialog(null, "Please fill in all required fields.", "Validation Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    
+
     if (numberOfGuests < 8) {
-    JOptionPane.showMessageDialog(this, "The minimum number of guests is 8.", "Guest Limit Not Met", JOptionPane.ERROR_MESSAGE);
-    NumberOfGuests.setValue(8); // Set the guest count to 8 if it's less than 8
-    return;  // Add a return statement to stop further processing
-}
+        JOptionPane.showMessageDialog(this, "The minimum number of guests is 8.", "Guest Limit Not Met", JOptionPane.ERROR_MESSAGE);
+        NumberOfGuests.setValue(8); // Set the guest count to 8 if it's less than 8
+        return;  // Add a return statement to stop further processing
+    }
+
     // Step 3: Parse dates and times
     java.sql.Date eventDate;
     java.sql.Time timeStart, timeEnd;
     try {
-       
         eventDate = java.sql.Date.valueOf(eventDateStr);
         timeStart = java.sql.Time.valueOf(timeStartStr);
         timeEnd = java.sql.Time.valueOf(timeEndStr);
@@ -998,7 +1026,6 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
         JOptionPane.showMessageDialog(null, "Invalid date or time format. Please check your inputs.", "Format Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
-    
 
     // Check if the selected date is valid
     if (!isValidEventDate(eventDate)) {
@@ -1010,32 +1037,31 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
         return; // Exit if the date or time is not available
     }
 
-    // Step 5: Calculate total price
-    int packageID;
-    try {
-        packageID = Integer.parseInt(packagePickerStr);
-    } catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(null, "Invalid package selection.", "Input Error", JOptionPane.ERROR_MESSAGE);
+    // Step 5: Get Package ID from Package Name (selected from the combo box)
+    int packageID = getPackageIDFromName(packagePickerStr);
+    if (packageID == -1) {
+        JOptionPane.showMessageDialog(null, "Package not found.", "Package Error", JOptionPane.ERROR_MESSAGE);
         return;
     }
 
+    // Step 6: Calculate total price
     double totalPrice = calculateTotalAmount(packageID, numberOfGuests, numberOfLaborers,
                                               (int) ChronoUnit.HOURS.between(timeStart.toLocalTime(), timeEnd.toLocalTime()),
                                               cateringStyle);
 
-    // Step 6: Connect to the database and update records
+    // Step 7: Connect to the database and update records
     try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
         con.setAutoCommit(false); // Begin transaction
 
-        // Step 6.1: Check if the booking exists
+        // Step 7.1: Check if the booking exists
         if (!checkBookingExists(con, bookingID)) {
             return; // Exit if the booking doesn't exist
         }
 
-        // Step 6.2: Update client information
+        // Step 7.2: Update client information
         updateClientInformation(con, bookingID, clientName, clientNumber);
 
-        // Step 6.3: Update booking details
+        // Step 7.3: Update booking details
         updateBookingDetails(con, bookingID, theme, eventDate, location, timeStart, timeEnd, packageID, numberOfGuests,
                              numberOfLaborers, cateringStyle, status, totalPrice);
 
@@ -1047,24 +1073,42 @@ try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/c
         ex.printStackTrace();
     }
     }//GEN-LAST:event_updateActionPerformed
-
+// Helper method to get Package ID based on Package Name
+private int getPackageIDFromName(String packageName) {
+    int packageID = -1; // Default to -1 if not found
+    try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
+        String query = "SELECT PackageID FROM packages WHERE PackageName = ?";
+        try (PreparedStatement ps = con.prepareStatement(query)) {
+            ps.setString(1, packageName);
+            ResultSet rs = ps.executeQuery();
+            if (rs.next()) {
+                packageID = rs.getInt("PackageID");
+            }
+        }
+    } catch (SQLException e) {
+        JOptionPane.showMessageDialog(null, "Error fetching package details: " + e.getMessage(), "Package Error", JOptionPane.ERROR_MESSAGE);
+    }
+    return packageID;
+}
     private void ClearActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_ClearActionPerformed
-        // Clear text fields
-    txtSearchBookingI.setText("");
-    txtClientName.setText("");
-    txtClientNum.setText("");
-    txtTheme.setText("");
-    txtLocation.setText("");
-    txtTimeStart.setText("");
-    txtTimeEnds.setText("");
+    // Clear text fields
+    txtSearchBookingI.setText("");      // Clear the search input
+    txtClientName.setText("");          // Clear client name
+    txtClientNum.setText("");           // Clear client number
+    txtTheme.setText("");               // Clear theme
+    txtLocation.setText("");            // Clear location
+    txtTimeStart.setText("");           // Clear time start
+    txtTimeEnds.setText("");            // Clear time end
 
     // Clear combo boxes and other inputs
-    jCalendarComboBox1.setDate(null); // Reset date
-    PackagePicker.setText("");
-    pickCateringStyle.setSelectedIndex(0); // Reset to the first item
-    statusComboBox.setSelectedIndex(0); // Reset to the first status
-    NumberOfGuests.setValue(0); // Reset spinner
-    NumberOfLaborers.setValue(0); // Reset spinner
+    jCalendarComboBox1.setDate(null);   // Reset calendar date
+    PackagePicker.setSelectedIndex(-1); // Reset package picker to no selection
+    pickCateringStyle.setSelectedIndex(0); // Reset to the first item in Catering Style combo box
+    statusComboBox.setSelectedIndex(0); // Reset to the first item in Status combo box
+
+    // Reset number of guests and laborers spinners
+    NumberOfGuests.setValue(0);         // Reset number of guests spinner
+    NumberOfLaborers.setValue(0);       // Reset number of laborers spinner
 
     }//GEN-LAST:event_ClearActionPerformed
 private boolean isValidEventDate(java.sql.Date eventDate) {
@@ -1220,17 +1264,6 @@ private void updateBookingDetails(Connection con, String bookingID, String theme
         });
     }//GEN-LAST:event_BtnHomeActionPerformed
 
-    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
-        BtnLaborer.addActionListener(new ActionListener() {
-            public void actionPerformed(ActionEvent e) {
-                dispose();
-                LaborersFrame laborer = new LaborersFrame();
-                laborer.setVisible(true);
-                laborer .setLocationRelativeTo(null); // Center the SignUP frame
-            }
-        });
-    }//GEN-LAST:event_BtnLaborerActionPerformed
-
     private void logoutActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutActionPerformed
         logout.addActionListener(new ActionListener() {
             public void actionPerformed(ActionEvent e) {
@@ -1320,6 +1353,17 @@ private void updateBookingDetails(Connection con, String bookingID, String theme
     }
     }//GEN-LAST:event_jButton1ActionPerformed
 
+    private void BtnLaborerActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_BtnLaborerActionPerformed
+        BtnLaborer.addActionListener(new ActionListener() {
+            public void actionPerformed(ActionEvent e) {
+                dispose();
+                LaborersFrame laborer = new LaborersFrame();
+                laborer.setVisible(true);
+                laborer .setLocationRelativeTo(null); // Center the SignUP frame
+            }
+        });
+    }//GEN-LAST:event_BtnLaborerActionPerformed
+
     public double calculateLaborPay(int laborerId, int hoursWorked) {
     double hourlyRate = 0.0; // Default hourly rate if not found
     
@@ -1353,7 +1397,8 @@ private void updateBookingDetails(Connection con, String bookingID, String theme
     double packagePrice = 0.0;
     double laborPay = 0.0;
     double totalAmount = 0.0;
-    double reservationfee = 500.0;
+    double reservationFee = 500.0; // Fixed reservation fee
+    double hourlyRate = 500.0; // Per hour rate for the event
 
     try (Connection con = DriverManager.getConnection("jdbc:mysql://localhost:3306/css_db", "root", "")) {
         // Query to fetch the package price
@@ -1374,16 +1419,17 @@ private void updateBookingDetails(Connection con, String bookingID, String theme
 
             // Calculate labor pay for each laborer
             while (laborRs.next()) {
-                double hourlyRate = laborRs.getDouble("HourlyRate");
-                laborPay += hourlyRate * hoursWorked;  // Add each laborer's pay to total labor cost
+                double hourlyRateLabor = laborRs.getDouble("HourlyRate");
+                laborPay += hourlyRateLabor * hoursWorked;  // Add each laborer's pay to total labor cost
             }
         }
 
         // Calculate total amount based on catering style
         if ("Plated catering".equalsIgnoreCase(cateringStyle)) {
-        totalAmount = (30 * guestCount) + laborPay + reservationfee +(packagePrice * guestCount); // Include packagePrice for plated catering
+            // Include hourly rate for the duration of the event and additional package price
+            totalAmount = (30 * guestCount) + laborPay + reservationFee + (packagePrice * guestCount) + (hoursWorked * hourlyRate);
         } else {
-            totalAmount = (packagePrice * guestCount) + reservationfee +laborPay; // Default package price calculation for other catering styles
+            totalAmount = (packagePrice * guestCount) + reservationFee + laborPay + (hoursWorked * hourlyRate); // Default package price calculation for other catering styles
         }
 
     } catch (SQLException ex) {
@@ -1392,6 +1438,7 @@ private void updateBookingDetails(Connection con, String bookingID, String theme
 
     return totalAmount;
 }
+
 
     public static void main(String args[]) {
         java.awt.EventQueue.invokeLater(new Runnable() {
@@ -1409,10 +1456,18 @@ private void clearBookingFields() {
     txtLocation.setText("");
     txtTimeStart.setText("");
     txtTimeEnds.setText("");
-    PackagePicker.setText("");
+    
+    // Reset the Package Picker combo box
+    PackagePicker.setSelectedIndex(-1); // Clears the selected item
+    
+    // Reset the Catering Style combo box
     pickCateringStyle.setSelectedItem("Select Catering Style");
+    
+    // Reset the number of guests and laborers
     NumberOfGuests.setValue(0);
     NumberOfLaborers.setValue(0);
+    
+    // Reset the Status combo box
     statusComboBox.setSelectedItem("Select Status");
 }
 
@@ -1426,7 +1481,7 @@ private void clearBookingFields() {
     private javax.swing.JButton Clear;
     private javax.swing.JSpinner NumberOfGuests;
     private javax.swing.JSpinner NumberOfLaborers;
-    private javax.swing.JTextField PackagePicker;
+    private javax.swing.JComboBox<String> PackagePicker;
     private javax.swing.JButton PackagesDetails;
     private javax.swing.JButton RecordBtn;
     private javax.swing.JButton Save;

@@ -96,7 +96,7 @@ public class ReservationCalendar extends javax.swing.JFrame {
 
         // Legend Panel
         legendPanel = new JPanel();
-        legendLabel = new JLabel("<html><b>Legend:</b><br><font color='green'>Completed</font><br><font color='red'>Pending</font></html>");
+        legendLabel = new JLabel("<html><b>Legend:</b><br><font color='green'>Completed</font><br><font color='red'>Upcoming</font></html>");
         legendPanel.add(legendLabel);
 
         // Set up the layout
